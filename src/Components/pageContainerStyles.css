@@ -1,0 +1,18 @@
+.nav {
+  border-bottom: 5px solid rgba(171, 35, 250, 0.75);
+}
+
+.nav-logo {
+  margin: -15px 0;
+  padding: 0;
+  width: 85px;
+}
+
+.layout {
+  min-height: 100vh;
+  /* background: linear-gradient(
+    135deg,
+    rgba(197, 35, 250, 0.75) 25%,
+    rgba(0, 212, 255, 0.75) 100%
+  ); */
+}

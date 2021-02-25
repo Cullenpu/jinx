@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 
 import "./loginStyles.css";
+import bigLogo from "../resources/logo/jinx3.svg";
 
 class Login extends React.Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class Login extends React.Component {
       <div className="login-background">
         <Container className="login-container">
           <Row className="login-row">
-            <Col>TODO: Insert logo</Col>
+            <Col>
+              <img src={bigLogo} />
+            </Col>
             <Col>
               <h2>User Login</h2>
               <Form className="login-form">

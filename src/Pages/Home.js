@@ -1,8 +1,10 @@
 import React from "react";
 
+import PageContainer from "../Components/PageContainer";
+
 class Home extends React.Component {
   render() {
-    return <div>TODO: Homepage</div>;
+    return <PageContainer>TODO: Homepage</PageContainer>;
   }
 }
 

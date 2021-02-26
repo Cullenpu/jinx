@@ -13,9 +13,14 @@ class LeftNav extends React.Component {
     return (
       <Col className="left-nav">
         <ul>
-          <li className="left-nav-item">
+          {/* <li className="left-nav-item">
             <a href="/feed">
               <i class="fas fa-home" /> Feed
+            </a>
+          </li> */}
+          <li className="left-nav-item">
+            <a href="/explore">
+              <i class="fas fa-project-diagram" /> Explore
             </a>
           </li>
           <li className="left-nav-item">
@@ -24,8 +29,8 @@ class LeftNav extends React.Component {
             </a>
           </li>
           <li className="left-nav-item">
-            <a href="/explore">
-              <i class="fas fa-project-diagram" /> Explore
+            <a href="/login">
+              <i class="fas fa-lock" /> Logout
             </a>
           </li>
         </ul>

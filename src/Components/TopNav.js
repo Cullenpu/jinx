@@ -20,7 +20,7 @@ class TopNav extends React.Component {
   render() {
     return (
       <Navbar color="light" className="top-nav bg-white" expand="md">
-        <a href="/">
+        <a href="/explore">
           <NavLogo width={100} />
         </a>
         <NavbarToggler />

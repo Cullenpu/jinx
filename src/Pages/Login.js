@@ -21,7 +21,7 @@ class Login extends React.Component {
 
   handleClick = () => {
     if (this.state.userAuthenticated) {
-      this.props.history.push("/home");
+      this.props.history.push("/explore");
     }
   };
 
@@ -54,7 +54,7 @@ class Login extends React.Component {
                     placeholder="Password"
                   />
                 </FormGroup>
-                <Button onClick={this.handleClick}>Submit</Button>
+                <Button onClick={this.handleClick}>Login</Button>
               </Form>
             </Col>
           </Row>

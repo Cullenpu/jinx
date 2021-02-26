@@ -30,7 +30,7 @@ class App extends React.Component {
             path="/"
             render={() => {
               return this.state.isUserAuthenticated ? (
-                <Redirect to="/feed" />
+                <Redirect to="/explore" />
               ) : (
                 <Redirect to="/login" />
               );
@@ -38,8 +38,8 @@ class App extends React.Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile" component={Profile} />
-          <Route exact path="/applications" component={Applications} />
           <Route exact path="/explore" component={Explore} />
+          <Route exact path="/applications" component={Applications} />
           <Route exact path="/feed" component={Feed} />
         </Switch>
       </Router>

@@ -12,6 +12,7 @@ import {
 
 import PageContainer from "../Components/PageContainer";
 import smallLogo from "../resources/logo/jinx2.svg";
+import FeedCard from "../Components/Feed/FeedCard";
 
 const Feed = () => {
   return (
@@ -20,30 +21,10 @@ const Feed = () => {
         <h1>Latest Activity</h1>
       </div>
       <div style={{ padding: 50, float: "left", width: 1000 }}>
-        <div style={{ "padding-bottom": 50 }}>
-          <img src={smallLogo} style={{ width: 100, float: "left" }}></img>
-          <p>2 days ago</p>
-          <h1>Fred got hired!</h1>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-        <div style={{ "padding-bottom": 50 }}>
-          <img src={smallLogo} style={{ width: 100, float: "left" }}></img>
-          <p>3 days ago</p>
-          <h1>Google Responded!</h1>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-        <div style={{ "padding-bottom": 50 }}>
-          <img src={smallLogo} style={{ width: 100, float: "left" }}></img>
-          <p>4 days ago</p>
-          <h1>New comments on resume!</h1>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
-        <div style={{ "padding-bottom": 50 }}>
-          <img src={smallLogo} style={{ width: 100, float: "left" }}></img>
-          <p>5 days ago</p>
-          <h1>Annie wants to connect!</h1>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
+        <FeedCard headline="Fred got hired!"></FeedCard>
+        <FeedCard headline="Google responded!"></FeedCard>
+        <FeedCard headline="New comments on resume!"></FeedCard>
+        <FeedCard headline="Annie wants to connect!"></FeedCard>
       </div>
       <div
         style={{

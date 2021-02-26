@@ -9,21 +9,19 @@ import {
 } from "reactstrap";
 
 import "./feedCardStyles.css";
+import smallLogo from "../../resources/logo/jinx2.svg";
 
 const FeedCard = (props) => {
   const { headline } = props;
 
   return (
     <div>
-      <Card className="feed-card">
-        <CardBody>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">
-            2 days ago
-          </CardSubtitle>
-          <CardTitle tag="h2">{headline}</CardTitle>
-          <CardLink href="#">View More</CardLink>
-        </CardBody>
-      </Card>
+      <div style={{ "padding-bottom": 50 }}>
+        <img src={smallLogo} style={{ width: 100, float: "left" }}></img>
+        <p>2 days ago</p>
+        <h1>{headline}</h1>
+        <p>Lorem ipsum dolor sit amet</p>
+      </div>
     </div>
   );
 };

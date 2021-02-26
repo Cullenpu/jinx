@@ -12,7 +12,7 @@ import {
 
 import PageContainer from "../Components/PageContainer";
 import ExploreCard from "../Components/Explore/ExploreCard"
-import "./exploreStyles.css";
+// import "./exploreStyles.css";
 
 const Explore = () => {
   return (

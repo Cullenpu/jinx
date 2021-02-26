@@ -9,6 +9,7 @@ import {
 
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
+import Profile from "./Pages/Profile";
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class App extends React.Component {
           />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </Router>
     );

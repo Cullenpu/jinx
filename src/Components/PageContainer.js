@@ -33,6 +33,11 @@ class PageContainer extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem>
+                <NavLink href="/profile" className="text-dark">
+                  Profile
+                </NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="/login" className="text-dark">
                   Logout
                 </NavLink>

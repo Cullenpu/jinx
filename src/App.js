@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import Login from "./Pages/Login";
-import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import Applications from "./Pages/Applications";
 import Explore from "./Pages/Explore";
@@ -31,14 +30,13 @@ class App extends React.Component {
             path="/"
             render={() => {
               return this.state.isUserAuthenticated ? (
-                <Redirect to="/home" />
+                <Redirect to="/feed" />
               ) : (
                 <Redirect to="/login" />
               );
             }}
           />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/home" component={Home} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/applications" component={Applications} />
           <Route exact path="/explore" component={Explore} />

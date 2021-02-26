@@ -12,15 +12,15 @@ import {
 
 import PageContainer from "../Components/PageContainer";
 
-const Profile = () => {
+const Applications = () => {
   
   return (
       <PageContainer>
         <div>
-          <h1>Profile</h1>
+          <h1>Applications</h1>
         </div>
       </PageContainer>
   )
 }
 
-export default Profile;
+export default Applications;

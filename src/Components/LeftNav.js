@@ -24,7 +24,7 @@ class LeftNav extends React.Component {
             </a>
           </li>
           <li className="left-nav-item">
-            <a href="/applications">
+            <a href="/explore">
               <i class="fas fa-project-diagram" /> Explore
             </a>
           </li>

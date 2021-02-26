@@ -12,15 +12,15 @@ import {
 
 import PageContainer from "../Components/PageContainer";
 
-const Profile = () => {
+const Explore = () => {
   
   return (
       <PageContainer>
         <div>
-          <h1>Profile</h1>
+          <h1>Explore</h1>
         </div>
       </PageContainer>
   )
 }
 
-export default Profile;
+export default Explore;

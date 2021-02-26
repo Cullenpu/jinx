@@ -47,7 +47,7 @@ const Applications = () => {
               </Card>
             </Col>
           </Row>
-          <Row style={{ paddingTop: '50px' }}>
+          <Row style={{ paddingTop: '50px', paddingLeft: '40px' }}>
             <ApplicationsTable />
           </Row>
         </div>

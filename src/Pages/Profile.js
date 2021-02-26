@@ -24,7 +24,7 @@ const Profile = () => {
         <Row>
           <h1>Profile</h1>
         </Row>
-        <div className="pt-3" style={{ paddingLeft: '50px'}}>
+        <div className="pt-3">
           <Row className="align-content-center">
             <Col md="6">
               <ProfileCard />

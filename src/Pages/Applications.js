@@ -24,7 +24,7 @@ const Applications = () => {
         <div>
           <h1>Applications</h1>
         </div>
-        <div className="pl-3">
+        <div className="pt-3" style={{ paddingTop: '25px' }}>
           <Row>
             <Col>
               <Card style={{ backgroundColor: '#6CC2BD'}}>

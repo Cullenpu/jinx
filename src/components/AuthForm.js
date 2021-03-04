@@ -1,4 +1,4 @@
-import logo200Image from '../assets/img/logo/logo_200.png';
+import logo200Image from 'assets/img/logo/jinx_logo_text.svg';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
@@ -56,7 +56,7 @@ class AuthForm extends React.Component {
             <img
               src={logo200Image}
               className="rounded"
-              style={{ width: 60, height: 60, cursor: 'pointer' }}
+              style={{ width: 100, height: 100, cursor: 'pointer' }}
               alt="logo"
               onClick={onLogoClick}
             />

@@ -7,7 +7,7 @@ import { NumberWidget, IconWidget } from 'components/Widget';
 
 import { iconWidgetsData, numberWidgetsData } from 'demos/widgetPage';
 
-const WidgetPage = () => {
+const FeedPage = () => {
   return (
     <Page
       className="WidgetPage"
@@ -50,4 +50,4 @@ const WidgetPage = () => {
   );
 };
 
-export default WidgetPage;
+export default FeedPage;

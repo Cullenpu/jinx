@@ -24,7 +24,7 @@ import {
   Row,
 } from 'reactstrap';
 
-const CardPage = () => {
+const ExplorePage = () => {
   return (
     <Page title="Cards" breadcrumbs={[{ name: 'cards', active: true }]}>
       <Row>
@@ -223,4 +223,4 @@ const CardPage = () => {
   );
 };
 
-export default CardPage;
+export default ExplorePage;

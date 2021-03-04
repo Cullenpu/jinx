@@ -2,14 +2,12 @@ import React from 'react';
 
 import { Navbar, Nav, NavItem } from 'reactstrap';
 
-import SourceLink from 'components/SourceLink';
-
 const Footer = () => {
   return (
     <Navbar>
       <Nav navbar>
         <NavItem>
-          2018 Reduction theme, source on <SourceLink>Github</SourceLink>
+          Team 21 for CSC309 2021
         </NavItem>
       </Nav>
     </Navbar>

@@ -12,6 +12,7 @@ const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
 const FeedPage = React.lazy(() => import('pages/FeedPage'));
 const ExplorePage = React.lazy(() => import('pages/ExplorePage'));
 const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
+const ContactsPage = React.lazy(() => import('pages/ContactsPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -46,6 +47,7 @@ class App extends React.Component {
                 <Route exact path="/login-modal" component={AuthModalPage} />
                 <Route exact path="/feed" component={FeedPage} />
                 <Route exact path="/explore" component={ExplorePage} />
+                <Route exact path="/contacts" component={ContactsPage} />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

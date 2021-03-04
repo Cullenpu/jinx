@@ -31,7 +31,7 @@ class MainLayout extends React.Component {
 
       this.notificationSystem.addNotification({
         title: <MdImportantDevices />,
-        message: 'Welome to Reduction Admin!',
+        message: 'Welcome to Jinx!',
         level: 'info',
       });
     }, 1500);
@@ -44,7 +44,7 @@ class MainLayout extends React.Component {
       this.notificationSystem.addNotification({
         title: <MdLoyalty />,
         message:
-          'Reduction is carefully designed template powered by React and Bootstrap4!',
+          'Jinx is carefully crafted to suit all your job hunting needs!',
         level: 'info',
       });
     }, 2500);

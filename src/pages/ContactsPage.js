@@ -4,7 +4,8 @@ import {
   Col,
   Row,
 } from 'reactstrap';
-import ContactsTab from 'components/ContactsTab';
+import { contacts } from 'demos/contactsPage';
+import ContactCard from 'components/ContactCard';
 
 const ContactsPage = () => {
 
@@ -14,11 +15,13 @@ const ContactsPage = () => {
         title="Contacts"
         breadcrumbs={[{ name: 'Contacts', active: true }]}
       >
-        <Col>
-          <Row>
-            <ContactsTab />
-          </Row>
-        </Col>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {contacts.map(({ name, rating, status, avatar }, index) => {
+            return (
+              <ContactCard name={name} status={status} rating={rating} avatar={avatar} />
+            )
+          })}
+        </div>
       </Page>
     );
 };

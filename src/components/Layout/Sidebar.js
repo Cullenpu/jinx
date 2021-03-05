@@ -8,6 +8,7 @@ import {
   MdInsertChart,
   MdViewCarousel,
   MdWeb,
+  MdStore,
   MdContacts
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
@@ -38,7 +39,8 @@ const pageContents = [
 ];
 
 const navItems = [
-  { to: '/', name: 'dashboard', exact: false, Icon: MdDashboard },
+  { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+  { to: '/applications', name: 'applications', exact: false, Icon: MdStore },
   { to: '/feed', name: 'feed', exact: false, Icon: MdWeb },
   { to: '/explore', name: 'explore', exact: false, Icon: MdInsertChart },
   { to: '/contacts', name: 'contacts', exact: false, Icon: MdContacts }

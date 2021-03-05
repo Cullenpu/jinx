@@ -1,84 +1,61 @@
 import React from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import WishListCol from './applicationBoard/WishListCol';
+import AppliedCol from './applicationBoard/AppliedCol';
+import InterviewCol from './applicationBoard/InterviewCol';
+import OfferCol from './applicationBoard/OfferCol';
+import RejectedCol from './applicationBoard/RejectedCol';
 
 const ApplicationBoard = () => {
-  return (
-    <Card className="mb-3">
-      <CardHeader>Default</CardHeader>
-      <CardBody>
-        <Row>
-          <Col>
-            <Card body>
-              <Table>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Card>
-          </Col>
+  const wishlist = [{
+    company: 'Google',
+    title: 'Software Developer Intern',
+    date: 'March 1, 2021',
+    color: 'success'
+  },
+  {
+    company: 'Facebook',
+    title: 'Software Developer Intern',
+    date: 'March 1, 2021',
+    color: 'info'
+  }];
 
-          <Col>
-            <Card body>
-              <Table dark>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Card>
-          </Col>
-        </Row>
-      </CardBody>
-    </Card>
+  const applied = [{
+    company: 'Amazon',
+    title: 'Software Developer Intern',
+    date: 'March 1, 2021',
+    color: 'danger'
+  }];
+
+  const interview = [{
+    company: 'Lyft',
+    title: 'Software Developer Intern',
+    date: 'March 1, 2021',
+    color: 'warning'
+  }];
+
+  const offer = [{
+    company: 'AirBnB',
+    title: 'Software Developer Intern',
+    date: 'March 1, 2021',
+    color: 'secondary'
+  }];
+
+  const rejected = [{
+    company: 'Stripe',
+    title: 'Software Developer Intern',
+    date: 'March 1, 2021',
+    color: 'primary'
+  }];
+
+  return (
+    <Row>
+      <WishListCol companies={wishlist} />
+      <AppliedCol companies={applied} />
+      <InterviewCol companies={interview} />
+      <OfferCol companies={offer} />
+      <RejectedCol companies={rejected} />
+    </Row>
   )
 }
 

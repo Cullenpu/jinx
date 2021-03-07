@@ -43,7 +43,8 @@ const navItems = [
   { to: '/applications', name: 'applications', exact: false, Icon: MdStore },
   { to: '/feed', name: 'feed', exact: false, Icon: MdWeb },
   { to: '/explore', name: 'explore', exact: false, Icon: MdInsertChart },
-  { to: '/contacts', name: 'contacts', exact: false, Icon: MdContacts }
+  { to: '/contacts', name: 'contacts', exact: false, Icon: MdContacts },
+  { to: '/admin', name: 'admin', exact: false, Icon: MdAccountCircle }
 ];
 
 const bem = bn.create('sidebar');

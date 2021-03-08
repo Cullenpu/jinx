@@ -1,4 +1,5 @@
 import React from 'react'
+import {Button} from "reactstrap";
 
 
 const UserRow = (props) => {
@@ -17,7 +18,7 @@ const UserRow = (props) => {
             <td>{name}</td>
             <td>{email}</td>
             <td>{rating}</td>
-            <td>@mdo</td>
+            <td><Button>Edit</Button></td>
         </tr>
     )
 }

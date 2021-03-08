@@ -7,7 +7,7 @@
     "bootstrap": "4.3.1",
     "chart.js": "2.7.2",
     "classnames": "^2.2.6",
-    "node-sass": "^4.14.1",
+    "node-sass": "^4.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-chartjs-2": "^2.7.4",

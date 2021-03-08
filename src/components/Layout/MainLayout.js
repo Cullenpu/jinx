@@ -1,4 +1,4 @@
-import { Content, Footer, Header, Sidebar } from 'components/layout';
+import { Content, Footer, Header, Sidebar } from 'components/Layout';
 import React from 'react';
 import {
   MdImportantDevices,

@@ -1,5 +1,5 @@
 import Avatar from 'components/Avatar';
-import { UserCard } from 'components/card';
+import { UserCard } from 'components/Card';
 import Notifications from 'components/Notifications';
 import SearchInput from 'components/SearchInput';
 import { notificationsData } from 'demos/header';

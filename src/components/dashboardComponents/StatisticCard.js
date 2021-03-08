@@ -1,5 +1,5 @@
 import React from "react";
-import { NumberWidget } from "components/widget";
+import { NumberWidget } from "components/Widget";
 import { Col } from "reactstrap";
 
 const StatisticCard = (props) => {

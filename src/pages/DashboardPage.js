@@ -23,6 +23,7 @@ import {
 } from 'reactstrap';
 import {getColor} from 'utils/colors';
 import UserTable from 'components/dashboardComponents/UserTable';
+import StatisticCard from 'components/dashboardComponents/StatisticCard';
 
 const today = new Date();
 
@@ -42,57 +43,18 @@ class DashboardPage extends React.Component {
                 breadcrumbs={[{name: 'Dashboard', active: true}]}
             >
                 <Row>
-                    <Col lg={3} md={6} sm={6} xs={12}>
-                        <NumberWidget
-                            title="New Users"
-                            subtitle="This month"
-                            number="9.8k"
-                            color="secondary"
-                            progress={{
-                                value: 75,
-                                label: 'Last month',
-                            }}
-                        />
-                    </Col>
 
-                    <Col lg={3} md={6} sm={6} xs={12}>
-                        <NumberWidget
-                            title="New Applications"
-                            subtitle="This month"
-                            number="5,400"
-                            color="secondary"
-                            progress={{
-                                value: 45,
-                                label: 'Last month',
-                            }}
-                        />
-                    </Col>
+                    <StatisticCard title="New Users" subtitle="This month" number="9.8k" color="secondary"
+                                   progress={{value: 75, label: 'Last month',}}/>
 
-                    <Col lg={3} md={6} sm={6} xs={12}>
-                        <NumberWidget
-                            title="New Hires"
-                            subtitle="This month"
-                            number="3,400"
-                            color="secondary"
-                            progress={{
-                                value: 90,
-                                label: 'Last month',
-                            }}
-                        />
-                    </Col>
+                    <StatisticCard title="New Applications" subtitle="This month" number="5,400" color="secondary"
+                                   progress={{value: 45, label: 'Last month',}}/>
 
-                    <Col lg={3} md={6} sm={6} xs={12}>
-                        <NumberWidget
-                            title="New Companies"
-                            subtitle="This month"
-                            number="100"
-                            color="secondary"
-                            progress={{
-                                value: 60,
-                                label: 'Last month',
-                            }}
-                        />
-                    </Col>
+                    <StatisticCard title="New Hires" subtitle="This month" number="3,400" color="secondary"
+                                   progress={{value: 90, label: 'Last month',}}/>
+
+                    <StatisticCard title="New Companies" subtitle="This month" number="100" color="secondary"
+                                   progress={{value: 60, label: 'Last month',}}/>
                 </Row>
 
                 <Row>

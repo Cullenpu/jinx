@@ -4,13 +4,6 @@ import {Button, Card, CardBody, CardHeader, Col, Row, Table} from 'reactstrap';
 import UserRow from './UserRow';
 
 const UserTable = () => {
-
-    const ProfileImage = ({src}) => {
-
-        return (
-            <img src={src} alt="Avatar" style={{borderRadius: '50%', width: '50px'}}/>
-        )
-    }
     return (
         <Card>
             <CardHeader>User Table{' '}

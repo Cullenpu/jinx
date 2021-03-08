@@ -1,8 +1,6 @@
-import React from 'react';
-import { Container, CardBody, CardHeader, Col, Row, Table, CardTitle } from 'reactstrap';
-import { FaShoppingBag, FaFile, FaMicrophone, FaMoneyBill, FaEllipsisH} from 'react-icons/fa';
-import ExploreCell from 'components/exploreComponents/ExploreCell';
-
+import React from "react";
+import { Container, Row } from "reactstrap";
+import ExploreCell from "components/exploreComponents/ExploreCell";
 
 const PopularCompanies = ({ companies }) => {
   return (
@@ -13,15 +11,21 @@ const PopularCompanies = ({ companies }) => {
       <Row className="pl-2">
         <p>Employers with the most jobs</p>
       </Row>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {companies && companies.map(({ name, description, background, logo }, index) => {
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {companies &&
+          companies.map(({ name, description, background, logo }, index) => {
             return (
-              <ExploreCell name={name} description={description} background={background} logo={logo} />
-            )
+              <ExploreCell
+                name={name}
+                description={description}
+                background={background}
+                logo={logo}
+              />
+            );
           })}
-        </div>
+      </div>
     </Container>
-  )
-}
+  );
+};
 
 export default PopularCompanies;

@@ -1,7 +1,7 @@
 import Page from 'components/Page';
 import React from 'react';
 import { contacts } from 'demos/contactsPage';
-import ContactCard from 'components/ContactCard';
+import ContactCard from 'components/card/ContactCard';
 
 const ContactsPage = () => {
 

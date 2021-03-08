@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'utils/propTypes';
+import React from "react";
+import PropTypes from "utils/propTypes";
 
-import { Card, CardHeader, CardBody, CardText, Button } from 'reactstrap';
+import { Card, CardHeader, CardBody, CardText, Button } from "reactstrap";
 
-import Avatar from 'components/Avatar';
+import Avatar from "components/Avatar";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
 const AnnouncementCard = ({
   color,
@@ -24,7 +24,7 @@ const AnnouncementCard = ({
 
   return (
     <Card inverse className={classes} {...restProps}>
-      {header && typeof header === 'string' ? (
+      {header && typeof header === "string" ? (
         <CardHeader className={bgColor}>{header}</CardHeader>
       ) : (
         header
@@ -55,7 +55,7 @@ AnnouncementCard.propTypes = {
 };
 
 AnnouncementCard.defaultProps = {
-  color: 'gradient-secondary',
+  color: "gradient-secondary",
   avatarSize: 60,
 };
 

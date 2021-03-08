@@ -1,13 +1,10 @@
-import React from 'react';
-import { getColor } from 'utils/colors';
+import bg1 from 'assets/img/products/product-3.jpg';
+import bg2 from 'assets/img/products/product-4.jpg';
+import bg3 from 'assets/img/products/product-1.jpg';
 
-import bg1 from 'assets/img/products/product_640-3.jpg';
-import bg2 from 'assets/img/products/product_640-4.jpg';
-import bg3 from 'assets/img/products/product_640-1.jpg';
-
-import google from 'assets/img/logo/google.png';
-import facebook from 'assets/img/logo/facebook.png';
-import amazon from 'assets/img/logo/amazon.png';
+import google from './logo/google.png';
+import facebook from './logo/facebook.png';
+import amazon from './logo/amazon.png';
 
 
 

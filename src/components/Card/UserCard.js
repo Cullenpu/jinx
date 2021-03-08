@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'utils/propTypes';
+import React from "react";
+import PropTypes from "utils/propTypes";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
-import { Card, CardTitle, CardSubtitle, CardText, CardBody } from 'reactstrap';
+import { Card, CardTitle, CardSubtitle, CardText, CardBody } from "reactstrap";
 
-import Avatar from '../Avatar';
+import Avatar from "../Avatar";
 
 const UserCard = ({
   avatar,
@@ -17,7 +17,7 @@ const UserCard = ({
   className,
   ...restProps
 }) => {
-  const classes = classNames('bg-gradient-theme', className);
+  const classes = classNames("bg-gradient-theme", className);
 
   return (
     <Card inverse className={classes} {...restProps}>

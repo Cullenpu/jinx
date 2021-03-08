@@ -1,5 +1,5 @@
 import logo200Image from 'assets/img/logo/jinx_logo.svg';
-import sidebarBgImage from 'assets/img/sidebar/sidebar-4.jpg';
+import sidebarBgImage from 'assets/img/sidebar/sidebar.jpg';
 import SourceLink from 'components/SourceLink';
 import React from 'react';
 import {

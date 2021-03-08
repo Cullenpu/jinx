@@ -1,9 +1,9 @@
 import Avatar from 'components/Avatar';
-import { UserCard } from 'components/Card';
+import { UserCard } from 'components/card';
 import Notifications from 'components/Notifications';
 import SearchInput from 'components/SearchInput';
 import { notificationsData } from 'demos/header';
-import withBadge from 'hocs/withBadge';
+import headerNotification from './headerNotification';
 import React from 'react';
 import {
   MdClearAll,
@@ -32,7 +32,7 @@ import bn from 'utils/bemnames';
 
 const bem = bn.create('header');
 
-const MdNotificationsActiveWithBadge = withBadge({
+const HeaderNotification = headerNotification({
   size: 'md',
   color: 'primary',
   style: {
@@ -99,7 +99,7 @@ class Header extends React.Component {
                   onClick={this.toggleNotificationPopover}
                 />
               ) : (
-                <MdNotificationsActiveWithBadge
+                <HeaderNotification
                   size={25}
                   className="text-secondary can-click animated swing infinite"
                   onClick={this.toggleNotificationPopover}

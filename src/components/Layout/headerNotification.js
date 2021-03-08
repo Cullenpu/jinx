@@ -1,23 +1,23 @@
-import React from 'react';
+import React from "react";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
-import { Badge } from 'reactstrap';
+import { Badge } from "reactstrap";
 
 const positionMap = {
-  'top-right': {
+  "top-right": {
     top: -3,
     right: -3,
   },
-  'top-left': {
+  "top-left": {
     top: -3,
     left: -3,
   },
-  'bottom-left': {
+  "bottom-left": {
     bottom: -3,
     left: -3,
   },
-  'bottom-right': {
+  "bottom-right": {
     bottom: -3,
     right: -3,
   },
@@ -46,23 +46,23 @@ const sizeMap = {
   },
 };
 
-const withBadge = ({
-  position = 'bottom-right',
-  size = 'sm',
+const headerNotification = ({
+  position = "bottom-right",
+  size = "sm",
   style = {},
   className,
   ...restBadgeProps
-} = {}) => WrappedComponent => ({ tag: Tag = 'div', ...restProps }) => {
+} = {}) => (WrappedComponent) => ({ tag: Tag = "div", ...restProps }) => {
   return (
     <Tag className="d-inline-block position-relative">
       <WrappedComponent {...restProps} />
       <Badge
-        className={classNames('position-absolute', className)}
+        className={classNames("position-absolute", className)}
         style={{
           ...positionMap[position],
           ...sizeMap[size],
-          borderRadius: '50%',
-          border: '2px solid #fff',
+          borderRadius: "50%",
+          border: "2px solid #fff",
           ...style,
         }}
         {...restBadgeProps}
@@ -71,4 +71,4 @@ const withBadge = ({
   );
 };
 
-export default withBadge;
+export default headerNotification;

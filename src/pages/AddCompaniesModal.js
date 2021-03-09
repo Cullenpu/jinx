@@ -9,7 +9,10 @@ import {
   Modal,
   ModalBody,
   Row,
+  Form,
+  Input,
 } from "reactstrap";
+import { MdSearch } from "react-icons/md";
 
 class AddCompaniesModal extends React.Component {
   state = {
@@ -52,23 +55,35 @@ class AddCompaniesModal extends React.Component {
         <Row>
           <Col md="12" sm="12" xs="12">
             <Card>
-              <CardHeader>Add Companies Modal Example</CardHeader>
-              <CardBody>
-                <Button color="danger" onClick={this.toggle}>
-                  Add
-                </Button>
-                <Modal
-                  isOpen={this.state.show}
-                  toggle={this.toggle}
-                  size="sm"
-                  backdrop="static"
-                  backdropClassName="modal-backdrop-light"
-                  external={externalCloseBtn}
-                  centered
-                >
-                  <ModalBody></ModalBody>
-                </Modal>
-              </CardBody>
+              <Button color="danger" onClick={this.toggle}>
+                Add
+              </Button>
+              <Modal
+                isOpen={this.state.show}
+                toggle={this.toggle}
+                backdrop="static"
+                backdropClassName="modal-backdrop-light"
+                external={externalCloseBtn}
+                centered
+              >
+                <ModalBody>
+                  <Form
+                    inline
+                    className="cr-search-form"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    <MdSearch
+                      size="20"
+                      className="cr-search-form__icon-search text-secondary"
+                    />
+                    <Input
+                      type="search"
+                      className="cr-search-form__input"
+                      placeholder="Search companies..."
+                    />
+                  </Form>
+                </ModalBody>
+              </Modal>
             </Card>
           </Col>
         </Row>

@@ -36,12 +36,12 @@ const pageContents = [
     exact: false,
     Icon: MdViewCarousel,
   },
-  {
-    to: "/companies-modal",
-    name: "Companies Modal",
-    exact: false,
-    Icon: MdViewCarousel,
-  },
+  // {
+  //   to: "/companies-modal",
+  //   name: "Companies Modal",
+  //   exact: false,
+  //   Icon: MdViewCarousel,
+  // },
 ];
 
 const navItems = [

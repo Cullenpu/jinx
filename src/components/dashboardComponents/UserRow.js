@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "reactstrap";
 
 const UserRow = (props) => {
-  const { id, avatar, name, email, rating } = props;
+  const { id, avatar, name, email, rating, onClick } = props;
 
   const ProfileImage = ({ src }) => {
     return (
@@ -24,7 +24,7 @@ const UserRow = (props) => {
       <td>{email}</td>
       <td>{rating}</td>
       <td>
-        <Button>Edit</Button>
+        <Button onClick={() => {onClick()}}>Edit</Button>
       </td>
     </tr>
   );

@@ -1,8 +1,13 @@
 import React from "react";
 import { Card, CardImg, CardText, CardTitle } from "reactstrap";
+import bg from 'assets/img/products/product-2.jpg';
+import lg from 'assets/img/logo/jinx_logo.svg';
 
 const ExploreCell = ({ name, description, background, logo }) => {
   const FormatDescription = ({ description }) => {
+    if (!description) {
+      return null;
+    }
     if (description.length < 100) {
       return <small>{description}</small>;
     } else {
@@ -22,7 +27,7 @@ const ExploreCell = ({ name, description, background, logo }) => {
     >
       <CardImg
         top
-        src={background}
+        src={background ? background : bg}
         style={{
           borderRadius: 8,
           width: "150px",
@@ -32,19 +37,20 @@ const ExploreCell = ({ name, description, background, logo }) => {
       />
       <CardImg
         top
-        src={logo}
+        src={logo ? logo : lg}
         style={{
           marginTop: "-40px",
           marginLeft: "-10px",
           borderRadius: 10,
           width: "60px",
           height: "60px",
+          backgroundColor: logo ? null : '#D3D3D3'
         }}
       />
       <CardTitle className="text-dark pt-1">{name}</CardTitle>
-      <CardText>
+      {/* <CardText>
         <FormatDescription description={description} />
-      </CardText>
+      </CardText> */}
     </Card>
   );
 };

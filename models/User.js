@@ -35,8 +35,9 @@ const UserSchema = new mongoose.Schema({
   },
   resume: String,
   status: String,
-  timestamp: Date,
 });
+
+UserSchema.set('timestamps', true);
 
 // Runs immediately prior to saving the document in the database.
 UserSchema.pre("save", function (next) {
@@ -76,6 +77,8 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
     });
   });
 };
+
+UserSchema.set('timestamps', true);
 
 const User = mongoose.model("User", UserSchema);
 module.exports = { User };

@@ -3,7 +3,6 @@ import { Container, Row } from "reactstrap";
 import ExploreCell from "components/exploreComponents/ExploreCell";
 
 const PopularCompanies = ({ companies }) => {
-  console.log(companies);
   return (
     <Container>
       <Row>

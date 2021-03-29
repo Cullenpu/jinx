@@ -14,6 +14,10 @@ const { Posting } = require("./models/Posting");
 const { Application } = require("./models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
+// Routes
+
+const companies = require('./routes/companies.js');
+
 const env = process.env.NODE_ENV;
 
 const USE_TEST_USER = env !== "production" && process.env.TEST_USER_ON; // Option to turn on the test user
@@ -79,52 +83,7 @@ const authenticate = (req, res, next) => {
 
 /**EXPLORE PAGE*********************************************************************/
 
-app.post('/companies', (req, res) => {
-	// Add code here
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection')
-		res.status(500).send('Internal server error')
-		return;
-	}  
-
-	// Create a new company
-	const company = new Company({
-		name: req.body.name,
-	})
-
-	// Save restaurant to the database
-	company.save().then((result) => {
-		res.send(result)
-	}).catch((error) => {
-		if (isMongoError(error)) {
-			res.status(500).send('Internal server error')
-		} else {
-			res.status(400).send('Bad Request')
-		}
-	})
-})
-
-app.get('/companies', (req, res) => {
-	// Add code here
-	// check mongoose connection
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection')
-		res.status(500).send('Internal server error')
-		return;
-	}  
-
-	// Get restaurants
-	Company.find().then((company) => {
-		res.send({ company })
-	})
-	.catch((error) => {
-		if (isMongoError(error)) {
-			res.status(500).send('Internal server error')
-		} else {
-			res.status(404).send('Not Found')
-		}
-	})
-})
+app.use('/companies', companies);
 
 /*****************************************************************************/
 

@@ -16,7 +16,7 @@ const PostingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  postingRole: {
+  role: {
     type: String,
     required: true,
   },

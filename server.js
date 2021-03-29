@@ -17,6 +17,7 @@ const { ObjectID } = require("mongodb"); // To validate object IDs
 // Routes
 
 const companies = require('./routes/companies.js');
+const posting = require('./routes/posting.js');
 
 const env = process.env.NODE_ENV;
 
@@ -81,9 +82,8 @@ const authenticate = (req, res, next) => {
 
 // Add routes here
 
-/**EXPLORE PAGE*********************************************************************/
-
 app.use('/companies', companies);
+app.use('/posting', posting);
 
 /*****************************************************************************/
 

@@ -5,7 +5,6 @@ import {Bar} from "react-chartjs-2";
 import {Card, CardBody, CardHeader, Col, Row} from "reactstrap";
 import {getColor} from "utils/colors";
 import UserTable from "components/dashboardComponents/UserTable";
-import StatisticCard from "components/dashboardComponents/StatisticCard";
 
 class DashboardPage extends React.Component {
     componentDidMount() {

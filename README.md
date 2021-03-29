@@ -1,7 +1,7 @@
 ## Welcome
 
 Jinx is a all in one platform to help students and young adults streamline their job search.
-![Admin Page](https://github.com/csc309-winter-2021/team21/client/blob/main/src/assets/img/products/demo.png)
+![Admin Page](https://github.com/csc309-winter-2021/team21/blob/main/client/src/assets/img/products/demo.png)
 
 ## Quick Start
 

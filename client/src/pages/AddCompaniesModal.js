@@ -1,18 +1,16 @@
 import Page from "components/Page";
 import React from "react";
+import { MdSearch } from "react-icons/md";
 import {
   Button,
   Card,
-  CardBody,
-  CardHeader,
   Col,
+  Form,
+  Input,
   Modal,
   ModalBody,
   Row,
-  Form,
-  Input,
 } from "reactstrap";
-import { MdSearch } from "react-icons/md";
 
 class AddCompaniesModal extends React.Component {
   state = {

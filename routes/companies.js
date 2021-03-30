@@ -3,7 +3,6 @@
 const express = require("express");
 
 // DB imports
-const { mongoose } = require("../db/mongoose");
 const { Company } = require("../models/Company");
 
 const { isMongoError, mongoChecker } = require("./utils");

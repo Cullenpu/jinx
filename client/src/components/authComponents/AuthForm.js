@@ -5,23 +5,36 @@ import { login, signup } from "./authFunctions";
 
 class AuthForm extends React.Component {
   state = {
+    signup: false,
     email: "",
     password: "",
+    name: "",
   };
 
   handleLogin = (event) => {
     event.preventDefault();
-    login(this.state, this.props.app);
+    const credentials = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    login(credentials, this.props.app);
   };
 
   handleSignup = (event) => {
     event.preventDefault();
-    signup(this.state, this.props.app);
+    const credentials = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name,
+    };
+    signup(credentials, this.props.app);
   };
 
   render() {
+    const signup = this.state.signup;
+
     return (
-      <Form onSubmit={this.handleLogin}>
+      <Form onSubmit={!signup ? this.handleLogin : this.handleSignup}>
         <div className="text-center pb-4">
           <img
             src={logo}
@@ -30,6 +43,18 @@ class AuthForm extends React.Component {
             alt="logo"
           />
         </div>
+        {signup ? (
+          <FormGroup>
+            <Label for="Name">Name</Label>
+            <Input
+              type="name"
+              placeholder="your name"
+              onChange={(e) => {
+                this.setState({ name: e.target.value });
+              }}
+            />
+          </FormGroup>
+        ) : null}
         <FormGroup>
           <Label for="Email">Email</Label>
           <Input
@@ -55,16 +80,19 @@ class AuthForm extends React.Component {
           size="lg"
           className="bg-gradient-theme-left border-0"
           block
-          onClick={this.handleLogin}
+          onClick={!signup ? this.handleLogin : this.handleSignup}
         >
-          Login
+          {!signup ? "Login" : "Signup"}
         </Button>
 
         <div className="text-center pt-1">
           <h6>or</h6>
           <h6>
-            <a href="#signup" onClick={this.handleSignup}>
-              Signup
+            <a
+              href="#signup"
+              onClick={() => this.setState({ signup: !signup })}
+            >
+              {signup ? "Login" : "Signup"}
             </a>
           </h6>
         </div>

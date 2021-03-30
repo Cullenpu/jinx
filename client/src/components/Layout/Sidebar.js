@@ -3,12 +3,11 @@ import sidebarBgImage from "assets/img/sidebar/sidebar.jpg";
 import React from "react";
 import {
   MdAccountCircle,
+  MdContacts,
   MdDashboard,
   MdInsertChart,
-  MdViewCarousel,
-  MdWeb,
   MdStore,
-  MdContacts,
+  MdWeb,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import {
@@ -27,15 +26,15 @@ const sidebarBackground = {
   backgroundRepeat: "no-repeat",
 };
 
-const pageContents = [
-  { to: "/login", name: "login / signup", exact: false, Icon: MdAccountCircle },
-  // {
-  //   to: "/companies-modal",
-  //   name: "Companies Modal",
-  //   exact: false,
-  //   Icon: MdViewCarousel,
-  // },
-];
+// const pageContents = [
+//   { to: "/login", name: "login / signup", exact: false, Icon: MdAccountCircle },
+//   {
+//     to: "/companies-modal",
+//     name: "Companies Modal",
+//     exact: false,
+//     Icon: MdViewCarousel,
+//   },
+// ];
 
 const navItems = [
   { to: "/", name: "dashboard", exact: true, Icon: MdDashboard },
@@ -91,7 +90,7 @@ class Sidebar extends React.Component {
                 </BSNavLink>
               </NavItem>
             ))}
-            <Collapse isOpen={this.state.isOpenPages}>
+            {/* <Collapse isOpen={this.state.isOpenPages}>
               {pageContents.map(({ to, name, exact, Icon }, index) => (
                 <NavItem key={index} className={bem.e("nav-item")}>
                   <BSNavLink
@@ -107,7 +106,7 @@ class Sidebar extends React.Component {
                   </BSNavLink>
                 </NavItem>
               ))}
-            </Collapse>
+            </Collapse> */}
           </Nav>
         </div>
       </aside>

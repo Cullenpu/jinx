@@ -6,6 +6,8 @@ import componentQueries from "react-component-queries";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./styles/reduction.scss";
 
+import { checkSession } from "components/authComponents/authFunctions";
+
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
 const ExplorePage = React.lazy(() => import("pages/ExplorePage"));
@@ -18,25 +20,27 @@ const getBasename = () => {
 };
 
 class App extends React.Component {
-  state = { currentUser: null };
+  componentDidMount() {
+    checkSession(this);
+  }
+
+  state = { email: null };
 
   render() {
-    const { currentUser } = this.state;
+    const { email } = this.state;
 
     return (
       <BrowserRouter basename={getBasename()}>
         <Switch>
-          {!currentUser ? (
+          {!email ? (
             <LayoutRoute
               exact
               path={["/", "/login"]}
               layout={EmptyLayout}
-              component={(props) => (
-                <AuthPage app={this} />
-              )}
+              component={(props) => <AuthPage app={this} />}
             />
           ) : (
-            <MainLayout breakpoint={this.props.breakpoint}>
+            <MainLayout breakpoint={this.props.breakpoint} app={this}>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/" component={DashboardPage} />
                 <Route

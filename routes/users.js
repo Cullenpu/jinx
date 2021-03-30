@@ -8,6 +8,7 @@ const { isMongoError, mongoChecker } = require("./utils");
 
 const router = express.Router();
 
+// User login
 router.post("/login", mongoChecker, (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -18,7 +19,7 @@ router.post("/login", mongoChecker, (req, res) => {
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
       req.session.email = user.email;
-      res.send({ currentUser: user.email });
+      res.send({ email: user.email });
     })
     .catch((error) => {
       console.log(error)
@@ -26,6 +27,7 @@ router.post("/login", mongoChecker, (req, res) => {
     });
 });
 
+// User logout
 router.get("/logout", (req, res) => {
   // Remove the session
   req.session.destroy((error) => {
@@ -37,11 +39,13 @@ router.get("/logout", (req, res) => {
   });
 });
 
+// User signup
 router.post("/", mongoChecker, (req, res) => {
   // Create a new user
   const newUser = new User({
     email: req.body.email,
     password: req.body.password,
+    name: req.body.name
   });
 
   newUser

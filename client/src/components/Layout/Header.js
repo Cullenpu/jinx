@@ -1,10 +1,10 @@
-import Avatar from 'components/Avatar';
-import { UserCard } from 'components/Card';
-import Notifications from 'components/Notifications';
-import SearchInput from 'components/SearchInput';
-import { notificationsData } from 'demos/header';
-import headerNotification from './headerNotification';
-import React from 'react';
+import Avatar from "components/Avatar";
+import { UserCard } from "components/Card";
+import Notifications from "components/Notifications";
+import SearchInput from "components/SearchInput";
+import { notificationsData } from "demos/header";
+import headerNotification from "./headerNotification";
+import React from "react";
 import {
   MdClearAll,
   MdExitToApp,
@@ -15,7 +15,7 @@ import {
   MdNotificationsNone,
   MdPersonPin,
   MdSettingsApplications,
-} from 'react-icons/md';
+} from "react-icons/md";
 import {
   Button,
   ListGroup,
@@ -27,20 +27,22 @@ import {
   NavLink,
   Popover,
   PopoverBody,
-} from 'reactstrap';
-import bn from 'utils/bemnames';
+} from "reactstrap";
+import bn from "utils/bemnames";
 
-const bem = bn.create('header');
+import { logout } from "components/authComponents/authFunctions";
+
+const bem = bn.create("header");
 
 const HeaderNotification = headerNotification({
-  size: 'md',
-  color: 'primary',
+  size: "md",
+  color: "primary",
   style: {
     top: -10,
     right: -10,
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "inline-flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   children: <small>5</small>,
 })(MdNotificationsActive);
@@ -68,18 +70,20 @@ class Header extends React.Component {
     });
   };
 
-  handleSidebarControlButton = event => {
+  handleSidebarControlButton = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
+    document.querySelector(".cr-sidebar").classList.toggle("cr-sidebar--open");
   };
 
   render() {
     const { isNotificationConfirmed } = this.state;
+    const app = this.props.app;
+    const user = this.props.app.state;
 
     return (
-      <Navbar light expand className={bem.b('bg-white')}>
+      <Navbar light expand className={bem.b("bg-white")}>
         <Nav navbar className="mr-2">
           <Button outline onClick={this.handleSidebarControlButton}>
             <MdClearAll size={25} />
@@ -89,7 +93,7 @@ class Header extends React.Component {
           <SearchInput />
         </Nav>
 
-        <Nav navbar className={bem.e('nav-right')}>
+        <Nav navbar className={bem.e("nav-right")}>
           <NavItem className="d-inline-flex">
             <NavLink id="Popover1" className="position-relative">
               {isNotificationConfirmed ? (
@@ -135,9 +139,8 @@ class Header extends React.Component {
             >
               <PopoverBody className="p-0 border-light">
                 <UserCard
-                  title="Jane"
-                  subtitle="jane@jane.com"
-                  text="Last updated 3 mins ago"
+                  title={user.name}
+                  subtitle={user.email}
                   className="border-light"
                 >
                   <ListGroup flush>
@@ -156,7 +159,12 @@ class Header extends React.Component {
                     <ListGroupItem tag="button" action className="border-light">
                       <MdHelp /> Help
                     </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
+                    <ListGroupItem
+                      tag="button"
+                      action
+                      className="border-light"
+                      onClick={() => logout(app)}
+                    >
                       <MdExitToApp /> Signout
                     </ListGroupItem>
                   </ListGroup>

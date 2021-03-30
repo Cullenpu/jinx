@@ -1,39 +1,17 @@
-import React from 'react';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Form,
-  FormFeedback,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
-} from 'reactstrap';
-import yitian from "assets/img/users/yitian.png";
+import React from "react";
+import { Col, Form, FormGroup, Input } from "reactstrap";
 
 const CompanyModalBody = () => {
   return (
     <Form>
       <FormGroup row>
         <Col sm={10}>
-          <Input
-            type="company"
-            name="company"
-            placeholder="Company"
-          />
+          <Input type="company" name="company" placeholder="Company" />
         </Col>
       </FormGroup>
       <FormGroup row>
         <Col sm={10}>
-          <Input
-            type="job"
-            name="job"
-            placeholder="Job Title"
-          />
+          <Input type="job" name="job" placeholder="Job Title" />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -48,7 +26,7 @@ const CompanyModalBody = () => {
         </Col>
       </FormGroup>
     </Form>
-  )
-}
+  );
+};
 
 export default CompanyModalBody;

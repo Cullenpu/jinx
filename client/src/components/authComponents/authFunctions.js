@@ -14,37 +14,28 @@ export const checkSession = (app) => {
     axios
       .get(url)
       .then((res) => {
-        if (res.status === 200 && res.data.currentUser) {
-          app.setState({ currentUser: res.data.currentUser });
+        if (res.status === 200 && res.data.email) {
+          app.setState({ email: res.data.email });
         }
       })
       .catch((error) => {
         console.log(error);
       });
   } else {
-    app.setState({ currentUser: ENV.user });
+    console.log("Using test user!");
+    app.setState({ email: ENV.email, name: ENV.name });
   }
 };
 
 // A function to send a POST request with the user to be logged in
 export const login = (credentials, app) => {
-  // Create our request constructor with all the parameters we need
-  const request = new Request(`${API_HOST}/users/login`, {
-    method: "post",
-    body: JSON.stringify(credentials),
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json",
-    },
-  });
-
   const url = `${API_HOST}/users/login`;
 
   axios
     .post(url, credentials)
     .then((res) => {
-      if (res.status === 200 && res.data.currentUser !== undefined) {
-        app.setState({ currentUser: res.data.currentUser });
+      if (res.status === 200 && res.data.email !== undefined) {
+        app.setState({ email: res.data.email });
       }
     })
     .catch((error) => {
@@ -56,10 +47,12 @@ export const login = (credentials, app) => {
 export const logout = (app) => {
   const url = `${API_HOST}/users/logout`;
 
-  fetch(url)
+  axios
+    .get(url)
     .then((res) => {
       app.setState({
-        currentUser: null,
+        email: null,
+        name: null,
         message: { type: "", body: "" },
       });
     })
@@ -74,8 +67,8 @@ export const signup = (credentials, app) => {
   axios
     .post(url, credentials)
     .then((res) => {
-      if (res.status === 200 && res.data.currentUser !== undefined) {
-        app.setState({ currentUser: res.data.currentUser });
+      if (res.status === 200 && res.data.email !== undefined) {
+        app.setState({ email: res.data.email });
       }
     })
     .catch((error) => {

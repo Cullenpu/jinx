@@ -1,5 +1,3 @@
-import { STATE_LOGIN, STATE_SIGNUP } from "./components/AuthForm";
-import GAListener from "./components/GAListener";
 import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AuthPage from "pages/AuthPage";
@@ -9,7 +7,6 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./styles/reduction.scss";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
-const AuthModalPage = React.lazy(() => import("pages/AuthModalPage"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
 const ExplorePage = React.lazy(() => import("pages/ExplorePage"));
 const DashboardPage = React.lazy(() => import("pages/DashboardPage"));
@@ -21,32 +18,27 @@ const getBasename = () => {
 };
 
 class App extends React.Component {
+  state = { currentUser: null };
+
   render() {
+    const { currentUser } = this.state;
+
     return (
       <BrowserRouter basename={getBasename()}>
-        <GAListener>
-          <Switch>
+        <Switch>
+          {!currentUser ? (
             <LayoutRoute
               exact
-              path="/login"
+              path={["/", "/login"]}
               layout={EmptyLayout}
               component={(props) => (
-                <AuthPage {...props} authState={STATE_LOGIN} />
+                <AuthPage app={this} />
               )}
             />
-            <LayoutRoute
-              exact
-              path="/signup"
-              layout={EmptyLayout}
-              component={(props) => (
-                <AuthPage {...props} authState={STATE_SIGNUP} />
-              )}
-            />
-
+          ) : (
             <MainLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/" component={DashboardPage} />
-                <Route exact path="/login-modal" component={AuthModalPage} />
                 <Route
                   exact
                   path="/companies-modal"
@@ -62,9 +54,9 @@ class App extends React.Component {
                 <Route exact path="/contacts" component={ContactsPage} />
               </React.Suspense>
             </MainLayout>
-            <Redirect to="/" />
-          </Switch>
-        </GAListener>
+          )}
+          <Redirect to="/" />)
+        </Switch>
       </BrowserRouter>
     );
   }

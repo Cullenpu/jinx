@@ -1,6 +1,5 @@
 import logo200Image from "assets/img/logo/jinx_logo.svg";
 import sidebarBgImage from "assets/img/sidebar/sidebar.jpg";
-import SourceLink from "components/SourceLink";
 import React from "react";
 import {
   MdAccountCircle,
@@ -30,12 +29,6 @@ const sidebarBackground = {
 
 const pageContents = [
   { to: "/login", name: "login / signup", exact: false, Icon: MdAccountCircle },
-  {
-    to: "/login-modal",
-    name: "login modal",
-    exact: false,
-    Icon: MdViewCarousel,
-  },
   // {
   //   to: "/companies-modal",
   //   name: "Companies Modal",
@@ -77,10 +70,10 @@ class Sidebar extends React.Component {
         <div className={bem.e("background")} style={sidebarBackground} />
         <div className={bem.e("content")}>
           <Navbar>
-            <SourceLink className="navbar-brand d-flex">
+            <div className="navbar-brand d-flex">
               <img src={logo200Image} width="40" height="30" alt="" />
               <span className="text-white">Jinx</span>
-            </SourceLink>
+            </div>
           </Navbar>
           <Nav vertical>
             {navItems.map(({ to, name, exact, Icon }, index) => (

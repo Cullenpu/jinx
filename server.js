@@ -15,9 +15,9 @@ const { Application } = require("./models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
 // Routes
-
-const companies = require('./routes/companies.js');
-const posting = require('./routes/posting.js');
+const users = require("./routes/users");
+const companies = require("./routes/companies");
+const posting = require("./routes/posting");
 
 const env = process.env.NODE_ENV;
 
@@ -36,6 +36,26 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // Parsing URL-encoded form data (from form POST requests)
 
 mongoose.set("useFindAndModify", false); // For some deprecation issues
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "hardcoded secret", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60000,
+      httpOnly: true,
+    },
+    // store the sessions on the database in production
+    store:
+      env === "production"
+        ? MongoStore.create({
+            mongoUrl:
+              process.env.MONGODB_URI || "mongodb://localhost:27017/JinxAPI",
+          })
+        : null,
+  })
+);
 
 function isMongoError(error) {
   return (
@@ -82,8 +102,9 @@ const authenticate = (req, res, next) => {
 
 // Add routes here
 
-app.use('/companies', companies);
-app.use('/posting', posting);
+app.use("/companies", companies);
+app.use("/posting", posting);
+app.use("/users", users);
 
 /*****************************************************************************/
 

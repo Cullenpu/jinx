@@ -11,6 +11,7 @@ const { mongoose } = require("../db/mongoose");
 const router = express.Router();
 const { Posting } = require("../models/Posting");
 const { Company } = require("../models/Company");
+const { User } = require("../models/User");
 const { Application } = require("../models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
@@ -20,15 +21,17 @@ mongoose.Promise = global.Promise;
 
 //
 // {
-// 	"userId": "60620beb3ba0001bb7f6e0cd",
-// 	"status": "https://windsorhuang.com/",
+// 	"userId": "6064afaf0479d00f99790b69",
+// 	"role": "Software Engineering Intern",
+//  "status": "Wishlist"
 // }
 //
 
 router.post('/', mongoChecker, (req, res, next) => {
 	const application = new Application({
     userId: req.body.userId,
-    postingId: req.body.postingId,
+    company: req.body.company,
+    role: req.body.role,
     status: req.body.status,
   })
 
@@ -43,15 +46,38 @@ router.post('/', mongoChecker, (req, res, next) => {
   })
 })
 
+// Get all applications in db
+router.get('/:id', mongoChecker, (req, res) => {
+  Application.find({userId: req.params.id}).populate({ path: "userId", model: User })
+    .then((application) => {
+      if (!application) {
+        res.status(404).send("App Not Found");
+      } else {
+        res.send(application);
+      }
+    });
+})
+
 router.get('/', mongoChecker, (req, res) => {
-	Posting.find().populate({ path: "companyId", model: Company })
-    .exec((err,posting) => {
+	Application.find().populate({ path: "userId", model: User })
+    .exec((err,application) => {
     if(err) throw err;
-    if(posting) {
-        res.send(posting)
+    if(application) {
+        res.send(application)
     }
   })
 })
+
+// Delete all applications in db
+router.delete("/", mongoChecker, (req, res) => {
+  Application.remove({}).then((application) => {
+    if (!application) {
+      res.status(404).send("Application Not Found");
+    } else {
+      res.send(application);
+    }
+  });
+});
 
 
 

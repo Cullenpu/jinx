@@ -26,14 +26,7 @@ mongoose.Promise = global.Promise;
 // 	"role": "Software Engineer Intern"
 // }
 //
-
 router.post('/', mongoChecker, (req, res, next) => {
-	// Add code here
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection')
-		res.status(500).send('Internal server error')
-		return;
-	}  
 	try {
 		const promiseLogo = () => {
 			return new Promise((resolve, reject) => {
@@ -78,11 +71,6 @@ router.post('/', mongoChecker, (req, res, next) => {
 })
 
 router.get('/', mongoChecker, (req, res) => {
-	if (mongoose.connection.readyState != 1) {
-		log('Issue with mongoose connection')
-		res.status(500).send('Internal server error')
-		return;
-	}  
 
 	Posting.find().populate({ path: "companyId", model: Company })
     .exec((err,posting) => {

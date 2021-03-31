@@ -13,7 +13,7 @@ const ApplicationSchema = new mongoose.Schema({
     ref: 'Posting',
     required: true,
   },
-  applicationStatus: {
+  status: {
     enum: [ "Wishlist", "Applied", "Interviews", "Offer", "Rejected", null ],
   },
 });

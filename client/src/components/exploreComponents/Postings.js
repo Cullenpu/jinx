@@ -22,7 +22,6 @@ const Postings = () => {
   useEffect(() => {
     axios.get('http://localhost:5000/posting').then(res => {
       const posting = res.data;
-      console.log(posting);
       setPostings(posting);
   })
   }, [])

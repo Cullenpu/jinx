@@ -4,16 +4,6 @@ import bg from 'assets/img/products/product-2.jpg';
 import lg from 'assets/img/logo/jinx_logo.svg';
 
 const ExploreCell = ({ name, description, background, logo }) => {
-  const FormatDescription = ({ description }) => {
-    if (!description) {
-      return null;
-    }
-    if (description.length < 100) {
-      return <small>{description}</small>;
-    } else {
-      return <small>{description.substring(0, 100) + "..."}</small>;
-    }
-  };
   return (
     <Card
       style={{

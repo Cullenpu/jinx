@@ -6,10 +6,10 @@ const PopularCompanies = ({ companies }) => {
   return (
     <Container>
       <Row>
-        <h2 className="text-info font-weight-300">Popular Companies</h2>
+        <h2 className="text-info font-weight-300">Companies</h2>
       </Row>
       <Row className="pl-2">
-        <p>Employers with the most jobs</p>
+        <p>Check out with companies have the most popular offerings.</p>
       </Row>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {companies &&

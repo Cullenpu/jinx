@@ -14,15 +14,9 @@ const { Company } = require("../models/Company");
 const { Application } = require("../models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
-mongoose.Promise = global.Promise;
+const { isMongoError, mongoChecker } = require("./utils");
 
-function isMongoError(error) {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    error.name === "MongoNetworkError"
-  );
-}
+mongoose.Promise = global.Promise;
 
 //
 // {
@@ -33,7 +27,7 @@ function isMongoError(error) {
 // }
 //
 
-router.post('/', (req, res, next) => {
+router.post('/', mongoChecker, (req, res, next) => {
 	// Add code here
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection')
@@ -83,7 +77,7 @@ router.post('/', (req, res, next) => {
 
 })
 
-router.get('/', (req, res) => {
+router.get('/', mongoChecker, (req, res) => {
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection')
 		res.status(500).send('Internal server error')
@@ -98,6 +92,16 @@ router.get('/', (req, res) => {
     }
   })
 })
+
+router.delete("/", mongoChecker, (req, res) => {
+  Posting.remove({}).then((company) => {
+    if (!company) {
+      res.status(404).send("Company Not Found");
+    } else {
+      res.send(company);
+    }
+  });
+});
 
 
 

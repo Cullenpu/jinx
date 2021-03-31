@@ -55,19 +55,20 @@ const Postings = () => {
                 >
                   <CardImg
                     top
-                    src={lg}
+                    src={posting.companyLogo ? posting.companyLogo : lg}
                     style={{
                       // marginTop: "-20px",
                       marginLeft: "90px",
                       borderRadius: 10,
+                      objectFit: 'cover',
                       width: "60px",
                       height: "60px",
-                      backgroundColor: '#D3D3D3'
+                      backgroundColor: posting.companyLogo ? null : '#D3D3D3'
                     }}
                   />
                   <CardText>
                     <div style={{ maxWidth: '75px'}}>
-                      <p style={{ fontSize: '18px', fontWeight: '600', marginTop: '-20px'}}>
+                      <p style={{ fontSize: '18px', fontWeight: '600'}}>
                         {posting.companyId.name}
                       </p>
                     </div>

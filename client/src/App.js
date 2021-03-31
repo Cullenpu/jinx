@@ -24,7 +24,7 @@ class App extends React.Component {
     checkSession(this);
   }
 
-  state = { email: null };
+  state = { email: null, name: null };
 
   render() {
     const { email } = this.state;

@@ -22,7 +22,7 @@ router.post("/login", mongoChecker, (req, res) => {
       res.send({ email: user.email });
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       res.status(400).send(error);
     });
 });
@@ -45,17 +45,19 @@ router.post("/", mongoChecker, (req, res) => {
   const newUser = new User({
     email: req.body.email,
     password: req.body.password,
-    name: req.body.name
+    name: req.body.name,
   });
 
   newUser
     .save()
     .then(() => {
+      req.session.user = newUser._id;
+      req.session.email = newUser.email;
       res.send(newUser);
     })
     .catch((error) => {
       if (isMongoError(error)) {
-        res.status(500).send("Internal server error")
+        res.status(500).send("Internal server error");
       } else {
         res.status(400).send("Bad Request");
       }

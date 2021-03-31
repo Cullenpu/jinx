@@ -9,7 +9,6 @@ const websiteLogo = require( 'website-logo' )
 const { mongoose } = require("../db/mongoose");
 
 const router = express.Router();
-const { User } = require("../models/User");
 const { Posting } = require("../models/Posting");
 const { Company } = require("../models/Company");
 const { Application } = require("../models/Application");

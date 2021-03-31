@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: true,
+    required: false,
     validate: {
       validator: validator.isMobilePhone,
       message: "Not valid phone",
@@ -63,7 +63,7 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
   // First find the user by their email
   return User.findOne({ email: email }).then((user) => {
     if (!user) {
-      return Promise.reject(); // a rejected promise
+      return Promise.reject(new Error("User not found")); // a rejected promise
     }
     // If the user exists, make sure their password is correct
     return new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
         if (result) {
           resolve(user);
         } else {
-          reject();
+          reject(new Error("Incorrect password"));
         }
       });
     });

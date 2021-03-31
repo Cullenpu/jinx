@@ -5,8 +5,6 @@ import bn from 'utils/bemnames';
 
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
-import Typography from './Typography';
-
 const bem = bn.create('page');
 
 const Page = ({
@@ -23,9 +21,9 @@ const Page = ({
     <Tag className={classes} {...restProps}>
       <div className={bem.e('header')}>
         {title && typeof title === 'string' ? (
-          <Typography type="h1" className={bem.e('title')}>
+          <h1 className={bem.e('title')}>
             {title}
-          </Typography>
+          </h1>
         ) : (
             title
           )}

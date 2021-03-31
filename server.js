@@ -15,9 +15,9 @@ const { Application } = require("./models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
 // Routes
-
-const companies = require('./routes/companies.js');
-const posting = require('./routes/posting.js');
+const users = require("./routes/users");
+const companies = require("./routes/companies");
+const posting = require("./routes/posting");
 
 const env = process.env.NODE_ENV;
 
@@ -37,53 +37,31 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parsing URL-encoded form 
 
 mongoose.set("useFindAndModify", false); // For some deprecation issues
 
-function isMongoError(error) {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    error.name === "MongoNetworkError"
-  );
-}
-
-const mongoChecker = (req, res, next) => {
-  // check mongoose connection established.
-  if (mongoose.connection.readyState != 1) {
-    console.log("Issue with mongoose connection");
-    res.status(500).send("Internal server error");
-    return;
-  } else {
-    next();
-  }
-};
-
-// Middleware for authentication of resources
-const authenticate = (req, res, next) => {
-  if (env !== "production" && USE_TEST_USER) req.session.user = TEST_USER_ID; // test user on development. (remember to run `TEST_USER_ON=true node server.js` if you want to use this user.)
-
-  if (req.session.user) {
-    User.findById(req.session.user)
-      .then((user) => {
-        if (!user) {
-          return Promise.reject();
-        } else {
-          req.user = user;
-          next();
-        }
-      })
-      .catch((error) => {
-        res.status(401).send("Unauthorized");
-      });
-  } else {
-    res.status(401).send("Unauthorized");
-  }
-};
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "hardcoded secret", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60000,
+      httpOnly: true,
+    },
+    // store the sessions on the database in production
+    store:
+      env === "production"
+        ? MongoStore.create({
+            mongoUrl:
+              process.env.MONGODB_URI || "mongodb://localhost:27017/JinxAPI",
+          })
+        : null,
+  })
+);
 
 /** Routes *******************************************************************/
 
-// Add routes here
-
-app.use('/companies', companies);
-app.use('/posting', posting);
+app.use("/companies", companies);
+app.use("/posting", posting);
+app.use("/users", users);
 
 /*****************************************************************************/
 

@@ -1,15 +1,13 @@
 import logo200Image from "assets/img/logo/jinx_logo.svg";
 import sidebarBgImage from "assets/img/sidebar/sidebar.jpg";
-import SourceLink from "components/SourceLink";
 import React from "react";
 import {
   MdAccountCircle,
+  MdContacts,
   MdDashboard,
   MdInsertChart,
-  MdViewCarousel,
-  MdWeb,
   MdStore,
-  MdContacts,
+  MdWeb,
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import {
@@ -28,21 +26,15 @@ const sidebarBackground = {
   backgroundRepeat: "no-repeat",
 };
 
-const pageContents = [
-  { to: "/login", name: "login / signup", exact: false, Icon: MdAccountCircle },
-  {
-    to: "/login-modal",
-    name: "login modal",
-    exact: false,
-    Icon: MdViewCarousel,
-  },
-  // {
-  //   to: "/companies-modal",
-  //   name: "Companies Modal",
-  //   exact: false,
-  //   Icon: MdViewCarousel,
-  // },
-];
+// const pageContents = [
+//   { to: "/login", name: "login / signup", exact: false, Icon: MdAccountCircle },
+//   {
+//     to: "/companies-modal",
+//     name: "Companies Modal",
+//     exact: false,
+//     Icon: MdViewCarousel,
+//   },
+// ];
 
 const navItems = [
   { to: "/", name: "dashboard", exact: true, Icon: MdDashboard },
@@ -77,10 +69,10 @@ class Sidebar extends React.Component {
         <div className={bem.e("background")} style={sidebarBackground} />
         <div className={bem.e("content")}>
           <Navbar>
-            <SourceLink className="navbar-brand d-flex">
+            <div className="navbar-brand d-flex">
               <img src={logo200Image} width="40" height="30" alt="" />
               <span className="text-white">Jinx</span>
-            </SourceLink>
+            </div>
           </Navbar>
           <Nav vertical>
             {navItems.map(({ to, name, exact, Icon }, index) => (
@@ -98,7 +90,7 @@ class Sidebar extends React.Component {
                 </BSNavLink>
               </NavItem>
             ))}
-            <Collapse isOpen={this.state.isOpenPages}>
+            {/* <Collapse isOpen={this.state.isOpenPages}>
               {pageContents.map(({ to, name, exact, Icon }, index) => (
                 <NavItem key={index} className={bem.e("nav-item")}>
                   <BSNavLink
@@ -114,7 +106,7 @@ class Sidebar extends React.Component {
                   </BSNavLink>
                 </NavItem>
               ))}
-            </Collapse>
+            </Collapse> */}
           </Nav>
         </div>
       </aside>

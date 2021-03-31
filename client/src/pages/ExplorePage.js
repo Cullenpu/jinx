@@ -14,7 +14,7 @@ const ExplorePage = () => {
     axios.get(`http://localhost:5000/companies`)
       .then(res => {
         const companies = res.data.company;
-        setCompaniesList([... companiesList, ...companies])
+        setCompaniesList([...companiesList, ...companies])
     })
   }, [])
 

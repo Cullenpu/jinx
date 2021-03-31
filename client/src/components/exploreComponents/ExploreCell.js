@@ -1,7 +1,7 @@
+import lg from "assets/img/logo/jinx_logo.svg";
+import bg from "assets/img/products/product-2.jpg";
 import React from "react";
-import { Card, CardImg, CardText, CardTitle } from "reactstrap";
-import bg from 'assets/img/products/product-2.jpg';
-import lg from 'assets/img/logo/jinx_logo.svg';
+import { Card, CardImg, CardTitle } from "reactstrap";
 
 const ExploreCell = ({ name, description, background, logo }) => {
   return (
@@ -34,7 +34,7 @@ const ExploreCell = ({ name, description, background, logo }) => {
           borderRadius: 10,
           width: "60px",
           height: "60px",
-          backgroundColor: logo ? null : '#D3D3D3'
+          backgroundColor: logo ? null : "#D3D3D3",
         }}
       />
       <CardTitle className="text-dark pt-1">{name}</CardTitle>

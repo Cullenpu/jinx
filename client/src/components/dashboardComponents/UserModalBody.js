@@ -1,19 +1,6 @@
-import React from 'react';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  Col,
-  Form,
-  FormFeedback,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
-} from 'reactstrap';
 import yitian from "assets/img/users/yitian.png";
+import React from "react";
+import { Col, Form, FormGroup, FormText, Input, Label } from "reactstrap";
 
 const UserModalBody = () => {
   return (
@@ -35,11 +22,7 @@ const UserModalBody = () => {
           Name
         </Label>
         <Col sm={10}>
-          <Input
-            type="name"
-            name="name"
-            placeholder="Yitian Bitian"
-          />
+          <Input type="name" name="name" placeholder="Yitian Bitian" />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -47,11 +30,7 @@ const UserModalBody = () => {
           Email
         </Label>
         <Col sm={10}>
-          <Input
-            type="email"
-            name="email"
-            placeholder="yz@email.com"
-          />
+          <Input type="email" name="email" placeholder="yz@email.com" />
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -80,13 +59,11 @@ const UserModalBody = () => {
         </Label>
         <Col sm={10}>
           <Input type="file" name="file" />
-          <FormText color="muted">
-            Add a new resume for this user.
-          </FormText>
+          <FormText color="muted">Add a new resume for this user.</FormText>
         </Col>
       </FormGroup>
     </Form>
-  )
-}
+  );
+};
 
 export default UserModalBody;

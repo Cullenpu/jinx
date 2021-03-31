@@ -18,6 +18,8 @@ const { ObjectID } = require("mongodb"); // To validate object IDs
 const users = require("./routes/users");
 const companies = require("./routes/companies");
 const posting = require("./routes/posting");
+const applications = require("./routes/applications");
+
 
 const env = process.env.NODE_ENV;
 
@@ -62,6 +64,7 @@ app.use(
 app.use("/companies", companies);
 app.use("/posting", posting);
 app.use("/users", users);
+app.use("/applications", applications);
 
 /*****************************************************************************/
 

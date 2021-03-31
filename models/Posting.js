@@ -12,6 +12,9 @@ const PostingSchema = new mongoose.Schema({
     type: String,
     required: [ true, 'A link is required' ],
   },
+  companyLogo: {
+    type: String,
+  },
   location: {
     type: String,
     required: true,

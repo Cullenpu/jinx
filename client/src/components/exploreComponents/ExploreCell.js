@@ -4,16 +4,6 @@ import React from "react";
 import { Card, CardImg, CardTitle } from "reactstrap";
 
 const ExploreCell = ({ name, description, background, logo }) => {
-  // const FormatDescription = ({ description }) => {
-  //   if (!description) {
-  //     return null;
-  //   }
-  //   if (description.length < 100) {
-  //     return <small>{description}</small>;
-  //   } else {
-  //     return <small>{description.substring(0, 100) + "..."}</small>;
-  //   }
-  // };
   return (
     <Card
       style={{

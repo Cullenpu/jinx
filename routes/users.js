@@ -64,4 +64,20 @@ router.post("/", mongoChecker, (req, res) => {
     });
 });
 
+// Get all users
+router.get('/', mongoChecker, (req, res) => {
+
+	User.find()
+  .then((user) => {
+    res.send({ user });
+  })
+  .catch((error) => {
+    if (isMongoError(error)) {
+      res.status(500).send("Internal server error");
+    } else {
+      res.status(404).send("Not Found");
+    }
+  });
+})
+
 module.exports = router;

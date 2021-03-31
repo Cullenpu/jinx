@@ -8,13 +8,22 @@ const ApplicationSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  company: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+  },
   postingId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Posting',
-    required: true,
+    required: false,
   },
-  applicationStatus: {
-    enum: [ "Wishlist", "Applied", "Interviews", "Offer", "Rejected", null ],
+  status: {
+    type: String,
+    required: true,
   },
 });
 

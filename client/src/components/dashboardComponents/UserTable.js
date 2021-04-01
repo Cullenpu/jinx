@@ -143,9 +143,6 @@ class UserTable extends React.Component {
             <UserModalBody email={this.state.email} password={this.state.password} name={this.state.name}
                            handleChange={this.handleInputChange}/>
           </ModalBody>
-          <h1>{this.state.email}</h1>
-          <h1>{this.state.password}</h1>
-          <h1>{this.state.name}</h1>
           <ModalFooter>
             <Button color="primary" onClick={this.saveChanges}>
               Save Changes

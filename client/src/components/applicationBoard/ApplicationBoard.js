@@ -63,6 +63,12 @@ const rejected = [
 ];
 
 class ApplicationsBoard extends React.Component {
+
+  constructor(props) {
+    super(props);
+    console.log(props.applicationList)
+  }
+
   state = {
     modal: false,
     modal_backdrop: false,

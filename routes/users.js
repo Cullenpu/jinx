@@ -67,6 +67,13 @@ router.post("/", mongoChecker, (req, res) => {
 // Get all users
 router.get('/', mongoChecker, (req, res) => {
 
+  console.log(req.session);
+  res.send({user: req.session.user});
+})
+
+// Get all users
+router.get('/all', mongoChecker, (req, res) => {
+
 	User.find()
   .then((user) => {
     res.send({ user });

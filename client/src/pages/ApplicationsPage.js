@@ -3,18 +3,37 @@ import Page from "components/Page";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "reactstrap";
 import axios from 'axios';
+import { set } from "react-ga";
 
 
 const ApplicationsPage = () => {
+  const [ isLoading, setIsLoading ] = useState(true);
   const [userId, setUserId] = useState('6064afaf0479d00f99790b69');
-  const [applications, setApplications] = useState(['balls'])
+  const [applications, setApplications] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
+  const [applied, setApplied] = useState([]);
+  const [interviewing, setInterviewing] = useState([]);
+  const [offer, setOffer] = useState([]);
+  const [rejected, setRejected] = useState([]);
+
   useEffect(() => {
-    axios.get(`http://localhost:5000/applications/${userId}`)
+    async function fetchData() {
+      setIsLoading(true);
+      await axios.get(`http://localhost:5000/applications/${userId}`)
       .then(res => {
-        setApplications(res.data)
+        setApplications(res.data);
+        setWishlist(res.data.filter(app => app.status === "Wishlist"));
+        setApplied(res.data.filter(app => app.status === "Applied"));
+        setInterviewing(res.data.filter(app => app.status === "Interviewing"));
+        setOffer(res.data.filter(app => app.status === "Offer"));
+        setRejected(res.data.filter(app => app.status === "Rejected"));
     })
+    setIsLoading(false);
+    }
+    fetchData();
   }, [])
-  return (
+
+  return isLoading ? <div>Loading</div> : (
     <Page
       className="ApplicationsPage"
       title="Applications"
@@ -22,7 +41,14 @@ const ApplicationsPage = () => {
     >
       <Row className="pt-3">
         <Col>
-          <ApplicationBoard applicationList={applications}/>
+          <ApplicationBoard 
+            applicationList={applications} 
+            wishlist={wishlist} 
+            applied={applied} 
+            interviewing={interviewing}
+            offer={offer}
+            rejected={rejected}
+            />
         </Col>
       </Row>
     </Page>

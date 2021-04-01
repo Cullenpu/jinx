@@ -26,47 +26,14 @@ const wishlist = [
   },
 ];
 
-const applied = [
-  {
-    company: "Amazon",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "danger",
-  },
-];
-
-const interview = [
-  {
-    company: "Lyft",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "warning",
-  },
-];
-
-const offer = [
-  {
-    company: "AirBnB",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "secondary",
-  },
-];
-
-const rejected = [
-  {
-    company: "Stripe",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "primary",
-  },
-];
-
 class ApplicationsBoard extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props.applicationList)
+    this.setState({
+      applications: props.applicationList,
+      wishlist: props.wishlist
+    })
   }
 
   state = {
@@ -96,11 +63,11 @@ class ApplicationsBoard extends React.Component {
           <Button outline color="secondary" size="sm" onClick={this.toggle()}><FaPlus /> Add Job Application <FaPlus /></Button>
         </Row>
         <Row>
-          <WishListCol companies={wishlist} />
-          <AppliedCol companies={applied} />
-          <InterviewCol companies={interview} />
-          <OfferCol companies={offer} />
-          <RejectedCol companies={rejected} />
+          <WishListCol companies={this.props.wishlist} />
+          <AppliedCol companies={this.props.applied} />
+          <InterviewCol companies={this.props.interviewing} />
+          <OfferCol companies={this.props.offer} />
+          <RejectedCol companies={this.props.rejected} />
         </Row>
         <Modal
           isOpen={this.state.modal}

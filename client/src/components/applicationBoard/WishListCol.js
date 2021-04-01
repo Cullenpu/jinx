@@ -14,12 +14,12 @@ const WishListCol = ({ companies }) => {
       </div>
       {companies &&
         companies.map((company) => {
+          console.log(company);
           return (
             <CompanyCard
               company={company.company}
-              title={company.title}
-              date={company.date}
-              color={company.color}
+              role={company.role}
+              date={company.createdAt}
             />
           );
         })}

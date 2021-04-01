@@ -1,13 +1,14 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
+import {formatDate} from "utils/date.js";
 
-const CompanyCard = ({ company, title, date, color }) => {
+const CompanyCard = ({ company, role, date }) => {
   return (
     <div className="pb-3">
       <Card
         inverse
-        className={`border-0 bg-gradient-${color}`}
+        className={`border-0 bg-gradient-success`}
         style={{
           height: 150,
         }}
@@ -18,7 +19,7 @@ const CompanyCard = ({ company, title, date, color }) => {
         >
           <CardTitle className="h5">{company}</CardTitle>
           <CardText>
-            <small>{title}</small>
+            <small>{role}</small>
           </CardText>
         </CardBody>
         <CardBody
@@ -26,7 +27,7 @@ const CompanyCard = ({ company, title, date, color }) => {
           style={{ paddingTop: "0" }}
         >
           <CardText style={{ fontSize: "15px" }}>
-            <small>{date}</small>
+            <small>{formatDate(date)}</small>
           </CardText>
           <Button size="sm" outline color="light">
             <small>

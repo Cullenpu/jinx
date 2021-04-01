@@ -61,17 +61,20 @@ export const logout = (app) => {
     });
 };
 
+// Returns 0 on successful database addition, -1 otherwise
 export const signup = (credentials, app) => {
   const url = `${API_HOST}/users`;
 
-  axios
+  return axios
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
         app.setState({ email: res.data.email, name: res.data.name });
+        return 0
       }
     })
     .catch((error) => {
       console.log(error);
+      return -1
     });
 };

@@ -13,6 +13,7 @@ import {
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 import {signup} from "../authComponents/authFunctions";
+
 const log = console.log
 
 class UserTable extends React.Component {
@@ -26,6 +27,7 @@ class UserTable extends React.Component {
     email: "",
     password: "",
     name: "",
+    statusMsg: ""
   };
 
   toggle = (modalType) => () => {
@@ -48,7 +50,17 @@ class UserTable extends React.Component {
       password: this.state.password,
       name: this.state.name,
     }
-    signup(credentials, this.props.app)
+    const result = signup(credentials, this.props.app)
+
+    // Get result of the promise
+    result.then((a) => {
+      // -1 means not added sucessfully
+      if (a === -1) {
+        this.setState({
+          statusMsg: "Please enter valid inputs!"
+        })
+      }
+    })
   }
 
   // Handle input changes
@@ -144,6 +156,7 @@ class UserTable extends React.Component {
             <UserModalBody email={this.state.email} password={this.state.password} name={this.state.name}
                            handleChange={this.handleInputChange}/>
           </ModalBody>
+          <h3 style={{color: "red", textAlign: "center"}}>{this.state.statusMsg}</h3>
           <ModalFooter>
             <Button color="primary" onClick={this.saveChanges}>
               Save Changes

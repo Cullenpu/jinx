@@ -36,7 +36,7 @@ class UserTable extends React.Component {
   getUsers = () => {
     const API_HOST = ENV.api_host;
     const app = this.props.app;
-    return axios
+    axios
       .get(`${API_HOST}/users/all`, {id: app.state.id})
       .then((res) => {
         this.setState({
@@ -105,7 +105,7 @@ class UserTable extends React.Component {
 
   render() {
     // Initialize the table
-    const initialize = this.getUsers()
+    this.getUsers()
 
     return (
       <Card>

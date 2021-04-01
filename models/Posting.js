@@ -6,6 +6,10 @@ const PostingSchema = new mongoose.Schema({
   companyId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Company',
+    required: false,
+  },
+  companyName: {
+    type: String,
     required: true,
   },
   link:  {

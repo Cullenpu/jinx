@@ -7,6 +7,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./styles/reduction.scss";
 
 import { checkSession } from "components/authComponents/authFunctions";
+import AddPostingPage from "./pages/AddPosting";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
@@ -56,14 +57,16 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/applications"
-                  component={ApplicationsPage}
+                  component={(props) => <ApplicationsPage app={this} />}
                 />
                 <Route exact path="/explore" component={ExplorePage} />
-                <Route exact path="/contacts" component={ContactsPage} />
+                <Route exact path="/posting/add" component={(props) => <AddPostingPage app={this} />} />
+                <Route exact path="/contacts" component={(props) => <ContactsPage app={this} />} />
               </React.Suspense>
             </MainLayout>
           )}
-          <Redirect to="/" />)
+          {/* <Redirect to="/" /> */}
+          )
         </Switch>
       </BrowserRouter>
     );

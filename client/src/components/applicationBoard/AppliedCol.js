@@ -16,10 +16,10 @@ const AppliedCol = ({ companies }) => {
         companies.map((company) => {
           return (
             <CompanyCard
+              column="applied"
               company={company.company}
-              title={company.title}
-              date={company.date}
-              color={company.color}
+              role={company.role}
+              date={company.createdAt}
             />
           );
         })}

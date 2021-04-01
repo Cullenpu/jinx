@@ -1,23 +1,38 @@
 import ContactCard from "components/Card/ContactCard";
 import Page from "components/Page";
 import { contacts } from "demos/contactsPage";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
-const ContactsPage = () => {
-  return (
+const ContactsPage = ({ app }) => {
+  const [ isLoading, setIsLoading ] = useState(true);
+  const [contactsList, setContactsList] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      await axios.get(`http://localhost:5000/connection/${app.state.id}`)
+      .then(res => {
+        console.log(res.data);
+        setContactsList(res.data);
+    })
+    setIsLoading(false);
+    }
+    fetchData();
+  }, [])
+  return isLoading ? <div>Loading</div> : (
     <Page
       className="ContactsPage"
       title="Contacts"
       breadcrumbs={[{ name: "Contacts", active: true }]}
     >
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {contacts.map(({ name, rating, status, avatar }, index) => {
+        {contactsList.map(({followedId}) => {
           return (
             <ContactCard
-              name={name}
-              status={status}
-              rating={rating}
-              avatar={avatar}
+              name={followedId.name}
+              email={followedId.email}
+              rating={followedId.rating}
+              // avatar={requesterId.avatar}
             />
           );
         })}

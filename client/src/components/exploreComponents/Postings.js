@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Container, Row,  Card, CardImg, CardText, CardTitle } from "reactstrap";
+import { Container, Row, Col, Card, CardImg, CardText, CardTitle, Button } from "reactstrap";
 import lg from 'assets/img/logo/jinx_logo.svg';
 
 function formatDate(date) {
@@ -28,7 +28,12 @@ const Postings = () => {
   return (
     <Container>
       <Row>
-        <h2 className="text-primary font-weight-300">Postings</h2>
+        <Col>
+          <h2 className="text-primary font-weight-300">Postings</h2>
+        </Col>
+        <Col>
+          <Button size="sm" onClick={() => { window.location.href = '/posting/add'; }}>Add Posting</Button>
+        </Col>
       </Row>
       <Row className="pl-2">
         <p>Checkout which postings were most applied to.</p>
@@ -66,9 +71,9 @@ const Postings = () => {
                     }}
                   />
                   <CardText>
-                    <div style={{ maxWidth: '75px'}}>
-                      <p style={{ fontSize: '18px', fontWeight: '600'}}>
-                        {posting.companyId.name}
+                    <div style={{ maxWidth: '82px'}}>
+                      <p style={{ fontSize: '16px', fontWeight: '600'}}>
+                        {posting.companyName}
                       </p>
                     </div>
                     <p style={{ fontSize: '14px', fontWeight: '400', marginTop: '-20px'}}>{posting.location}</p>

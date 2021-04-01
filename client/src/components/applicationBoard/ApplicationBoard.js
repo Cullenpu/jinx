@@ -10,63 +10,44 @@ import InterviewCol from "./InterviewCol";
 import OfferCol from "./OfferCol";
 import RejectedCol from "./RejectedCol";
 import CompanyModalBody from "./CompanyModalBody";
-
-const wishlist = [
-  {
-    company: "Google",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "success",
-  },
-  {
-    company: "Facebook",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "info",
-  },
-];
-
-const applied = [
-  {
-    company: "Amazon",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "danger",
-  },
-];
-
-const interview = [
-  {
-    company: "Lyft",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "warning",
-  },
-];
-
-const offer = [
-  {
-    company: "AirBnB",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "secondary",
-  },
-];
-
-const rejected = [
-  {
-    company: "Stripe",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "primary",
-  },
-];
+import axios from 'axios';
 
 class ApplicationsBoard extends React.Component {
-
   constructor(props) {
     super(props);
-    console.log(props.applicationList)
+    // for form
+    this.state = {
+      inputCompany: '',
+      inputRole: '',
+      inputStatus: '',
+    };
+
+    this.handleCompanyChange = this.handleCompanyChange.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleCompanyChange(event) {
+    this.setState({inputCompany: event.target.value});
+  }
+  handleRoleChange(event) {
+    this.setState({inputRole: event.target.value});
+  }
+  handleStatusChange(event) {
+    this.setState({inputStatus: event.target.value});
+  }
+
+  handleSubmit(event) {
+    axios.post('http://localhost:5000/applications', {
+      userId: this.props.app.state.id,
+      company: this.state.inputCompany,
+      role: this.state.inputRole,
+      status: this.state.inputStatus
+    })
+    .then(function (response) {
+      window.location.reload()
+    })
   }
 
   state = {
@@ -96,11 +77,11 @@ class ApplicationsBoard extends React.Component {
           <Button outline color="secondary" size="sm" onClick={this.toggle()}><FaPlus /> Add Job Application <FaPlus /></Button>
         </Row>
         <Row>
-          <WishListCol companies={wishlist} />
-          <AppliedCol companies={applied} />
-          <InterviewCol companies={interview} />
-          <OfferCol companies={offer} />
-          <RejectedCol companies={rejected} />
+          <WishListCol companies={this.props.wishlist} />
+          <AppliedCol companies={this.props.applied} />
+          <InterviewCol companies={this.props.interviewing} />
+          <OfferCol companies={this.props.offer} />
+          <RejectedCol companies={this.props.rejected} />
         </Row>
         <Modal
           isOpen={this.state.modal}
@@ -108,10 +89,20 @@ class ApplicationsBoard extends React.Component {
           className={this.props.className}>
           <ModalHeader toggle={this.toggle()}>Add Job Application</ModalHeader>
           <ModalBody>
-            <CompanyModalBody />
+            <CompanyModalBody 
+              inputCompany={this.state.inputCompany} 
+              inputRole={this.state.inputRole} 
+              inputStatus={this.state.inputStatus}
+              handleCompanyChange={this.handleCompanyChange}
+              handleRoleChange={this.handleRoleChange}
+              handleStatusChange={this.handleStatusChange}
+              />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle()}>
+            <Button color="primary" onClick={() => {
+              this.toggle();
+              this.handleSubmit();
+            }}>
               Save Job
             </Button>{' '}
             <Button color="secondary" onClick={this.toggle()}>

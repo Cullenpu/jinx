@@ -15,6 +15,7 @@ const users = require("./routes/users");
 const companies = require("./routes/companies");
 const posting = require("./routes/posting");
 const applications = require("./routes/applications");
+const connection = require("./routes/connection");
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use("/companies", companies);
 app.use("/posting", posting);
 app.use("/users", users);
 app.use("/applications", applications);
+app.use("/connection", connection);
 
 /*****************************************************************************/
 

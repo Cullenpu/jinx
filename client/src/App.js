@@ -59,7 +59,7 @@ class App extends React.Component {
                   component={(props) => <ApplicationsPage app={this} />}
                 />
                 <Route exact path="/explore" component={ExplorePage} />
-                <Route exact path="/contacts" component={ContactsPage} />
+                <Route exact path="/contacts" component={(props) => <ContactsPage app={this} />} />
               </React.Suspense>
             </MainLayout>
           )}

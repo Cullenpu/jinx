@@ -17,18 +17,6 @@ import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 
 class UserTable extends React.Component {
-  getUsers = () => {
-    const API_HOST = ENV.api_host;
-    const app = this.props.app;
-    return axios
-      .get(`${API_HOST}/users/all`, { id: app.state.id })
-      .then((res) => {
-        return [];
-        return res.data;
-      })
-      .catch((err) => console.log(err));
-  };
-
   state = {
     modal: false,
     modal_backdrop: false,
@@ -42,6 +30,18 @@ class UserTable extends React.Component {
     phone: "",
     role: "",
     statusMsg: "",
+  };
+
+  getUsers = () => {
+    const API_HOST = ENV.api_host;
+    const app = this.props.app;
+    return axios
+      .get(`${API_HOST}/users/all`, { id: app.state.id })
+      .then((res) => {
+        return [];
+        return res.data;
+      })
+      .catch((err) => console.log(err));
   };
 
   toggle = (modalType) => () => {

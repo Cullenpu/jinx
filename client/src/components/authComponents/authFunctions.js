@@ -15,7 +15,7 @@ export const checkSession = (app) => {
       .get(url)
       .then((res) => {
         if (res.status === 200 && res.data.email) {
-          app.setState({ email: res.data.email });
+          app.setState({ email: res.data.email, name: res.data.name });
         }
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ export const login = (credentials, app) => {
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
-        app.setState({ email: res.data.email });
+        app.setState({ email: res.data.email, name: res.data.name });
       }
     })
     .catch((error) => {
@@ -68,7 +68,7 @@ export const signup = (credentials, app) => {
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
-        app.setState({ email: res.data.email });
+        app.setState({ email: res.data.email, name: res.data.name });
       }
     })
     .catch((error) => {

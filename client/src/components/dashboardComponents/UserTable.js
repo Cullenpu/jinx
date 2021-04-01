@@ -31,6 +31,11 @@ class UserTable extends React.Component {
   };
 
   toggle = (modalType) => () => {
+    // Remove status msg
+    this.setState({
+      statusMsg: ""
+    })
+
     if (!modalType) {
       return this.setState({
         modal: !this.state.modal,

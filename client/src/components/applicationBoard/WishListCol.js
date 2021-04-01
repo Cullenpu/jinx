@@ -16,6 +16,7 @@ const WishListCol = ({ companies }) => {
         companies.map((company) => {
           return (
             <CompanyCard
+              column="wishlist"
               company={company.company}
               role={company.role}
               date={company.createdAt}

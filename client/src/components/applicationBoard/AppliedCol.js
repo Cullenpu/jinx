@@ -16,6 +16,7 @@ const AppliedCol = ({ companies }) => {
         companies.map((company) => {
           return (
             <CompanyCard
+              column="applied"
               company={company.company}
               role={company.role}
               date={company.createdAt}

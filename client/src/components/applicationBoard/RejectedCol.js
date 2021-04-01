@@ -16,6 +16,7 @@ const RejectedCol = ({ companies }) => {
         companies.map((company) => {
           return (
             <CompanyCard
+              column="rejected"
               company={company.company}
               role={company.role}
               date={company.createdAt}

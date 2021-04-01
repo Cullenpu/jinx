@@ -3,12 +3,25 @@ import { FaEdit } from "react-icons/fa";
 import { Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
 import {formatDate} from "utils/date.js";
 
-const CompanyCard = ({ company, role, date }) => {
+const CompanyCard = ({ column, company, role, date }) => {
+  let color;
+  if (column === "wishlist") {
+    color = "primary"
+  } else if (column === "applied") {
+    color = "secondary"
+  } else if (column === "interviewing") {
+    color = "info"
+  } else if (column === "offer") {
+    color = "success"
+  } else if (column === "rejected") {
+    color = "danger"
+  }
+
   return (
     <div className="pb-3">
       <Card
         inverse
-        className={`border-0 bg-gradient-success`}
+        className={`border-0 bg-gradient-${color}`}
         style={{
           height: 150,
         }}

@@ -16,6 +16,7 @@ const InterviewCol = ({ companies }) => {
         companies.map((company) => {
           return (
             <CompanyCard
+              column="interviewing"
               company={company.company}
               role={company.role}
               date={company.createdAt}

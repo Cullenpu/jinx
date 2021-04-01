@@ -16,6 +16,7 @@ const OfferCol = ({ companies }) => {
         companies.map((company) => {
           return (
             <CompanyCard
+              column="offer"
               company={company.company}
               role={company.role}
               date={company.createdAt}

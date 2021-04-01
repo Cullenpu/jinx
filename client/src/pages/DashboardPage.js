@@ -1,7 +1,7 @@
 import UserTable from "components/dashboardComponents/UserTable";
 import Page from "components/Page";
 import React from "react";
-import { Col, Row } from "reactstrap";
+import {Col, Row} from "reactstrap";
 
 class DashboardPage extends React.Component {
   componentDidMount() {
@@ -13,11 +13,11 @@ class DashboardPage extends React.Component {
       <Page
         className="DashboardPage"
         title="Dashboard"
-        breadcrumbs={[{ name: "Dashboard", active: true }]}
+        breadcrumbs={[{name: "Dashboard", active: true}]}
       >
         <Row>
           <Col>
-            <UserTable />
+            <UserTable app={this.props.app}/>
           </Col>
         </Row>
       </Page>

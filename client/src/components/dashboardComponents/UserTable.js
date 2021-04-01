@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
+import {signup} from "../authComponents/authFunctions";
 
 class UserTable extends React.Component {
   state = {
@@ -20,6 +21,10 @@ class UserTable extends React.Component {
     modal_nested_parent: false,
     modal_nested: false,
     backdrop: true,
+
+    email: "",
+    password: "",
+    name: "",
   };
 
   toggle = (modalType) => () => {
@@ -34,76 +39,98 @@ class UserTable extends React.Component {
     });
   };
 
+  // Save the changes to the db
+  saveChanges = (event) => {
+    event.preventDefault()
+    const credentials = {
+      email: this.state.email,
+      password: this.state.password,
+      name: this.state.name,
+    }
+    signup(credentials, this.props.app)
+  }
+
+  // Handle input changes
+  handleInputChange = (event) => {
+    const target = event.target
+    const value = target.value
+    const name = target.name
+
+    this.setState({
+      [name]: value
+    })
+  }
+
   render() {
     return (
       <Card>
         <CardHeader>
           User Table{" "}
           <small className="text-muted text-capitalize">2020-2021</small>
-          <Button style={{ float: "right" }} onClick={this.toggle()}>
+          <Button style={{float: "right"}} onClick={this.toggle()}>
             Add User
           </Button>
         </CardHeader>
         <Table striped>
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Rating</th>
-              <th>Edit</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Avatar</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Rating</th>
+            <th>Edit</th>
+          </tr>
           </thead>
           <tbody>
-            <UserRow
-              id={123}
-              avatar={yitian}
-              name="Yitian Bitian"
-              email="yz@email.com"
-              rating={10}
-              onClick={this.toggle()}
-            />
-            <UserRow
-              id={234}
-              avatar={yitian}
-              name="Yitian Bitian"
-              email="yz@email.com"
-              rating={10}
-              onClick={this.toggle()}
-            />
-            <UserRow
-              id={345}
-              avatar={yitian}
-              name="Yitian Bitian"
-              email="yz@email.com"
-              rating={10}
-              onClick={this.toggle()}
-            />
-            <UserRow
-              id={456}
-              avatar={yitian}
-              name="Yitian Bitian"
-              email="yz@email.com"
-              rating={10}
-              onClick={this.toggle()}
-            />
-            <UserRow
-              id={567}
-              avatar={yitian}
-              name="Yitian Bitian"
-              email="yz@email.com"
-              rating={10}
-              onClick={this.toggle()}
-            />
-            <UserRow
-              id={678}
-              avatar={yitian}
-              name="Yitian Bitian"
-              email="yz@email.com"
-              rating={10}
-              onClick={this.toggle()}
-            />
+          <UserRow
+            id={123}
+            avatar={yitian}
+            name="Yitian Bitian"
+            email="yz@email.com"
+            rating={10}
+            onClick={this.toggle()}
+          />
+          <UserRow
+            id={234}
+            avatar={yitian}
+            name="Yitian Bitian"
+            email="yz@email.com"
+            rating={10}
+            onClick={this.toggle()}
+          />
+          <UserRow
+            id={345}
+            avatar={yitian}
+            name="Yitian Bitian"
+            email="yz@email.com"
+            rating={10}
+            onClick={this.toggle()}
+          />
+          <UserRow
+            id={456}
+            avatar={yitian}
+            name="Yitian Bitian"
+            email="yz@email.com"
+            rating={10}
+            onClick={this.toggle()}
+          />
+          <UserRow
+            id={567}
+            avatar={yitian}
+            name="Yitian Bitian"
+            email="yz@email.com"
+            rating={10}
+            onClick={this.toggle()}
+          />
+          <UserRow
+            id={678}
+            avatar={yitian}
+            name="Yitian Bitian"
+            email="yz@email.com"
+            rating={10}
+            onClick={this.toggle()}
+          />
           </tbody>
         </Table>
         <Modal
@@ -113,10 +140,14 @@ class UserTable extends React.Component {
         >
           <ModalHeader toggle={this.toggle()}>User</ModalHeader>
           <ModalBody>
-            <UserModalBody />
+            <UserModalBody email={this.state.email} password={this.state.password} name={this.state.name}
+                           handleChange={this.handleInputChange}/>
           </ModalBody>
+          <h1>{this.state.email}</h1>
+          <h1>{this.state.password}</h1>
+          <h1>{this.state.name}</h1>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle()}>
+            <Button color="primary" onClick={this.saveChanges}>
               Save Changes
             </Button>{" "}
             <Button color="secondary" onClick={this.toggle()}>

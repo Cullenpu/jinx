@@ -3,8 +3,9 @@ import React from "react";
 import {Col, Form, FormGroup, FormText, Input, Label} from "reactstrap";
 
 class UserModalBody extends React.Component {
-
   render() {
+    const {email, password, name, handleChange} = this.props;
+
     return (
       <Form>
         <FormGroup row>
@@ -24,17 +25,31 @@ class UserModalBody extends React.Component {
             Name
           </Label>
           <Col sm={10}>
-            <Input type="name" name="name" placeholder="Yitian Bitian"/>
+            <Input
+              type="name"
+              name="name"
+              placeholder="Yitian Bitian"
+              value={name}
+              onChange={handleChange}
+            />
           </Col>
         </FormGroup>
+
         <FormGroup row>
           <Label for="exampleEmail" sm={2}>
             Email
           </Label>
           <Col sm={10}>
-            <Input type="email" name="email" placeholder="yz@email.com"/>
+            <Input
+              type="email"
+              name="email"
+              placeholder="yz@email.com"
+              value={email}
+              onChange={handleChange}
+            />
           </Col>
         </FormGroup>
+
         <FormGroup row>
           <Label for="examplePassword" sm={2}>
             Password
@@ -44,6 +59,8 @@ class UserModalBody extends React.Component {
               type="password"
               name="password"
               placeholder="Windsor is cool"
+              value={password}
+              onChange={handleChange}
             />
           </Col>
         </FormGroup>

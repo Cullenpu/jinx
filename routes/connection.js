@@ -44,35 +44,39 @@ router.post('/', mongoChecker, (req, res, next) => {
   })
 })
 
-// Get all applications in db
+// Get all the people this user follows
 router.get('/:id', mongoChecker, (req, res) => {
-  Application.find({userId: req.params.id}).populate({ path: "userId", model: User })
-    .then((application) => {
-      if (!application) {
+  Connection.find({requesterId: req.params.id})
+    .populate({ path: "requesterId", model: User })
+    .populate({ path: "followedId", model: User })
+    .then((connection) => {
+      if (!connection) {
         res.status(404).send("App Not Found");
       } else {
-        res.send(application);
+        res.send(connection);
       }
     });
 })
 
 router.get('/', mongoChecker, (req, res) => {
-	Application.find().populate({ path: "userId", model: User })
-    .exec((err,application) => {
+  Connection.find()
+    .populate({ path: "requesterId", model: User })
+    .populate({ path: "followedId", model: User })
+    .exec((err,connection) => {
     if(err) throw err;
-    if(application) {
-        res.send(application)
+    if(connection) {
+        res.send(connection)
     }
   })
 })
 
-// Delete all applications in db
+// Delete all connections in db
 router.delete("/", mongoChecker, (req, res) => {
-  Application.remove({}).then((application) => {
-    if (!application) {
+  Connection.remove({}).then((Connection) => {
+    if (!Connection) {
       res.status(404).send("Application Not Found");
     } else {
-      res.send(application);
+      res.send(Connection);
     }
   });
 });

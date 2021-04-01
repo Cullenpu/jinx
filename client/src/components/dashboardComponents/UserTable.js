@@ -13,6 +13,7 @@ import {
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 import {signup} from "../authComponents/authFunctions";
+const log = console.log
 
 class UserTable extends React.Component {
   state = {

@@ -1,10 +1,10 @@
 import yitian from "assets/img/users/yitian.png";
 import React from "react";
-import {Col, Form, FormGroup, FormText, Input, Label} from "reactstrap";
+import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 class UserModalBody extends React.Component {
   render() {
-    const {email, password, name, handleChange} = this.props;
+    const { email, password, name, phone, role, handleChange } = this.props;
 
     return (
       <Form>
@@ -16,19 +16,19 @@ class UserModalBody extends React.Component {
             <img
               src={yitian}
               alt="Avatar"
-              style={{borderRadius: "50%", width: "50px"}}
+              style={{ borderRadius: "50%", width: "50px" }}
             />
           </Col>
         </FormGroup>
         <FormGroup row>
           <Label for="exampleName" sm={2}>
-            Name
+            Name*
           </Label>
           <Col sm={10}>
             <Input
               type="name"
               name="name"
-              placeholder="Yitian Bitian"
+              placeholder="First Last"
               value={name}
               onChange={handleChange}
             />
@@ -37,13 +37,13 @@ class UserModalBody extends React.Component {
 
         <FormGroup row>
           <Label for="exampleEmail" sm={2}>
-            Email
+            Email*
           </Label>
           <Col sm={10}>
             <Input
               type="email"
               name="email"
-              placeholder="yz@email.com"
+              placeholder="your@email.com"
               value={email}
               onChange={handleChange}
             />
@@ -52,33 +52,48 @@ class UserModalBody extends React.Component {
 
         <FormGroup row>
           <Label for="examplePassword" sm={2}>
-            Password
+            Password*
           </Label>
           <Col sm={10}>
             <Input
               type="password"
               name="password"
-              placeholder="Windsor is cool"
+              placeholder="your password"
               value={password}
               onChange={handleChange}
             />
           </Col>
         </FormGroup>
+
         <FormGroup row>
-          <Label for="exampleText" sm={2}>
-            Bio
+          <Label for="phone" sm={2}>
+            Phone
           </Label>
           <Col sm={10}>
-            <Input type="textarea" name="text"/>
+            <Input
+              type="phone"
+              name="phone"
+              placeholder="000-000-0000"
+              value={phone}
+              onChange={handleChange}
+            />
           </Col>
         </FormGroup>
+
         <FormGroup row>
-          <Label for="exampleFile" sm={2}>
-            Resume
+          <Label for="select" sm={2}>
+            Role*
           </Label>
           <Col sm={10}>
-            <Input type="file" name="file"/>
-            <FormText color="muted">Add a new resume for this user.</FormText>
+            <Input
+              type="select"
+              name="role"
+              onChange={handleChange}
+            >
+              <option value=""></option>
+              <option value="admin">Admin</option>
+              <option value="applicant">Applicant</option>
+            </Input>
           </Col>
         </FormGroup>
       </Form>

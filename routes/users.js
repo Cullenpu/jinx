@@ -4,7 +4,7 @@ const express = require("express");
 
 const { User } = require("../models/User");
 
-const { isMongoError, mongoChecker } = require("./utils");
+const { isMongoError, mongoChecker, authenticate } = require("./utils");
 
 const router = express.Router();
 
@@ -46,6 +46,8 @@ router.post("/", mongoChecker, (req, res) => {
     email: req.body.email,
     password: req.body.password,
     name: req.body.name,
+    role: req.body.role,
+    phone: req.body.phone,
   });
 
   newUser
@@ -64,7 +66,6 @@ router.post("/", mongoChecker, (req, res) => {
 
 // Get all users
 router.get("/", mongoChecker, (req, res) => {
-  console.log(req.session);
   res.send({ user: req.session.user });
 });
 

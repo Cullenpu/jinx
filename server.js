@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const mongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo");
 
 // DB imports
 const { mongoose } = require("./db/mongoose");
@@ -16,14 +16,9 @@ const companies = require("./routes/companies");
 const posting = require("./routes/posting");
 const applications = require("./routes/applications");
 
+const app = express();
 
 const env = process.env.NODE_ENV;
-
-const USE_TEST_USER = env !== "production" && process.env.TEST_USER_ON; // Option to turn on the test user
-const TEST_USER_ID = "";
-const TEST_USER_EMAIL = "";
-
-const app = express();
 if (env !== "production") {
   // Enable CORS if in development, for React local development server to connect to the web server
   app.use(cors());

@@ -25,6 +25,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["admin", "applicant"],
+    required: true,
+  },
   phone: {
     type: String,
     required: false,
@@ -37,7 +42,7 @@ const UserSchema = new mongoose.Schema({
   status: String,
 });
 
-UserSchema.set('timestamps', true);
+UserSchema.set("timestamps", true);
 
 // Runs immediately prior to saving the document in the database.
 UserSchema.pre("save", function (next) {
@@ -78,7 +83,7 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
   });
 };
 
-UserSchema.set('timestamps', true);
+UserSchema.set("timestamps", true);
 
 const User = mongoose.model("User", UserSchema);
 module.exports = { User };

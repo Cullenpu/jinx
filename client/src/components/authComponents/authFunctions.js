@@ -63,9 +63,9 @@ export const logout = (app) => {
     .get(url)
     .then((res) => {
       app.setState({
+        id: null,
         email: null,
         name: null,
-        message: { type: "", body: "" },
       });
     })
     .catch((error) => {

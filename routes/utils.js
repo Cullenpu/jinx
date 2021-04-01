@@ -47,10 +47,8 @@ const authenticate = (req, res, next) => {
   // } else {
   //   res.status(401).send("Unauthorized");
   // }
-  console.log(req)
   User.findById(req.body.id)
     .then((user) => {
-      console.log(user)
       if (user.role !== "admin") {
         res.status(401).send("Unauthorized");
       } else {

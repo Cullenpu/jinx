@@ -15,9 +15,10 @@ const FeedPage = () => {
       breadcrumbs={[{ name: "feed", active: true }]}
     >
       <VerticalTimeline layout="1-column">
-        {feedItems.map((feed) => {
+        {feedItems.map((feed, index) => {
           return (
             <VerticalTimelineElement
+              key={index}
               className="vertical-timeline-element--work"
               contentStyle={{
                 background: feed.textBackgroundColor,

@@ -1,9 +1,7 @@
+import { logout } from "components/authComponents/authFunctions";
 import Avatar from "components/Avatar";
 import { UserCard } from "components/Card";
-import Notifications from "components/Notifications";
 import SearchInput from "components/SearchInput";
-import { notificationsData } from "demos/header";
-import headerNotification from "./headerNotification";
 import React from "react";
 import {
   MdClearAll,
@@ -11,8 +9,6 @@ import {
   MdHelp,
   MdInsertChart,
   MdMessage,
-  MdNotificationsActive,
-  MdNotificationsNone,
   MdPersonPin,
   MdSettingsApplications,
 } from "react-icons/md";
@@ -30,22 +26,20 @@ import {
 } from "reactstrap";
 import bn from "utils/bemnames";
 
-import { logout } from "components/authComponents/authFunctions";
-
 const bem = bn.create("header");
 
-const HeaderNotification = headerNotification({
-  size: "md",
-  color: "primary",
-  style: {
-    top: -10,
-    right: -10,
-    display: "inline-flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  children: <small>5</small>,
-})(MdNotificationsActive);
+// const HeaderNotification = headerNotification({
+//   size: "md",
+//   color: "primary",
+//   style: {
+//     top: -10,
+//     right: -10,
+//     display: "inline-flex",
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   children: <small>5</small>,
+// })(MdNotificationsActive);
 
 class Header extends React.Component {
   state = {
@@ -78,7 +72,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { isNotificationConfirmed } = this.state;
+    // const { isNotificationConfirmed } = this.state;
     const app = this.props.app;
     const user = this.props.app.state;
 

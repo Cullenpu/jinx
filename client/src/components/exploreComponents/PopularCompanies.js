@@ -16,6 +16,7 @@ const PopularCompanies = ({ companies }) => {
           companies.map(({ name, description, background, logo }, index) => {
             return (
               <ExploreCell
+                key={index}
                 name={name}
                 description={description}
                 background={background}

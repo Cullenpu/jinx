@@ -102,7 +102,7 @@ class UserTable extends React.Component {
   };
 
   render() {
-    const users = []
+    const users = [];
     console.log(users);
 
     return (
@@ -151,7 +151,6 @@ class UserTable extends React.Component {
               password={this.state.password}
               name={this.state.name}
               phone={this.state.phone}
-              role={this.state.role}
               handleChange={this.handleInputChange}
             />
           </ModalBody>

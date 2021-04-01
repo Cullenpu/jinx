@@ -4,7 +4,7 @@ import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 class UserModalBody extends React.Component {
   render() {
-    const { email, password, name, phone, role, handleChange } = this.props;
+    const { email, password, name, phone, handleChange } = this.props;
 
     return (
       <Form>

@@ -47,7 +47,7 @@ router.post('/', mongoChecker, (req, res, next) => {
 
 		fetchLogo().then(function(result) {
 			const posting = new Posting({
-				companyId: req.body.companyId,
+				companyName: req.body.companyName,
 				link: req.body.link,
 				companyLogo: result,
 				location: req.body.location,

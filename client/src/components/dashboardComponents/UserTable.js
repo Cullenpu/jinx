@@ -88,6 +88,8 @@ class UserTable extends React.Component {
         this.setState({
           statusMsg: "User created!",
         });
+        // Update the users table again
+        this.getUsers()
       }
     });
   };
@@ -103,10 +105,13 @@ class UserTable extends React.Component {
     });
   };
 
-  render() {
+  componentDidMount() {
     // Initialize the table
     this.getUsers()
+  }
 
+
+  render() {
     return (
       <Card>
         <CardHeader>

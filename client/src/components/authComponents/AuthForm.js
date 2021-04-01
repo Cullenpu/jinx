@@ -9,6 +9,7 @@ class AuthForm extends React.Component {
     email: "",
     password: "",
     name: "",
+    statusMsg: "",
   };
 
   handleLogin = (event) => {
@@ -17,7 +18,15 @@ class AuthForm extends React.Component {
       email: this.state.email,
       password: this.state.password,
     };
-    login(credentials, this.props.app);
+
+    const result = login(credentials, this.props.app);
+    result.then((a) => {
+      if (!a) {
+        this.setState({
+          statusMsg: "Invalid email/password combination.",
+        });
+      }
+    });
   };
 
   handleSignup = (event) => {
@@ -27,7 +36,20 @@ class AuthForm extends React.Component {
       password: this.state.password,
       name: this.state.name,
     };
-    signup(credentials, this.props.app);
+    const result = signup(credentials, this.props.app);
+
+    // Get result of the promise
+    result.then((a) => {
+      if (!a) {
+        this.setState({
+          statusMsg: "Please enter valid inputs!",
+        });
+      } else {
+        this.setState({
+          statusMsg: "Successfully signed up! Please log in.",
+        });
+      }
+    });
   };
 
   render() {
@@ -95,6 +117,7 @@ class AuthForm extends React.Component {
               {signup ? "Login" : "Signup"}
             </a>
           </h6>
+          {this.state.statusMsg}
         </div>
       </Form>
     );

@@ -8,10 +8,6 @@ const mongoStore = require("connect-mongo");
 
 // DB imports
 const { mongoose } = require("./db/mongoose");
-const { User } = require("./models/User");
-const { Company } = require("./models/Company");
-const { Posting } = require("./models/Posting");
-const { Application } = require("./models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
 // Routes

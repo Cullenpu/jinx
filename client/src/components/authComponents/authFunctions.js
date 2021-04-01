@@ -15,7 +15,11 @@ export const checkSession = (app) => {
       .get(url)
       .then((res) => {
         if (res.status === 200 && res.data.email) {
-          app.setState({ email: res.data.email, name: res.data.name });
+          app.setState({
+            id: res.data.id,
+            email: res.data.email,
+            name: res.data.name,
+          });
         }
       })
       .catch((error) => {
@@ -23,7 +27,7 @@ export const checkSession = (app) => {
       });
   } else {
     console.log("Using test user!");
-    app.setState({ email: ENV.email, name: ENV.name });
+    app.setState({ id: ENV.id, email: ENV.email, name: ENV.name });
   }
 };
 
@@ -31,15 +35,23 @@ export const checkSession = (app) => {
 export const login = (credentials, app) => {
   const url = `${API_HOST}/users/login`;
 
-  axios
+  return axios
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
-        app.setState({ email: res.data.email, name: res.data.name });
+        app.setState({
+          id: res.data.id,
+          email: res.data.email,
+          name: res.data.name,
+        });
+        return true;
+      } else {
+        return false;
       }
     })
     .catch((error) => {
       console.log(error);
+      return false;
     });
 };
 
@@ -69,12 +81,12 @@ export const signup = (credentials, app) => {
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
-        app.setState({ email: res.data.email, name: res.data.name });
-        return 0
+        // app.setState({ email: res.data.email, name: res.data.name });
+        return true;
       }
     })
     .catch((error) => {
       console.log(error);
-      return -1
+      return false;
     });
 };

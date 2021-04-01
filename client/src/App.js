@@ -1,12 +1,12 @@
-import {EmptyLayout, LayoutRoute, MainLayout} from "./components/Layout";
+import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AuthPage from "pages/AuthPage";
 import React from "react";
 import componentQueries from "react-component-queries";
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./styles/reduction.scss";
 
-import {checkSession} from "components/authComponents/authFunctions";
+import { checkSession } from "components/authComponents/authFunctions";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
@@ -24,10 +24,10 @@ class App extends React.Component {
     checkSession(this);
   }
 
-  state = {email: null, name: null};
+  state = { id: null, email: null, name: null };
 
   render() {
-    const {email} = this.state;
+    const { email } = this.state;
 
     return (
       <BrowserRouter basename={getBasename()}>
@@ -37,57 +37,61 @@ class App extends React.Component {
               exact
               path={["/", "/login"]}
               layout={EmptyLayout}
-              component={(props) => <AuthPage app={this}/>}
+              component={(props) => <AuthPage app={this} />}
             />
           ) : (
             <MainLayout breakpoint={this.props.breakpoint} app={this}>
-              <React.Suspense fallback={<PageSpinner/>}>
-                <Route exact path="/" component={(props) => <DashboardPage app={this}/>}/>
+              <React.Suspense fallback={<PageSpinner />}>
+                <Route
+                  exact
+                  path="/"
+                  component={(props) => <DashboardPage app={this} />}
+                />
                 <Route
                   exact
                   path="/companies-modal"
                   component={AddCompaniesModal}
                 />
-                <Route exact path="/feed" component={FeedPage}/>
+                <Route exact path="/feed" component={FeedPage} />
                 <Route
                   exact
                   path="/applications"
                   component={ApplicationsPage}
                 />
-                <Route exact path="/explore" component={ExplorePage}/>
-                <Route exact path="/contacts" component={ContactsPage}/>
+                <Route exact path="/explore" component={ExplorePage} />
+                <Route exact path="/contacts" component={ContactsPage} />
               </React.Suspense>
             </MainLayout>
           )}
-          <Redirect to="/"/>)
+          <Redirect to="/" />)
         </Switch>
       </BrowserRouter>
     );
   }
 }
 
-const query = ({width}) => {
+const query = ({ width }) => {
   if (width < 575) {
-    return {breakpoint: "xs"};
+    return { breakpoint: "xs" };
   }
 
   if (576 < width && width < 767) {
-    return {breakpoint: "sm"};
+    return { breakpoint: "sm" };
   }
 
   if (768 < width && width < 991) {
-    return {breakpoint: "md"};
+    return { breakpoint: "md" };
   }
 
   if (992 < width && width < 1199) {
-    return {breakpoint: "lg"};
+    return { breakpoint: "lg" };
   }
 
   if (width > 1200) {
-    return {breakpoint: "xl"};
+    return { breakpoint: "xl" };
   }
 
-  return {breakpoint: "xs"};
+  return { breakpoint: "xs" };
 };
 
 export default componentQueries(query)(App);

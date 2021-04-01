@@ -7,6 +7,7 @@ const dev = {
   env: "development",
   api_host: "http://localhost:5000", // web server localhost port
   use_frontend_test_user: true, // for testing a logged in frontend only, without any actual logging in, set to true (note that the test user will have to be turned on in the backend if you want to make authenticated requests).
+  id: "HARDCODE",
   email: "test@jinx.com",
   name: "Test User"
 };

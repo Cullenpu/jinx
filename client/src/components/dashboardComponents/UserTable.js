@@ -59,8 +59,7 @@ class UserTable extends React.Component {
 
     // Get result of the promise
     result.then((a) => {
-      // -1 means not added sucessfully
-      if (a === -1) {
+      if (!a) {
         this.setState({
           statusMsg: "Please enter valid inputs!"
         })

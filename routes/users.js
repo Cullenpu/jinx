@@ -19,7 +19,7 @@ router.post("/login", mongoChecker, (req, res) => {
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
       req.session.email = user.email;
-      res.send({ email: user.email });
+      res.send({ id: user._id, email: user.email, name: user.name });
     })
     .catch((error) => {
       console.log(error);
@@ -51,8 +51,6 @@ router.post("/", mongoChecker, (req, res) => {
   newUser
     .save()
     .then(() => {
-      req.session.user = newUser._id;
-      req.session.email = newUser.email;
       res.send(newUser);
     })
     .catch((error) => {
@@ -65,26 +63,24 @@ router.post("/", mongoChecker, (req, res) => {
 });
 
 // Get all users
-router.get('/', mongoChecker, (req, res) => {
-
+router.get("/", mongoChecker, (req, res) => {
   console.log(req.session);
-  res.send({user: req.session.user});
-})
+  res.send({ user: req.session.user });
+});
 
 // Get all users
-router.get('/all', mongoChecker, (req, res) => {
-
-	User.find()
-  .then((user) => {
-    res.send({ user });
-  })
-  .catch((error) => {
-    if (isMongoError(error)) {
-      res.status(500).send("Internal server error");
-    } else {
-      res.status(404).send("Not Found");
-    }
-  });
-})
+router.get("/all", mongoChecker, (req, res) => {
+  User.find()
+    .then((user) => {
+      res.send({ user });
+    })
+    .catch((error) => {
+      if (isMongoError(error)) {
+        res.status(500).send("Internal server error");
+      } else {
+        res.status(404).send("Not Found");
+      }
+    });
+});
 
 module.exports = router;

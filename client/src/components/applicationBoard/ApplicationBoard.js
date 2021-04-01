@@ -11,30 +11,7 @@ import OfferCol from "./OfferCol";
 import RejectedCol from "./RejectedCol";
 import CompanyModalBody from "./CompanyModalBody";
 
-const wishlist = [
-  {
-    company: "Google",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "success",
-  },
-  {
-    company: "Facebook",
-    title: "Software Developer Intern",
-    date: "March 1, 2021",
-    color: "info",
-  },
-];
-
 class ApplicationsBoard extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.setState({
-      applications: props.applicationList,
-      wishlist: props.wishlist
-    })
-  }
 
   state = {
     modal: false,

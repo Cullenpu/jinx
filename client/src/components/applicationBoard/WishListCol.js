@@ -14,7 +14,6 @@ const WishListCol = ({ companies }) => {
       </div>
       {companies &&
         companies.map((company) => {
-          console.log(company);
           return (
             <CompanyCard
               company={company.company}

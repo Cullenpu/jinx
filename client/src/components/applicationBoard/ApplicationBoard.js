@@ -40,7 +40,7 @@ class ApplicationsBoard extends React.Component {
 
   handleSubmit(event) {
     axios.post('http://localhost:5000/applications', {
-      userId: '6064afaf0479d00f99790b69',
+      userId: this.props.app.state.id,
       company: this.state.inputCompany,
       role: this.state.inputRole,
       status: this.state.inputStatus

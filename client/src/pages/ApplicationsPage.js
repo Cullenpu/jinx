@@ -6,9 +6,8 @@ import axios from 'axios';
 import { set } from "react-ga";
 
 
-const ApplicationsPage = () => {
+const ApplicationsPage = ({ app }) => {
   const [ isLoading, setIsLoading ] = useState(true);
-  const [userId, setUserId] = useState('6064afaf0479d00f99790b69');
   const [applications, setApplications] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [applied, setApplied] = useState([]);
@@ -19,7 +18,7 @@ const ApplicationsPage = () => {
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
-      await axios.get(`http://localhost:5000/applications/${userId}`)
+      await axios.get(`http://localhost:5000/applications/${app.state.id}`)
       .then(res => {
         setApplications(res.data);
         setWishlist(res.data.filter(app => app.status === "Wishlist"));
@@ -42,6 +41,7 @@ const ApplicationsPage = () => {
       <Row className="pt-3">
         <Col>
           <ApplicationBoard 
+            app={app}
             applicationList={applications} 
             wishlist={wishlist} 
             applied={applied} 

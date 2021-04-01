@@ -56,7 +56,7 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/applications"
-                  component={ApplicationsPage}
+                  component={(props) => <ApplicationsPage app={this} />}
                 />
                 <Route exact path="/explore" component={ExplorePage} />
                 <Route exact path="/contacts" component={ContactsPage} />

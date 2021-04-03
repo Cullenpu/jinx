@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { Button, Card, CardBody, CardText, CardTitle,  Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Row, Col, Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
 import {formatDate} from "utils/date.js";
 
-const CompanyCard = ({ column, applicationId, company, role, date }) => {
+const CompanyCard = ({ column, companyData, applicationId, company, role, date }) => {
   let color;
   if (column === "wishlist") {
     color = "primary"
@@ -23,26 +23,48 @@ const CompanyCard = ({ column, applicationId, company, role, date }) => {
         inverse
         className={`border-0 bg-gradient-${color}`}
         style={{
-          height: 150,
+          height: 120,
         }}
       >
         <CardBody
           className="d-flex flex-column justify-content-start align-items-start"
           style={{ paddingBottom: "0" }}
         >
-          <CardTitle className="h5">{company}</CardTitle>
-          <CardText>
-            <small>{role}</small>
-          </CardText>
+          <Row className="align-content-md-start">
+            <Col md="auto">
+              {companyData.companyLogo ? (
+                <img
+                  src={companyData.companyLogo}
+                  style={{
+                    borderRadius: 5,
+                    objectFit: "cover",
+                    width: "55px",
+                    height: "55px",
+                  }}
+              />
+              ) : null}
+            </Col>
+            <Col>
+              <CardText className="font-weight-bolder">
+                {company}
+              </CardText>
+              <CardText style={{ marginTop: '-20px'}}>
+                <small>{role}</small>
+              </CardText>
+              <CardText style={{ marginTop: '-20px'}}>
+                <small>{formatDate(date)}</small>
+              </CardText>
+            </Col>
+          </Row>
         </CardBody>
         <CardBody
           className="d-flex justify-content-between align-items-center"
-          style={{ paddingTop: "0" }}
+          style={{ marginTop: "-30px" }}
         >
           <CardText style={{ fontSize: "15px" }}>
-            <small>{formatDate(date)}</small>
+            <small>{companyData.notes ? `*${companyData.notes}` : null}</small>
           </CardText>
-          <Button size="sm" outline color="light" onClick={() => { window.location.href = `/application/${applicationId}/edit`}}>
+          <Button style={{ marginTop: '-25px' }} size="sm" outline color="light" onClick={() => { window.location.href = `/application/${applicationId}/edit`}}>
             <small>
               <FaEdit />
             </small>

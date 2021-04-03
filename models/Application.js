@@ -12,9 +12,24 @@ const ApplicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  companyLogo: {
+    type: String,
+  },
   role: {
     type: String,
     required: true,
+  },
+  referral: {
+    type: String,
+    required: false,
+  },
+  link: {
+    type: String,
+    required: false,
+  },
+  notes: {
+    type: String,
+    required: false,
   },
   postingId: {
     type: mongoose.Schema.Types.ObjectId,

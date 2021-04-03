@@ -19,6 +19,7 @@ const InterviewCol = ({ companies }) => {
               column="interviewing"
               applicationId={company._id}
               company={company.company}
+              companyData={company}
               role={company.role}
               date={company.createdAt}
             />

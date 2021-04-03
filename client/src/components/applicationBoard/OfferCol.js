@@ -19,6 +19,7 @@ const OfferCol = ({ companies }) => {
               column="offer"
               applicationId={company._id}
               company={company.company}
+              companyData={company}
               role={company.role}
               date={company.createdAt}
             />

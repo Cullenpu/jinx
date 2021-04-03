@@ -60,7 +60,7 @@ router.get('/:id', mongoChecker, (req, res) => {
 
 // Get application in db with spp id
 router.get('/single/:id', mongoChecker, (req, res) => {
-  Application.find({_id: req.params.id}).populate({ path: "userId", model: User })
+  Application.findOne({_id: req.params.id}).populate({ path: "userId", model: User })
     .then((application) => {
       if (!application) {
         res.status(404).send("App Not Found");
@@ -68,6 +68,40 @@ router.get('/single/:id', mongoChecker, (req, res) => {
         res.send(application);
       }
     });
+})
+
+router.patch('/:id', mongoChecker, (req, res, next) => {
+  try {
+    const promiseLogo = () => {
+			return new Promise((resolve, reject) => {
+				websiteLogo( req.body.link, function( error, info ) {
+					if (info && info.openGraph[0].href) {
+						resolve(info.openGraph[0].href);
+					} else {
+						resolve(null);
+					}
+				})
+			})
+		}
+	
+		const fetchLogo = async () => {
+			const result = await promiseLogo();
+			return result;
+		}
+
+		fetchLogo().then(function(result) {
+			Application.findOneAndUpdate({_id: req.params.id}, {$set: {... req.body, companyLogo: result }})
+      .then((application) => {
+        if (!application) {
+          res.status(404).send("App Not Found");
+        } else {
+          res.send(application);
+        }
+      });
+			})
+  } catch (e) {
+    next(e)
+  }
 })
 
 router.get('/', mongoChecker, (req, res) => {

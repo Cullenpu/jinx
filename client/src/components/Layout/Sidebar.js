@@ -2,21 +2,18 @@ import logo200Image from "assets/img/logo/jinx_logo.svg";
 import sidebarBgImage from "assets/img/sidebar/sidebar.jpg";
 import React from "react";
 import {
-  MdAccountCircle,
   MdContacts,
   MdDashboard,
   MdInsertChart,
   MdStore,
-  MdWeb,
+  MdWeb
 } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import {
-  // UncontrolledTooltip,
-  Collapse,
   Nav,
   Navbar,
   NavItem,
-  NavLink as BSNavLink,
+  NavLink as BSNavLink
 } from "reactstrap";
 import bn from "utils/bemnames";
 

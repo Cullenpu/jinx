@@ -1,4 +1,6 @@
 import yitian from "assets/img/users/yitian.png";
+import axios from "axios";
+import ENV from "config.js";
 import React from "react";
 import {
   Button,
@@ -10,11 +12,9 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
+import {signup} from "../authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
-import {signup} from "../authComponents/authFunctions";
-
-const log = console.log
 
 class UserTable extends React.Component {
   state = {
@@ -27,17 +27,33 @@ class UserTable extends React.Component {
     email: "",
     password: "",
     name: "",
-    statusMsg: ""
+    phone: "",
+    role: "",
+    statusMsg: "",
+    users: []
+  };
+
+  getUsers = () => {
+    const API_HOST = ENV.api_host;
+    const app = this.props.app;
+    axios
+      .post(`${API_HOST}/users/all`, {id: app.state.id})
+      .then((res) => {
+        this.setState({
+          users: res.data.user
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   toggle = (modalType) => () => {
     // Remove status msg
     this.setState({
-      statusMsg: ""
-    })
+      statusMsg: "",
+    });
 
     if (!modalType) {
-      return this.setState({
+      this.setState({
         modal: !this.state.modal,
       });
     }
@@ -49,20 +65,31 @@ class UserTable extends React.Component {
 
   // Save the changes to the db
   saveChanges = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const credentials = {
       email: this.state.email,
       password: this.state.password,
       name: this.state.name,
-    }
-    const result = signup(credentials, this.props.app)
+      role: this.state.role,
+    };
 
+    if (this.state.phone) {
+      credentials.phone = this.state.phone;
+    }
+
+    const result = signup(credentials, this.props.app);
     // Get result of the promise
     result.then((a) => {
       if (!a) {
         this.setState({
-          statusMsg: "Please enter valid inputs!"
-        })
+          statusMsg: "Please enter valid inputs!",
+        });
+      } else {
+        this.setState({
+          statusMsg: "User created!",
+        });
+        // Update the users table again
+        this.getUsers()
       }
     })
     window.location.href = '/';
@@ -70,14 +97,20 @@ class UserTable extends React.Component {
 
   // Handle input changes
   handleInputChange = (event) => {
-    const target = event.target
-    const value = target.value
-    const name = target.name
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
 
     this.setState({
-      [name]: value
-    })
+      [name]: value,
+    });
+  };
+
+  componentDidMount() {
+    // Initialize the table
+    this.getUsers()
   }
+
 
   render() {
     return (
@@ -92,63 +125,26 @@ class UserTable extends React.Component {
         <Table striped>
           <thead>
           <tr>
-            <th>ID</th>
             <th>Avatar</th>
             <th>Name</th>
             <th>Email</th>
             <th>Rating</th>
+            <th>Role</th>
             <th>Edit</th>
           </tr>
           </thead>
           <tbody>
-          <UserRow
-            id={123}
-            avatar={yitian}
-            name="Yitian Bitian"
-            email="yz@email.com"
-            rating={10}
-            onClick={this.toggle()}
-          />
-          <UserRow
-            id={234}
-            avatar={yitian}
-            name="Yitian Bitian"
-            email="yz@email.com"
-            rating={10}
-            onClick={this.toggle()}
-          />
-          <UserRow
-            id={345}
-            avatar={yitian}
-            name="Yitian Bitian"
-            email="yz@email.com"
-            rating={10}
-            onClick={this.toggle()}
-          />
-          <UserRow
-            id={456}
-            avatar={yitian}
-            name="Yitian Bitian"
-            email="yz@email.com"
-            rating={10}
-            onClick={this.toggle()}
-          />
-          <UserRow
-            id={567}
-            avatar={yitian}
-            name="Yitian Bitian"
-            email="yz@email.com"
-            rating={10}
-            onClick={this.toggle()}
-          />
-          <UserRow
-            id={678}
-            avatar={yitian}
-            name="Yitian Bitian"
-            email="yz@email.com"
-            rating={10}
-            onClick={this.toggle()}
-          />
+          {this.state.users.map((user) => {
+            return (
+              <UserRow
+                avatar={yitian}
+                name={user.name}
+                email={user.email}
+                rating={10}
+                onClick={this.toggle()}
+              />
+            );
+          })}
           </tbody>
         </Table>
         <Modal
@@ -158,10 +154,15 @@ class UserTable extends React.Component {
         >
           <ModalHeader toggle={this.toggle()}>User</ModalHeader>
           <ModalBody>
-            <UserModalBody email={this.state.email} password={this.state.password} name={this.state.name}
-                           handleChange={this.handleInputChange}/>
+            <UserModalBody
+              email={this.state.email}
+              password={this.state.password}
+              name={this.state.name}
+              phone={this.state.phone}
+              handleChange={this.handleInputChange}
+            />
           </ModalBody>
-          <h3 style={{color: "red", textAlign: "center"}}>{this.state.statusMsg}</h3>
+          <p style={{textAlign: "center"}}>{this.state.statusMsg}</p>
           <ModalFooter>
             <Button color="primary" onClick={this.saveChanges}>
               Save Changes

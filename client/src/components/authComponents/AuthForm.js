@@ -35,6 +35,7 @@ class AuthForm extends React.Component {
       email: this.state.email,
       password: this.state.password,
       name: this.state.name,
+      role: "applicant"
     };
     const result = signup(credentials, this.props.app);
 

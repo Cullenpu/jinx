@@ -4,12 +4,14 @@ const express = require("express");
 
 const { User } = require("../models/User");
 
-const { isMongoError, mongoChecker } = require("./utils");
+const { isMongoError, mongoChecker, authenticate } = require("./utils");
 
 const router = express.Router();
 
+router.use(mongoChecker);
+
 // User login
-router.post("/login", mongoChecker, (req, res) => {
+router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -40,12 +42,14 @@ router.get("/logout", (req, res) => {
 });
 
 // User signup
-router.post("/", mongoChecker, (req, res) => {
+router.post("/", (req, res) => {
   // Create a new user
   const newUser = new User({
     email: req.body.email,
     password: req.body.password,
     name: req.body.name,
+    role: req.body.role,
+    phone: req.body.phone,
   });
 
   newUser
@@ -63,13 +67,12 @@ router.post("/", mongoChecker, (req, res) => {
 });
 
 // Get all users
-router.get("/", mongoChecker, (req, res) => {
-  console.log(req.session);
+router.get("/", (req, res) => {
   res.send({ user: req.session.user });
 });
 
 // Get all users
-router.get("/all", mongoChecker, (req, res) => {
+router.post("/all", authenticate, (req, res) => {
   User.find()
     .then((user) => {
       res.send({ user });

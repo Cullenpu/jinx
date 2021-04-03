@@ -1,13 +1,12 @@
-import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
-import PageSpinner from "./components/PageSpinner";
+import { checkSession } from "components/authComponents/authFunctions";
 import AuthPage from "pages/AuthPage";
 import React from "react";
 import componentQueries from "react-component-queries";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import "./styles/reduction.scss";
-
-import { checkSession } from "components/authComponents/authFunctions";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
+import PageSpinner from "./components/PageSpinner";
 import AddPostingPage from "./pages/AddPosting";
+import "./styles/reduction.scss";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
@@ -36,7 +35,7 @@ class App extends React.Component {
           {!email ? (
             <LayoutRoute
               exact
-              path={["/", "/login"]}
+              path={["/login", "/"]}
               layout={EmptyLayout}
               component={(props) => <AuthPage app={this} />}
             />
@@ -51,22 +50,33 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/companies-modal"
-                  component={AddCompaniesModal}
+                  component={() => <AddCompaniesModal />}
                 />
-                <Route exact path="/feed" component={FeedPage} />
+                <Route exact path="/feed" component={() => <FeedPage />} />
                 <Route
                   exact
                   path="/applications"
                   component={(props) => <ApplicationsPage app={this} />}
                 />
-                <Route exact path="/explore" component={ExplorePage} />
-                <Route exact path="/posting/add" component={(props) => <AddPostingPage app={this} />} />
-                <Route exact path="/contacts" component={(props) => <ContactsPage app={this} />} />
+                <Route
+                  exact
+                  path="/explore"
+                  component={() => <ExplorePage />}
+                />
+                <Route
+                  exact
+                  path="/posting/add"
+                  component={(props) => <AddPostingPage app={this} />}
+                />
+                <Route
+                  exact
+                  path="/contacts"
+                  component={(props) => <ContactsPage app={this} />}
+                />
               </React.Suspense>
             </MainLayout>
           )}
-          {/* <Redirect to="/" /> */}
-          )
+          {/* <Redirect to="/" /> */})
         </Switch>
       </BrowserRouter>
     );

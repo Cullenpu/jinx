@@ -65,6 +65,7 @@ class UserTable extends React.Component {
         })
       }
     })
+    window.location.href = '/';
   }
 
   // Handle input changes

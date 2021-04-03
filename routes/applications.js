@@ -46,9 +46,21 @@ router.post('/', mongoChecker, (req, res, next) => {
   })
 })
 
-// Get all applications in db
+// Get all applications in db for user with id
 router.get('/:id', mongoChecker, (req, res) => {
   Application.find({userId: req.params.id}).populate({ path: "userId", model: User })
+    .then((application) => {
+      if (!application) {
+        res.status(404).send("App Not Found");
+      } else {
+        res.send(application);
+      }
+    });
+})
+
+// Get application in db with spp id
+router.get('/single/:id', mongoChecker, (req, res) => {
+  Application.find({_id: req.params.id}).populate({ path: "userId", model: User })
     .then((application) => {
       if (!application) {
         res.status(404).send("App Not Found");

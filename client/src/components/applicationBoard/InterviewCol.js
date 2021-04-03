@@ -17,6 +17,7 @@ const InterviewCol = ({ companies }) => {
           return (
             <CompanyCard
               column="interviewing"
+              applicationId={company._id}
               company={company.company}
               role={company.role}
               date={company.createdAt}

@@ -7,6 +7,7 @@ import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AddPostingPage from "./pages/AddPosting";
 import "./styles/reduction.scss";
+import EditApplicationPage from "./pages/EditApplication";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
@@ -67,6 +68,11 @@ class App extends React.Component {
                   exact
                   path="/posting/add"
                   component={(props) => <AddPostingPage app={this} />}
+                />
+                <Route
+                  exact
+                  path="/application/:id/edit"
+                  component={(props) => <EditApplicationPage app={this} />}
                 />
                 <Route
                   exact

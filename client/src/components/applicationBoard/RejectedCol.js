@@ -17,6 +17,7 @@ const RejectedCol = ({ companies }) => {
           return (
             <CompanyCard
               column="rejected"
+              applicationId={company._id}
               company={company.company}
               role={company.role}
               date={company.createdAt}

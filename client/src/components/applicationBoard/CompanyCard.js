@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
+import { Button, Card, CardBody, CardText, CardTitle,  Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import {formatDate} from "utils/date.js";
 
-const CompanyCard = ({ column, company, role, date }) => {
+const CompanyCard = ({ column, applicationId, company, role, date }) => {
   let color;
   if (column === "wishlist") {
     color = "primary"
@@ -42,7 +42,7 @@ const CompanyCard = ({ column, company, role, date }) => {
           <CardText style={{ fontSize: "15px" }}>
             <small>{formatDate(date)}</small>
           </CardText>
-          <Button size="sm" outline color="light">
+          <Button size="sm" outline color="light" onClick={() => { window.location.href = `/application/${applicationId}/edit`}}>
             <small>
               <FaEdit />
             </small>

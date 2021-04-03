@@ -17,6 +17,7 @@ const WishListCol = ({ companies }) => {
           return (
             <CompanyCard
               column="wishlist"
+              applicationId={company._id}
               company={company.company}
               role={company.role}
               date={company.createdAt}

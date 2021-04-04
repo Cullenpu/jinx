@@ -90,3 +90,22 @@ export const signup = (credentials, app) => {
       return false;
     });
 };
+
+// Returns 0 on successful database addition, -1 otherwise
+export const edit = (app, userID, op, path, value) => {
+  const url = `${API_HOST}/users/edit/${userID}`;
+
+  const body = [{ "op": op, "path": path, "value": value }]
+  return axios
+    .patch(url, body)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res)
+        return true;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+};

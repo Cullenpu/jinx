@@ -12,7 +12,7 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import {signup} from "../authComponents/authFunctions";
+import {edit, signup} from "../authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 
@@ -111,7 +111,6 @@ class UserTable extends React.Component {
     this.getUsers()
   }
 
-
   render() {
     return (
       <Card>
@@ -141,7 +140,7 @@ class UserTable extends React.Component {
                 name={user.name}
                 email={user.email}
                 rating={10}
-                onClick={this.toggle()}
+                userID={user._id}
               />
             );
           })}

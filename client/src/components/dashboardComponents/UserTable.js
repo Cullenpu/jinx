@@ -12,7 +12,7 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import {edit, signup} from "../authComponents/authFunctions";
+import { signup } from "../authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 
@@ -30,17 +30,17 @@ class UserTable extends React.Component {
     phone: "",
     role: "",
     statusMsg: "",
-    users: []
+    users: [],
   };
 
   getUsers = () => {
     const API_HOST = ENV.api_host;
     const app = this.props.app;
     axios
-      .post(`${API_HOST}/users/all`, {id: app.state.id})
+      .post(`${API_HOST}/users/all`, { id: app.state.id })
       .then((res) => {
         this.setState({
-          users: res.data.user
+          users: res.data.user,
         });
       })
       .catch((err) => console.log(err));
@@ -89,11 +89,11 @@ class UserTable extends React.Component {
           statusMsg: "User created!",
         });
         // Update the users table again
-        this.getUsers()
+        this.getUsers();
       }
-    })
-    window.location.href = '/';
-  }
+    });
+    window.location.href = "/";
+  };
 
   // Handle input changes
   handleInputChange = (event) => {
@@ -108,7 +108,7 @@ class UserTable extends React.Component {
 
   componentDidMount() {
     // Initialize the table
-    this.getUsers()
+    this.getUsers();
   }
 
   render() {
@@ -117,33 +117,34 @@ class UserTable extends React.Component {
         <CardHeader>
           User Table{" "}
           <small className="text-muted text-capitalize">2020-2021</small>
-          <Button style={{float: "right"}} onClick={this.toggle()}>
+          <Button style={{ float: "right" }} onClick={this.toggle()}>
             Add User
           </Button>
         </CardHeader>
         <Table striped>
           <thead>
-          <tr>
-            <th>Avatar</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Rating</th>
-            <th>Role</th>
-            <th>Edit</th>
-          </tr>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Rating</th>
+              <th>Role</th>
+              <th>Edit</th>
+            </tr>
           </thead>
           <tbody>
-          {this.state.users.map((user) => {
-            return (
-              <UserRow
-                avatar={yitian}
-                name={user.name}
-                email={user.email}
-                rating={10}
-                userID={user._id}
-              />
-            );
-          })}
+            {this.state.users.map((user) => {
+              return (
+                <UserRow
+                  avatar={yitian}
+                  name={user.name}
+                  email={user.email}
+                  rating={10}
+                  role={user.role}
+                  userID={user._id}
+                />
+              );
+            })}
           </tbody>
         </Table>
         <Modal
@@ -161,7 +162,7 @@ class UserTable extends React.Component {
               handleChange={this.handleInputChange}
             />
           </ModalBody>
-          <p style={{textAlign: "center"}}>{this.state.statusMsg}</p>
+          <p style={{ textAlign: "center" }}>{this.state.statusMsg}</p>
           <ModalFooter>
             <Button color="primary" onClick={this.saveChanges}>
               Save Changes

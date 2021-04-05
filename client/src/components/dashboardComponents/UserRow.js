@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Input} from "reactstrap";
 import {edit} from "../authComponents/authFunctions";
+import "../../styles/dashboard.css"
 
 class UserRow extends React.Component {
   // Get states from props
@@ -86,7 +87,7 @@ class UserRow extends React.Component {
   }
 
   render() {
-    const {avatar} = this.props;
+    const {avatar, handleRemove} = this.props;
 
     const
       ProfileImage = ({src}) => {
@@ -108,37 +109,43 @@ class UserRow extends React.Component {
           <Input
             type="name"
             name="name"
+            className="inputText"
             value={this.state.name}
             onChange={this.handleInputChange}
+            style={{width: '50%'}}
           />
-          <Button onClick={this.edit("/name")}>Edit</Button>
-          <h3>{this.state.nameMsg}</h3>
+          <Button className="editButton" onClick={this.edit("/name")} style={{float: 'left'}}>Edit</Button>
+          <div className="statusText"><p>{this.state.nameMsg}</p></div>
         </td>
         <td>
           <Input
             type="email"
             name="email"
+            className="inputText"
             value={this.state.email}
             onChange={this.handleInputChange}
           />
-          <Button onClick={this.edit("/email")}>Edit</Button>
-          <h3>{this.state.emailMsg}</h3>
+          <Button className="editButton" onClick={this.edit("/email")}>Edit</Button>
+          <div className="statusText"><p>{this.state.emailMsg}</p></div>
         </td>
         <td>
           <select
             name="role"
+            className="dropDownSelect"
             value={this.state.role}
             onChange={this.handleInputChange}
           >
             <option value="admin">admin</option>
             <option value="applicant">applicant</option>
           </select>
-          <Button onClick={this.edit("/role")}>Edit</Button>
-          <h3>{this.state.roleMsg}</h3>
+          <Button className="editButton" onClick={this.edit("/role")}>Edit</Button>
+          <div className="statusText"><p>{this.state.roleMsg}</p></div>
         </td>
+        <td><Button onClick={handleRemove(this.state.userID)}>Remove</Button></td>
       </tr>
     );
   }
+
 }
 
 export default UserRow;

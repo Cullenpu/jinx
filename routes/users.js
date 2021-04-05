@@ -128,4 +128,26 @@ router.patch("/edit/:id", (req, res) => {
   })
 })
 
+// Delete the user from DB by id
+router.delete("/remove/:id", (req, res) => {
+  const id = req.params.id
+
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send()
+    return;
+  }
+
+  User.findByIdAndRemove(id).then((user) => {
+    if (!user) {
+      res.status(404).send()
+    } else {
+      res.send(user)
+    }
+  })
+    .catch((error) => {
+      log(error)
+      res.status(500).send() // server error, could not delete.
+    })
+})
+
 module.exports = router;

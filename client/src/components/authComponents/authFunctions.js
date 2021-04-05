@@ -3,6 +3,7 @@ import axios from "axios";
 
 // environment configutations
 import ENV from "config.js";
+
 const API_HOST = ENV.api_host;
 // console.log('Current environment:', ENV.env)
 
@@ -27,7 +28,7 @@ export const checkSession = (app) => {
       });
   } else {
     console.log("Using test user!");
-    app.setState({ id: ENV.id, email: ENV.email, name: ENV.name });
+    app.setState({id: ENV.id, email: ENV.email, name: ENV.name});
   }
 };
 
@@ -95,7 +96,7 @@ export const signup = (credentials, app) => {
 export const edit = (app, userID, op, path, value) => {
   const url = `${API_HOST}/users/edit/${userID}`;
 
-  const body = [{ "op": op, "path": path, "value": value }]
+  const body = [{"op": op, "path": path, "value": value}]
   return axios
     .patch(url, body)
     .then((res) => {
@@ -109,3 +110,21 @@ export const edit = (app, userID, op, path, value) => {
       return false;
     });
 };
+
+// Remove the user from the DB
+export const removeUser = (app, userID) => {
+  const url = `${API_HOST}/users/remove/${userID}`;
+
+  return axios
+    .delete(url)
+    .then((res) => {
+      if (res.status === 200) {
+        console.log(res)
+        return true;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+}

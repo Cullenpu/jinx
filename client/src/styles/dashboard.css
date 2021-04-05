@@ -1,0 +1,18 @@
+.editButton{
+    float: left;
+    margin-left: 10px;
+}
+
+.inputText{
+    width: 50%;
+    float:left;
+}
+
+.dropDownSelect{
+    float: left;
+    width: 50%;
+}
+
+.statusText{
+    clear: both
+}

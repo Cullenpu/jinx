@@ -12,7 +12,7 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import {signup} from "../authComponents/authFunctions";
+import {removeUser, signup} from "../authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 
@@ -62,6 +62,17 @@ class UserTable extends React.Component {
       [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
     });
   };
+
+  removeUser = param => (event) => {
+    event.preventDefault()
+
+    const result = removeUser(this.props.app, param)
+    // Get result of the promise
+    result.then((a) => {
+      // Update the display again
+      this.getUsers();
+    });
+  }
 
   // Save the changes to the db
   saveChanges = (event) => {
@@ -135,11 +146,13 @@ class UserTable extends React.Component {
           {this.state.users.map((user) => {
             return (
               <UserRow
+                key={user._id}
                 avatar={yitian}
                 name={user.name}
                 email={user.email}
                 role={user.role}
                 userID={user._id}
+                handleRemove={this.removeUser}
               />
             );
           })}

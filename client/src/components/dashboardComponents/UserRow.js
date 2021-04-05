@@ -7,7 +7,6 @@ class UserRow extends React.Component {
   state = {
     name: this.props.name,
     email: this.props.email,
-    rating: this.props.rating,
     role: this.props.role,
     userID: this.props.userID,
 
@@ -17,6 +16,7 @@ class UserRow extends React.Component {
     ratingMsg: "",
     roleMsg: ""
   }
+
   // Handle input changes
   handleInputChange = (event) => {
     const target = event.target;
@@ -125,22 +125,14 @@ class UserRow extends React.Component {
           <h3>{this.state.emailMsg}</h3>
         </td>
         <td>
-          <Input
-            type="rating"
-            name="rating"
-            value={this.state.rating}
-            onChange={this.handleInputChange}
-          />
-          <Button onClick={this.edit("/rating")}>Edit</Button>
-          <h3>{this.state.ratingMsg}</h3>
-        </td>
-        <td>
-          <Input
-            type="role"
+          <select
             name="role"
             value={this.state.role}
             onChange={this.handleInputChange}
-          />
+          >
+            <option value="admin">admin</option>
+            <option value="applicant">applicant</option>
+          </select>
           <Button onClick={this.edit("/role")}>Edit</Button>
           <h3>{this.state.roleMsg}</h3>
         </td>

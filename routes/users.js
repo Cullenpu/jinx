@@ -2,18 +2,30 @@
 
 const express = require("express");
 
-const {User} = require("../models/User");
+const { User } = require("../models/User");
 
-const {isMongoError, mongoChecker, authenticate} = require("./utils");
+const { isMongoError, mongoChecker, authenticate } = require("./utils");
 
 const router = express.Router();
 
 // to validate object IDs
-const {ObjectID} = require('mongodb')
+const { ObjectID } = require("mongodb");
 // const {mongoose} = require('./db/mongoose')
-const log = console.log
+const log = console.log;
 
 router.use(mongoChecker);
+
+router.get("/check-session", (req, res) => {
+  if (req.session.user) {
+    res.send({
+      id: req.session.user,
+      email: req.session.email,
+      name: req.session.name,
+    });
+  } else {
+    req.status(401).send();
+  }
+});
 
 // User login
 router.post("/login", (req, res) => {
@@ -26,7 +38,8 @@ router.post("/login", (req, res) => {
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
       req.session.email = user.email;
-      res.send({id: user._id, email: user.email, name: user.name});
+      req.session.name = user.name;
+      res.send({ id: user._id, email: user.email, name: user.name });
     })
     .catch((error) => {
       console.log(error);
@@ -73,14 +86,14 @@ router.post("/", (req, res) => {
 
 // Get all users
 router.get("/", (req, res) => {
-  res.send({user: req.session.user});
+  res.send({ user: req.session.user });
 });
 
 // Get all users
 router.post("/all", authenticate, (req, res) => {
   User.find()
     .then((user) => {
-      res.send({user});
+      res.send({ user });
     })
     .catch((error) => {
       if (isMongoError(error)) {
@@ -93,10 +106,10 @@ router.post("/all", authenticate, (req, res) => {
 
 // Edit specific user
 router.patch("/edit/:id", (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
-    res.status(404).send()
+    res.status(404).send();
     return;
   }
   // // check mongoose connection established.
@@ -106,48 +119,55 @@ router.patch("/edit/:id", (req, res) => {
   //   return;
   // }
 
-  const fieldsToUpdate = {}
+  const fieldsToUpdate = {};
   req.body.map((change) => {
-    const propertyToChange = change.path.substr(1) // getting rid of the '/' character
-    fieldsToUpdate[propertyToChange] = change.value
-  })
+    const propertyToChange = change.path.substr(1); // getting rid of the '/' character
+    fieldsToUpdate[propertyToChange] = change.value;
+  });
 
-  User.findOneAndUpdate({_id: id}, {$set: fieldsToUpdate}, {new: true, useFindAndModify: false}).then((user) => {
-    if (!user) {
-      res.status(404).send('Resource not found')
-    } else {
-      res.send(user)
-    }
-  }).catch((error) => {
-    log(error)
-    if (isMongoError(error)) {
-      res.status(500).send('Internal server error')
-    } else {
-      res.status(400).send('Bad Request')
-    }
-  })
-})
+  User.findOneAndUpdate(
+    { _id: id },
+    { $set: fieldsToUpdate },
+    { new: true, useFindAndModify: false }
+  )
+    .then((user) => {
+      if (!user) {
+        res.status(404).send("Resource not found");
+      } else {
+        res.send(user);
+      }
+    })
+    .catch((error) => {
+      log(error);
+      if (isMongoError(error)) {
+        res.status(500).send("Internal server error");
+      } else {
+        res.status(400).send("Bad Request");
+      }
+    });
+});
 
 // Delete the user from DB by id
 router.delete("/remove/:id", (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
-    res.status(404).send()
+    res.status(404).send();
     return;
   }
 
-  User.findByIdAndRemove(id).then((user) => {
-    if (!user) {
-      res.status(404).send()
-    } else {
-      res.send(user)
-    }
-  })
-    .catch((error) => {
-      log(error)
-      res.status(500).send() // server error, could not delete.
+  User.findByIdAndRemove(id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).send();
+      } else {
+        res.send(user);
+      }
     })
-})
+    .catch((error) => {
+      log(error);
+      res.status(500).send(); // server error, could not delete.
+    });
+});
 
 module.exports = router;

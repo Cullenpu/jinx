@@ -112,9 +112,8 @@ class UserRow extends React.Component {
             className="inputText"
             value={this.state.name}
             onChange={this.handleInputChange}
-            style={{width: '50%'}}
           />
-          <Button className="editButton" onClick={this.edit("/name")} style={{float: 'left'}}>Edit</Button>
+          <Button className="editButton" onClick={this.edit("/name")}>Edit</Button>
           <div className="statusText"><p>{this.state.nameMsg}</p></div>
         </td>
         <td>

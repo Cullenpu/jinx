@@ -15,6 +15,7 @@ import {
 import {removeUser, signup} from "../authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
+import Applicant from "./Applicant";
 
 class UserTable extends React.Component {
   state = {
@@ -123,71 +124,88 @@ class UserTable extends React.Component {
   }
 
   render() {
-    if (this.props.app.state.role === 'admin') {
+    if (this.props.app.state.role === "admin") {
       return (
-        <Card>
-          <CardHeader>
-            User Table{" "}
-            <small className="text-muted text-capitalize">2020-2021</small>
-            <Button style={{float: "right"}} onClick={this.toggle()}>
-              Add User
-            </Button>
-          </CardHeader>
-          <Table striped>
-            <thead>
-            <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            {this.state.users.map((user) => {
-              return (
-                <UserRow
-                  key={user._id}
-                  avatar={yitian}
-                  name={user.name}
-                  email={user.email}
-                  role={user.role}
-                  userID={user._id}
-                  handleRemove={this.removeUser}
-                />
-              );
-            })}
-            </tbody>
-          </Table>
-          <Modal
-            isOpen={this.state.modal}
-            toggle={this.toggle()}
-            className={this.props.className}
-          >
-            <ModalHeader toggle={this.toggle()}>User</ModalHeader>
-            <ModalBody>
-              <UserModalBody
-                email={this.state.email}
-                password={this.state.password}
-                name={this.state.name}
-                phone={this.state.phone}
-                handleChange={this.handleInputChange}
-              />
-            </ModalBody>
-            <p style={{textAlign: "center"}}>{this.state.statusMsg}</p>
-            <ModalFooter>
-              <Button color="primary" onClick={this.saveChanges}>
-                Save Changes
-              </Button>{" "}
-              <Button color="secondary" onClick={this.toggle()}>
-                Cancel
+        <div>
+          <Applicant name={this.props.app.state.name}
+                     email={this.props.app.state.email}
+                     role={this.props.app.state.role}
+                     userID={this.props.app.state.id}
+                     isAdmin={true}
+          />
+          <Card>
+            <CardHeader>
+              User Table{""}
+              <small className="text-muted text-capitalize">2020-2021</small>
+              <Button style={{float: "right"}} onClick={this.toggle()}>
+                Add User
               </Button>
-            </ModalFooter>
-          </Modal>
-        </Card>
+            </CardHeader>
+            <Table striped>
+              <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+              {this.state.users.map((user) => {
+                return (
+                  <UserRow
+                    key={user._id}
+                    avatar={yitian}
+                    name={user.name}
+                    email={user.email}
+                    role={user.role}
+                    userID={user._id}
+                    handleRemove={this.removeUser}
+                  />
+                );
+              })}
+              </tbody>
+            </Table>
+            <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggle()}
+              className={this.props.className}
+            >
+              <ModalHeader toggle={this.toggle()}>User</ModalHeader>
+              <ModalBody>
+                <UserModalBody
+                  email={this.state.email}
+                  password={this.state.password}
+                  name={this.state.name}
+                  phone={this.state.phone}
+                  handleChange={this.handleInputChange}
+                />
+              </ModalBody>
+              <p style={{textAlign: "center"}}>{this.state.statusMsg}</p>
+              <ModalFooter>
+                <Button color="primary" onClick={this.saveChanges}>
+                  Save Changes
+                </Button>{" "}
+                <Button color="secondary" onClick={this.toggle()}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </Card>
+        </div>
       );
-    } else {
-      return (<h1>Regular user</h1>);
+    }
+    // Applicant, do not render admin table
+    else {
+      return (
+        <Applicant name={this.props.app.state.name}
+                   email={this.props.app.state.email}
+                   role={this.props.app.state.role}
+                   userID={this.props.app.state.id}
+                   isAdmin={false}
+        />
+      )
     }
   }
 }

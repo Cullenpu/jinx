@@ -1,18 +1,35 @@
-.editButton{
+.editButton {
     float: left;
     margin-left: 10px;
 }
 
-.inputText{
+.inputText {
     width: 50%;
-    float:left;
+    float: left;
 }
 
-.dropDownSelect{
+.dropDownSelect {
     float: left;
     width: 50%;
 }
 
-.statusText{
+.statusText {
     clear: both
+}
+
+.applicantProfile {
+    border-radius: 10px;
+    border-style: solid;
+    border-color: grey;
+    border-width: 1px;
+    padding: 20px;
+}
+
+.applicantFieldSpacer {
+    clear: left;
+    height: auto;
+}
+
+.adminSpacer {
+    padding-bottom: 20px;
 }

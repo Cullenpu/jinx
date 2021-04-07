@@ -44,6 +44,7 @@ export const login = (credentials, app) => {
           id: res.data.id,
           email: res.data.email,
           name: res.data.name,
+          role: res.data.role,
         });
         return true;
       } else {

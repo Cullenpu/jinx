@@ -21,6 +21,7 @@ router.get("/check-session", (req, res) => {
       id: req.session.user,
       email: req.session.email,
       name: req.session.name,
+      role: req.session.role,
     });
   } else {
     req.status(401).send();
@@ -39,7 +40,8 @@ router.post("/login", (req, res) => {
       req.session.user = user._id;
       req.session.email = user.email;
       req.session.name = user.name;
-      res.send({ id: user._id, email: user.email, name: user.name });
+      req.session.role = user.role;
+      res.send({ id: user._id, email: user.email, name: user.name, role: user.role });
     })
     .catch((error) => {
       console.log(error);

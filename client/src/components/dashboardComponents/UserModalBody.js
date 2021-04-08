@@ -1,4 +1,3 @@
-import yitian from "assets/img/users/yitian.png";
 import React from "react";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
@@ -9,16 +8,16 @@ class UserModalBody extends React.Component {
     return (
       <Form>
         <FormGroup row>
-          <Label for="exampleName" sm={2}>
+          {/* <Label for="exampleName" sm={2}>
             Profile
           </Label>
           <Col sm={10}>
             <img
-              src={yitian}
+              src={null}
               alt="Avatar"
               style={{ borderRadius: "50%", width: "50px" }}
             />
-          </Col>
+          </Col> */}
         </FormGroup>
         <FormGroup row>
           <Label for="exampleName" sm={2}>

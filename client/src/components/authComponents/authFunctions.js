@@ -11,25 +11,22 @@ const API_HOST = ENV.api_host;
 export const checkSession = (app) => {
   const url = `${API_HOST}/users/check-session`;
 
-  if (!ENV.use_frontend_test_user) {
-    axios
-      .get(url)
-      .then((res) => {
-        if (res.status === 200 && res.data.email) {
-          app.setState({
-            id: res.data.id,
-            email: res.data.email,
-            name: res.data.name,
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } else {
-    console.log("Using test user!");
-    app.setState({id: ENV.id, email: ENV.email, name: ENV.name});
-  }
+  if (ENV.use_frontend_test_user) console.log("Using test user!");
+  axios
+    .get(url)
+    .then((res) => {
+      if (res.status === 200 && res.data.id) {
+        app.setState({
+          id: res.data.id,
+          email: res.data.email,
+          name: res.data.name,
+          role: res.data.role,
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 // A function to send a POST request with the user to be logged in
@@ -76,7 +73,7 @@ export const logout = (app) => {
 };
 
 // Returns 0 on successful database addition, -1 otherwise
-export const signup = (credentials, app) => {
+export const signup = (credentials) => {
   const url = `${API_HOST}/users`;
 
   return axios
@@ -93,16 +90,30 @@ export const signup = (credentials, app) => {
     });
 };
 
+export const getUsers = () => {
+  const url = `${API_HOST}/users/all`;
+
+  return axios
+    .get(url)
+    .then((res) => {
+      return res.data.user;
+    })
+    .catch((err) => {
+      console.log(err);
+      return [];
+    });
+};
+
 // Returns 0 on successful database addition, -1 otherwise
-export const edit = (app, userID, op, path, value) => {
+export const edit = (userID, op, path, value) => {
   const url = `${API_HOST}/users/edit/${userID}`;
 
-  const body = [{"op": op, "path": path, "value": value}]
+  const body = [{ op: op, path: path, value: value }];
   return axios
     .patch(url, body)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res)
+        console.log(res);
         return true;
       }
     })
@@ -113,14 +124,14 @@ export const edit = (app, userID, op, path, value) => {
 };
 
 // Remove the user from the DB
-export const removeUser = (app, userID) => {
+export const removeUser = (userID) => {
   const url = `${API_HOST}/users/remove/${userID}`;
 
   return axios
     .delete(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res)
+        console.log(res);
         return true;
       }
     })
@@ -128,4 +139,4 @@ export const removeUser = (app, userID) => {
       console.log(error);
       return false;
     });
-}
+};

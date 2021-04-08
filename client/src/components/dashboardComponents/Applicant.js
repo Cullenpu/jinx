@@ -1,7 +1,7 @@
 import React from "react";
-import {Button, Input} from "reactstrap";
-import {edit} from "../authComponents/authFunctions";
-import "../../styles/dashboard.css"
+import { Button, Input } from "reactstrap";
+import { edit } from "components/authComponents/authFunctions";
+import "styles/dashboard.css";
 
 class Applicant extends React.Component {
   state = {
@@ -9,8 +9,6 @@ class Applicant extends React.Component {
     name: this.props.name,
     email: this.props.email,
     role: this.props.role,
-
-
     userID: this.props.userID,
 
     // Flag for whether the user is admin
@@ -19,8 +17,8 @@ class Applicant extends React.Component {
     // Update Messages
     nameMsg: "Press Edit to update Name",
     emailMsg: "Press Edit to update Email",
-    roleMsg: "Press Edit to update Role (Admin Only)"
-  }
+    roleMsg: "Press Edit to update Role (Admin Only)",
+  };
 
   // Handle input changes
   handleInputChange = (event) => {
@@ -31,30 +29,28 @@ class Applicant extends React.Component {
     this.setState({
       [name]: value,
     });
-
   };
 
   // Save edits to the db
-  edit = param => (event) => {
+  edit = (param) => (event) => {
     event.preventDefault();
 
-    let value = null
+    let value = null;
     if (param === "/name") {
-      value = this.state.name
+      value = this.state.name;
     } else if (param === "/email") {
-      value = this.state.email
+      value = this.state.email;
     } else if (param === "/role") {
-      value = this.state.role
+      value = this.state.role;
 
       if (value === "applicant") {
         this.setState({
-          isAdmin: false
-        })
+          isAdmin: false,
+        });
         window.location.href = "/";
       }
-
     }
-    const result = edit(this.props.app, this.state.userID, "replace", param, value);
+    const result = edit(this.state.userID, "replace", param, value);
     // Get result of the promise
     result.then((a) => {
       if (!a) {
@@ -75,19 +71,19 @@ class Applicant extends React.Component {
         if (param === "/name") {
           this.setState({
             nameMsg: "Successfully Updated!",
-          })
+          });
         } else if (param === "/email") {
           this.setState({
             emailMsg: "Successfully Updated!",
-          })
+          });
         } else if (param === "/role") {
           this.setState({
             roleMsg: "Successfully Updated!",
-          })
+          });
         }
       }
-    })
-  }
+    });
+  };
 
   render() {
     // If the user is an admin
@@ -105,8 +101,12 @@ class Applicant extends React.Component {
                 value={this.state.name}
                 onChange={this.handleInputChange}
               />
-              <Button className="editButton" onClick={this.edit("/name")}>Edit</Button>
-              <div className="statusText"><p>{this.state.nameMsg}</p></div>
+              <Button className="editButton" onClick={this.edit("/name")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.nameMsg}</p>
+              </div>
             </div>
             <div className="applicantFieldSpacer">
               <h2>Email</h2>
@@ -117,8 +117,12 @@ class Applicant extends React.Component {
                 value={this.state.email}
                 onChange={this.handleInputChange}
               />
-              <Button className="editButton" onClick={this.edit("/email")}>Edit</Button>
-              <div className="statusText"><p>{this.state.emailMsg}</p></div>
+              <Button className="editButton" onClick={this.edit("/email")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.emailMsg}</p>
+              </div>
             </div>
             <div className="applicantFieldSpacer">
               <h2>Role</h2>
@@ -131,12 +135,16 @@ class Applicant extends React.Component {
                 <option value="admin">admin</option>
                 <option value="applicant">applicant</option>
               </select>
-              <Button className="editButton" onClick={this.edit("/role")}>Edit</Button>
-              <div className="statusText"><p>{this.state.roleMsg}</p></div>
+              <Button className="editButton" onClick={this.edit("/role")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.roleMsg}</p>
+              </div>
             </div>
           </div>
         </div>
-      )
+      );
     } else {
       return (
         <div>
@@ -151,8 +159,12 @@ class Applicant extends React.Component {
                 value={this.state.name}
                 onChange={this.handleInputChange}
               />
-              <Button className="editButton" onClick={this.edit("/name")}>Edit</Button>
-              <div className="statusText"><p>{this.state.nameMsg}</p></div>
+              <Button className="editButton" onClick={this.edit("/name")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.nameMsg}</p>
+              </div>
             </div>
             <div className="applicantFieldSpacer">
               <h2>Email</h2>
@@ -163,8 +175,12 @@ class Applicant extends React.Component {
                 value={this.state.email}
                 onChange={this.handleInputChange}
               />
-              <Button className="editButton" onClick={this.edit("/email")}>Edit</Button>
-              <div className="statusText"><p>{this.state.emailMsg}</p></div>
+              <Button className="editButton" onClick={this.edit("/email")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.emailMsg}</p>
+              </div>
             </div>
             <div className="applicantFieldSpacer">
               <h2>Role</h2>
@@ -176,12 +192,15 @@ class Applicant extends React.Component {
               >
                 <option value="applicant">applicant</option>
               </select>
-              <div className="statusText"><p>{this.state.roleMsg}</p></div>
+              <div className="statusText">
+                <p>{this.state.roleMsg}</p>
+              </div>
             </div>
           </div>
-        </div>)
+        </div>
+      );
     }
   }
 }
 
-export default Applicant
+export default Applicant;

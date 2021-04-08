@@ -1,6 +1,3 @@
-import yitian from "assets/img/users/yitian.png";
-import axios from "axios";
-import ENV from "config.js";
 import React from "react";
 import {
   Button,
@@ -12,7 +9,7 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import {removeUser, signup} from "../authComponents/authFunctions";
+import { removeUser, signup, getUsers } from "components/authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 import Applicant from "./Applicant";
@@ -34,18 +31,10 @@ class UserTable extends React.Component {
     users: [],
   };
 
-  getUsers = () => {
-    const API_HOST = ENV.api_host;
-    const app = this.props.app;
-    axios
-      .post(`${API_HOST}/users/all`, {id: app.state.id})
-      .then((res) => {
-        this.setState({
-          users: res.data.user,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
+  componentDidMount() {
+    // Initialize the table
+    getUsers().then((res) => this.setState({ users: res }));
+  }
 
   toggle = (modalType) => () => {
     // Remove status msg
@@ -64,16 +53,16 @@ class UserTable extends React.Component {
     });
   };
 
-  removeUser = param => (event) => {
-    event.preventDefault()
+  removeUser = (param) => (event) => {
+    event.preventDefault();
 
-    const result = removeUser(this.props.app, param)
+    const result = removeUser(param);
     // Get result of the promise
     result.then((a) => {
       // Update the display again
-      this.getUsers();
+      getUsers().then((res) => this.setState({ users: res }));
     });
-  }
+  };
 
   // Save the changes to the db
   saveChanges = (event) => {
@@ -89,7 +78,7 @@ class UserTable extends React.Component {
       credentials.phone = this.state.phone;
     }
 
-    const result = signup(credentials, this.props.app);
+    const result = signup(credentials);
     // Get result of the promise
     result.then((a) => {
       if (!a) {
@@ -101,7 +90,7 @@ class UserTable extends React.Component {
           statusMsg: "User created!",
         });
         // Update the users table again
-        this.getUsers();
+        getUsers().then((res) => this.setState({ users: res }));
       }
     });
     window.location.href = "/";
@@ -118,53 +107,49 @@ class UserTable extends React.Component {
     });
   };
 
-  componentDidMount() {
-    // Initialize the table
-    this.getUsers();
-  }
-
   render() {
     if (this.props.app.state.role === "admin") {
       return (
         <div>
-          <Applicant name={this.props.app.state.name}
-                     email={this.props.app.state.email}
-                     role={this.props.app.state.role}
-                     userID={this.props.app.state.id}
-                     isAdmin={true}
+          <Applicant
+            name={this.props.app.state.name}
+            email={this.props.app.state.email}
+            role={this.props.app.state.role}
+            userID={this.props.app.state.id}
+            isAdmin={true}
           />
           <Card>
             <CardHeader>
               User Table{""}
               <small className="text-muted text-capitalize">2020-2021</small>
-              <Button style={{float: "right"}} onClick={this.toggle()}>
+              <Button style={{ float: "right" }} onClick={this.toggle()}>
                 Add User
               </Button>
             </CardHeader>
             <Table striped>
               <thead>
-              <tr>
-                <th>Avatar</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Delete</th>
-              </tr>
+                <tr>
+                  <th>Avatar</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Delete</th>
+                </tr>
               </thead>
               <tbody>
-              {this.state.users.map((user) => {
-                return (
-                  <UserRow
-                    key={user._id}
-                    avatar={yitian}
-                    name={user.name}
-                    email={user.email}
-                    role={user.role}
-                    userID={user._id}
-                    handleRemove={this.removeUser}
-                  />
-                );
-              })}
+                {this.state.users.map((user) => {
+                  return (
+                    <UserRow
+                      key={user._id}
+                      avatar={null}
+                      name={user.name}
+                      email={user.email}
+                      role={user.role}
+                      userID={user._id}
+                      handleRemove={this.removeUser}
+                    />
+                  );
+                })}
               </tbody>
             </Table>
             <Modal
@@ -182,7 +167,7 @@ class UserTable extends React.Component {
                   handleChange={this.handleInputChange}
                 />
               </ModalBody>
-              <p style={{textAlign: "center"}}>{this.state.statusMsg}</p>
+              <p style={{ textAlign: "center" }}>{this.state.statusMsg}</p>
               <ModalFooter>
                 <Button color="primary" onClick={this.saveChanges}>
                   Save Changes
@@ -199,13 +184,14 @@ class UserTable extends React.Component {
     // Applicant, do not render admin table
     else {
       return (
-        <Applicant name={this.props.app.state.name}
-                   email={this.props.app.state.email}
-                   role={this.props.app.state.role}
-                   userID={this.props.app.state.id}
-                   isAdmin={false}
+        <Applicant
+          name={this.props.app.state.name}
+          email={this.props.app.state.email}
+          role={this.props.app.state.role}
+          userID={this.props.app.state.id}
+          isAdmin={false}
         />
-      )
+      );
     }
   }
 }

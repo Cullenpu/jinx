@@ -1,3 +1,4 @@
+import axios from "axios";
 import { checkSession } from "components/authComponents/authFunctions";
 import AuthPage from "pages/AuthPage";
 import React from "react";
@@ -6,8 +7,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AddPostingPage from "./pages/AddPosting";
-import "./styles/reduction.scss";
 import EditApplicationPage from "./pages/EditApplication";
+import "./styles/reduction.scss";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
 const FeedPage = React.lazy(() => import("pages/FeedPage"));
@@ -15,6 +16,8 @@ const ExplorePage = React.lazy(() => import("pages/ExplorePage"));
 const DashboardPage = React.lazy(() => import("pages/DashboardPage"));
 const ContactsPage = React.lazy(() => import("pages/ContactsPage"));
 const ApplicationsPage = React.lazy(() => import("pages/ApplicationsPage"));
+
+axios.defaults.withCredentials = true;
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;
@@ -25,7 +28,7 @@ class App extends React.Component {
     checkSession(this);
   }
 
-  state = { id: null, email: null, name: null, role: null};
+  state = { id: null, email: null, name: null, role: null };
 
   render() {
     const { email } = this.state;

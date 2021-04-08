@@ -1,20 +1,13 @@
 "use strict";
 
 const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const websiteLogo = require( 'website-logo' )
 
 // DB imports
 const { mongoose } = require("../db/mongoose");
 
 const router = express.Router();
-const { Posting } = require("../models/Posting");
 const { Connection } = require("../models/Connection");
 const { User } = require("../models/User");
-const { Application } = require("../models/Application");
-const { ObjectID } = require("mongodb"); // To validate object IDs
-
 const { isMongoError, mongoChecker } = require("./utils");
 
 mongoose.Promise = global.Promise;
@@ -27,26 +20,30 @@ mongoose.Promise = global.Promise;
 // }
 //
 
-router.post('/', mongoChecker, (req, res, next) => {
-	const connection = new Connection({
-    requesterId: req.body.requesterId,
+// Follow a user
+router.post("/", mongoChecker, (req, res) => {
+  const connection = new Connection({
+    requesterId: req.session.user,
     followedId: req.body.followedId,
-  })
+  });
 
-  connection.save().then((result) => {
-    res.send(result)
-  }).catch((error) => {
-    if (isMongoError(error)) {
-      res.status(500).send('Internal server error')
-    } else {
-      res.status(400).send('Bad Request')
-    }
-  })
-})
+  connection
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      if (isMongoError(error)) {
+        res.status(500).send("Internal server error");
+      } else {
+        res.status(400).send("Bad Request");
+      }
+    });
+});
 
 // Get all the people this user follows
-router.get('/:id', mongoChecker, (req, res) => {
-  Connection.find({requesterId: req.params.id})
+router.get("/", mongoChecker, (req, res) => {
+  Connection.find({ requesterId: req.session.user })
     .populate({ path: "requesterId", model: User })
     .populate({ path: "followedId", model: User })
     .then((connection) => {
@@ -56,19 +53,38 @@ router.get('/:id', mongoChecker, (req, res) => {
         res.send(connection);
       }
     });
-})
+});
 
-router.get('/', mongoChecker, (req, res) => {
+router.delete("/:id", mongoChecker, (req, res) => {
+  Connection.deleteOne({
+    requesterId: req.session.user,
+    followedId: req.params.id,
+  })
+    .then((connection) => {
+      if (!connection) {
+        res.status(404).send("User not following");
+      } else {
+        console.log(connection);
+        res.status(202).send();
+      }
+    })
+    .catch((err) => {
+      console.log("error");
+      res.status(404).send("User not following");
+    });
+});
+
+router.get("/", mongoChecker, (req, res) => {
   Connection.find()
     .populate({ path: "requesterId", model: User })
     .populate({ path: "followedId", model: User })
-    .exec((err,connection) => {
-    if(err) throw err;
-    if(connection) {
-        res.send(connection)
-    }
-  })
-})
+    .exec((err, connection) => {
+      if (err) throw err;
+      if (connection) {
+        res.send(connection);
+      }
+    });
+});
 
 // Delete all connections in db
 router.delete("/", mongoChecker, (req, res) => {
@@ -80,7 +96,5 @@ router.delete("/", mongoChecker, (req, res) => {
     }
   });
 });
-
-
 
 module.exports = router;

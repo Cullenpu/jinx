@@ -1,22 +1,18 @@
-import Page from "components/Page";
-import axios from 'axios';
-
-import React, { useState, useEffect } from "react";
-import { Col, Row } from "reactstrap";
+import axios from "axios";
 import PopularCompanies from "components/exploreComponents/PopularCompanies";
 import Postings from "components/exploreComponents/Postings";
-
-import { companies } from "demos/explorePage";
+import Page from "components/Page";
+import React, { useEffect, useState } from "react";
+import { Col, Row } from "reactstrap";
 
 const ExplorePage = () => {
-  const [companiesList, setCompaniesList] = useState(companies);
+  const [companiesList, setCompaniesList] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:5000/companies`)
-      .then(res => {
-        const companies = res.data.company;
-        setCompaniesList([...companiesList, ...companies])
-    })
-  }, [])
+    axios.get(`http://localhost:5000/companies`).then((res) => {
+      const companies = res.data.company;
+      setCompaniesList([...companiesList, ...companies]);
+    });
+  }, []);
 
   return (
     <Page title="Explore" breadcrumbs={[{ name: "explore", active: true }]}>

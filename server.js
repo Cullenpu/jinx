@@ -22,7 +22,7 @@ const app = express();
 const env = process.env.NODE_ENV;
 if (env !== "production") {
   // Enable CORS if in development, for React local development server to connect to the web server
-  app.use(cors());
+  app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 }
 
 // body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
@@ -37,7 +37,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60000,
+      maxAge: 10 * 60 * 1000,
       httpOnly: true,
     },
     // store the sessions on the database in production

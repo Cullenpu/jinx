@@ -1,46 +1,57 @@
-import axios from "axios";
-import ContactCard from "components/Card/ContactCard";
+import { getUsers } from "components/authComponents/authFunctions";
+import {
+  addConnection,
+  getConnections,
+  removeConnection,
+} from "components/contactComponents/ContactFunctions";
+import ContactTable from "components/contactComponents/ContactTable";
 import Page from "components/Page";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Col, Row } from "reactstrap";
 
-const ContactsPage = ({ app }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [contactsList, setContactsList] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      await axios
-        .get(`http://localhost:5000/connection/${app.state.id}`)
-        .then((res) => {
-          console.log(res.data);
-          setContactsList(res.data);
-        });
-      setIsLoading(false);
-    }
-    fetchData();
-  }, []);
-  return isLoading ? (
-    <div>Loading</div>
-  ) : (
-    <Page
-      className="ContactsPage"
-      title="Contacts"
-      breadcrumbs={[{ name: "Contacts", active: true }]}
-    >
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {contactsList.map(({ followedId }) => {
-          return (
-            <ContactCard
-              name={followedId.name}
-              email={followedId.email}
-              rating={followedId.rating}
-              // avatar={requesterId.avatar}
+class ContactsPage extends React.Component {
+  state = {
+    connections: [],
+    nonConnections: [],
+  };
+
+  componentDidMount() {
+    this.updateConnections();
+  }
+
+  updateConnections() {
+    getConnections().then((res) => this.setState({ connections: res }));
+    getUsers().then((res) => this.setState({ nonConnections: res }));
+  }
+
+  render() {
+    return (
+      <Page
+        className="ContactsPage"
+        title="Contacts"
+        breadcrumbs={[{ name: "Contacts", active: true }]}
+      >
+        <Row>
+          <Col>
+            <ContactTable
+              app={this.props.app}
+              title="Connections"
+              users={this.state.connections}
+              button="Remove"
+              handleClick={removeConnection}
             />
-          );
-        })}
-      </div>
-    </Page>
-  );
-};
+            <ContactTable
+              app={this.props.app}
+              title="Users"
+              users={this.state.nonConnections}
+              button="Connect"
+              handleClick={addConnection}
+            />
+          </Col>
+        </Row>
+      </Page>
+    );
+  }
+}
 
 export default ContactsPage;

@@ -1,7 +1,7 @@
 import React from "react";
-import {Button, Input} from "reactstrap";
-import {edit} from "../authComponents/authFunctions";
-import "../../styles/dashboard.css"
+import { Button, Input } from "reactstrap";
+import { edit } from "components/authComponents/authFunctions";
+import "styles/dashboard.css";
 
 class UserRow extends React.Component {
   // Get states from props
@@ -15,8 +15,8 @@ class UserRow extends React.Component {
     nameMsg: "",
     emailMsg: "",
     ratingMsg: "",
-    roleMsg: ""
-  }
+    roleMsg: "",
+  };
 
   // Handle input changes
   handleInputChange = (event) => {
@@ -30,20 +30,25 @@ class UserRow extends React.Component {
   };
 
   // Save edits to the db
-  edit = param => (event) => {
+  edit = (param) => (event) => {
     event.preventDefault();
 
-    let value = null
+    let value = null;
     if (param === "/name") {
-      value = this.state.name
+      value = this.state.name;
     } else if (param === "/email") {
-      value = this.state.email
+      value = this.state.email;
     } else if (param === "/rating") {
-      value = this.state.rating
+      value = this.state.rating;
     } else if (param === "/role") {
-      value = this.state.role
+      value = this.state.role;
     }
-    const result = edit(this.props.app, this.state.userID, "replace", param, value);
+    const result = edit(
+      this.state.userID,
+      "replace",
+      param,
+      value
+    );
     // Get result of the promise
     result.then((a) => {
       if (!a) {
@@ -83,27 +88,26 @@ class UserRow extends React.Component {
           });
         }
       }
-    })
-  }
+    });
+  };
 
   render() {
-    const {avatar, handleRemove} = this.props;
+    const { avatar, handleRemove } = this.props;
 
-    const
-      ProfileImage = ({src}) => {
-        return (
-          <img
-            src={src}
-            alt="Avatar"
-            style={{borderRadius: "50%", width: "50px"}}
-          />
-        );
-      };
+    const ProfileImage = ({ src }) => {
+      return (
+        <img
+          src={src}
+          alt="Avatar"
+          style={{ borderRadius: "50%", width: "50px" }}
+        />
+      );
+    };
 
     return (
       <tr>
         <td>
-          <ProfileImage src={avatar}/>
+          <ProfileImage src={avatar} />
         </td>
         <td>
           <Input
@@ -113,8 +117,12 @@ class UserRow extends React.Component {
             value={this.state.name}
             onChange={this.handleInputChange}
           />
-          <Button className="editButton" onClick={this.edit("/name")}>Edit</Button>
-          <div className="statusText"><p>{this.state.nameMsg}</p></div>
+          <Button className="editButton" onClick={this.edit("/name")}>
+            Edit
+          </Button>
+          <div className="statusText">
+            <p>{this.state.nameMsg}</p>
+          </div>
         </td>
         <td>
           <Input
@@ -124,8 +132,12 @@ class UserRow extends React.Component {
             value={this.state.email}
             onChange={this.handleInputChange}
           />
-          <Button className="editButton" onClick={this.edit("/email")}>Edit</Button>
-          <div className="statusText"><p>{this.state.emailMsg}</p></div>
+          <Button className="editButton" onClick={this.edit("/email")}>
+            Edit
+          </Button>
+          <div className="statusText">
+            <p>{this.state.emailMsg}</p>
+          </div>
         </td>
         <td>
           <select
@@ -137,14 +149,19 @@ class UserRow extends React.Component {
             <option value="admin">admin</option>
             <option value="applicant">applicant</option>
           </select>
-          <Button className="editButton" onClick={this.edit("/role")}>Edit</Button>
-          <div className="statusText"><p>{this.state.roleMsg}</p></div>
+          <Button className="editButton" onClick={this.edit("/role")}>
+            Edit
+          </Button>
+          <div className="statusText">
+            <p>{this.state.roleMsg}</p>
+          </div>
         </td>
-        <td><Button onClick={handleRemove(this.state.userID)}>Remove</Button></td>
+        <td>
+          <Button onClick={handleRemove(this.state.userID)}>Remove</Button>
+        </td>
       </tr>
     );
   }
-
 }
 
 export default UserRow;

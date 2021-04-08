@@ -16,6 +16,15 @@ const log = console.log;
 router.use(mongoChecker);
 
 router.get("/check-session", (req, res) => {
+  const env = process.env.NODE_ENV;
+
+  if (env !== "production") {
+    req.session.user = "60688ff2393cae07b83d8d89"; // HARDCODE HERE
+    req.session.email = "test@jinx.com";
+    req.session.name = "Test User";
+    req.session.role = "admin";
+  }
+
   if (req.session.user) {
     res.send({
       id: req.session.user,
@@ -38,10 +47,15 @@ router.post("/login", (req, res) => {
       // Add the user's id to the session.
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
-      req.session.email = user.email;
       req.session.name = user.name;
+      req.session.email = user.email;
       req.session.role = user.role;
-      res.send({ id: user._id, email: user.email, name: user.name, role: user.role });
+      res.send({
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -87,12 +101,7 @@ router.post("/", (req, res) => {
 });
 
 // Get all users
-router.get("/", (req, res) => {
-  res.send({ user: req.session.user });
-});
-
-// Get all users
-router.post("/all", authenticate, (req, res) => {
+router.get("/all", authenticate, (req, res) => {
   User.find()
     .then((user) => {
       res.send({ user });
@@ -107,19 +116,13 @@ router.post("/all", authenticate, (req, res) => {
 });
 
 // Edit specific user
-router.patch("/edit/:id", (req, res) => {
+router.patch("/edit/:id", authenticate, (req, res) => {
   const id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
     res.status(404).send();
     return;
   }
-  // // check mongoose connection established.
-  // if (mongoose.connection.readyState !== 1) {
-  //   log('Issue with mongoose connection')
-  //   res.status(500).send('Internal server error')
-  //   return;
-  // }
 
   const fieldsToUpdate = {};
   req.body.map((change) => {
@@ -150,7 +153,7 @@ router.patch("/edit/:id", (req, res) => {
 });
 
 // Delete the user from DB by id
-router.delete("/remove/:id", (req, res) => {
+router.delete("/remove/:id", authenticate, (req, res) => {
   const id = req.params.id;
 
   if (!ObjectID.isValid(id)) {

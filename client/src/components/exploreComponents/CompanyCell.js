@@ -1,9 +1,8 @@
 import lg from "assets/img/logo/jinx_logo.svg";
-import bg from "assets/img/products/product-2.jpg";
 import React from "react";
 import { Card, CardImg, CardTitle } from "reactstrap";
 
-const ExploreCell = ({ name, description, background, logo }) => {
+const CompanyCell = ({ name, logo }) => {
   return (
     <Card
       style={{
@@ -17,7 +16,7 @@ const ExploreCell = ({ name, description, background, logo }) => {
     >
       <CardImg
         top
-        src={background ? background : bg}
+        src={logo ? logo : lg}
         style={{
           borderRadius: 8,
           width: "150px",
@@ -25,7 +24,7 @@ const ExploreCell = ({ name, description, background, logo }) => {
           objectFit: "fill",
         }}
       />
-      <CardImg
+      {/* <CardImg
         top
         src={logo ? logo : lg}
         style={{
@@ -36,7 +35,7 @@ const ExploreCell = ({ name, description, background, logo }) => {
           height: "60px",
           backgroundColor: logo ? null : "#D3D3D3",
         }}
-      />
+      /> */}
       <CardTitle className="text-dark pt-1">{name}</CardTitle>
       {/* <CardText>
         <FormatDescription description={description} />
@@ -45,4 +44,4 @@ const ExploreCell = ({ name, description, background, logo }) => {
   );
 };
 
-export default ExploreCell;
+export default CompanyCell;

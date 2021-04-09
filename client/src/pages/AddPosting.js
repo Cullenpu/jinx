@@ -1,14 +1,8 @@
-import axios from "axios";
+import { addPosting } from "components/exploreComponents/ExploreFunctions";
 import Page from "components/Page";
 import React, { useState } from "react";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 
-// {
-// 	"companyId": "60620beb3ba0001bb7f6e0cd",
-// 	"link": "https://windsorhuang.com/",
-// 	"location": "Vancouver",
-// 	"role": "Software Engineer Intern"
-// }
 const AddPostingPage = () => {
   const [companyName, setCompanyName] = useState("");
   const [link, setLink] = useState("");
@@ -16,16 +10,14 @@ const AddPostingPage = () => {
   const [role, setRole] = useState("");
 
   const submitForm = () => {
-    axios
-      .post("http://localhost:5000/posting", {
-        companyName: companyName,
-        link: link,
-        role: role,
-        location: location,
-      })
-      .then(function (response) {
-        window.location.href = "/explore";
-      });
+    const posting = {
+      companyName: companyName,
+      // link: link.includes("http") ? link : "http://".concat(link),
+      link: link,
+      role: role,
+      location: location,
+    };
+    addPosting(posting).then((res) => (window.location.href = "/explore"));
   };
 
   return (
@@ -57,7 +49,7 @@ const AddPostingPage = () => {
               onChange={(e) => {
                 setLink(e.target.value);
               }}
-              placeholder="https://github.com/"
+              placeholder="google.com"
             />
           </FormGroup>
           <FormGroup row>
@@ -71,7 +63,7 @@ const AddPostingPage = () => {
               onChange={(e) => {
                 setLocation(e.target.value);
               }}
-              placeholder="Vancouver"
+              placeholder="San Francisco"
             />
           </FormGroup>
           <FormGroup row>
@@ -85,7 +77,7 @@ const AddPostingPage = () => {
               onChange={(e) => {
                 setRole(e.target.value);
               }}
-              placeholder="Product Manager"
+              placeholder="Software Engineer"
             />
           </FormGroup>
           <FormGroup check row>

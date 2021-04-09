@@ -1,36 +1,16 @@
-import lg from "assets/img/logo/jinx_logo.svg";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  CardImg,
-  CardText,
-  Col,
-  Container,
-  Row,
-} from "reactstrap";
-
-function formatDate(date) {
-  var d = new Date(date),
-    month = "" + (d.getMonth() + 1),
-    day = "" + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
-
-  return [year, month, day].join("-");
-}
+import { Button, Col, Container, Row } from "reactstrap";
+import { getPostings } from "./ExploreFunctions";
+import PostingCell from "./PostingCell";
 
 const Postings = () => {
   const [postings, setPostings] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/posting").then((res) => {
-      const posting = res.data;
-      setPostings(posting);
+    getPostings().then((postings) => {
+      setPostings(postings);
     });
   }, []);
+
   return (
     <Container>
       <Row>
@@ -55,61 +35,15 @@ const Postings = () => {
         {postings &&
           postings.map((posting, index) => {
             return (
-              <>
-                <div>
-                  <small>{formatDate(posting.createdAt)}</small>
-                </div>
-                <Card
-                  style={{
-                    width: "150px",
-                    border: "transparent",
-                    backgroundColor: "transparent",
-                    flex: "1 0 150px",
-                    margin: "5px",
-                    marginLeft: "-70px",
-                    maxWidth: "160px",
-                  }}
-                >
-                  <CardImg
-                    top
-                    src={posting.companyLogo ? posting.companyLogo : lg}
-                    style={{
-                      // marginTop: "-20px",
-                      marginLeft: "90px",
-                      borderRadius: 10,
-                      objectFit: "cover",
-                      width: "60px",
-                      height: "60px",
-                      backgroundColor: posting.companyLogo ? null : "#D3D3D3",
-                    }}
-                  />
-                  <CardText>
-                    <div style={{ maxWidth: "82px" }}>
-                      <p style={{ fontSize: "16px", fontWeight: "600" }}>
-                        {posting.companyName}
-                      </p>
-                    </div>
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: "400",
-                        marginTop: "-20px",
-                      }}
-                    >
-                      {posting.location}
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: "400",
-                        marginTop: "-10px",
-                      }}
-                    >
-                      {posting.role}
-                    </p>
-                  </CardText>
-                </Card>
-              </>
+              <PostingCell
+                key={index}
+                createdAt={posting.createdAt}
+                companyLogo={posting.companyLogo}
+                companyName={posting.companyName}
+                location={posting.location}
+                role={posting.role}
+                link={posting.link}
+              />
             );
           })}
       </div>

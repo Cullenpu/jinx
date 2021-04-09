@@ -1,4 +1,4 @@
-import axios from "axios";
+import { getCompanies } from "components/exploreComponents/ExploreFunctions";
 import PopularCompanies from "components/exploreComponents/PopularCompanies";
 import Postings from "components/exploreComponents/Postings";
 import Page from "components/Page";
@@ -8,10 +8,9 @@ import { Col, Row } from "reactstrap";
 const ExplorePage = () => {
   const [companiesList, setCompaniesList] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:5000/companies`).then((res) => {
-      const companies = res.data.company;
-      setCompaniesList([...companiesList, ...companies]);
-    });
+    getCompanies().then((companies) =>
+      setCompaniesList([...companiesList, ...companies])
+    );
   }, []);
 
   return (

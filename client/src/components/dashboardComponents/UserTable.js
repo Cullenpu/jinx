@@ -78,6 +78,8 @@ class UserTable extends React.Component {
       credentials.phone = this.state.phone;
     }
 
+    console.log(credentials)
+
     const result = signup(credentials);
     // Get result of the promise
     result.then((a) => {
@@ -93,7 +95,7 @@ class UserTable extends React.Component {
         getUsers().then((res) => this.setState({ users: res }));
       }
     });
-    window.location.href = "/";
+    // window.location.href = "/";
   };
 
   // Handle input changes
@@ -114,6 +116,7 @@ class UserTable extends React.Component {
           <Applicant
             name={this.props.app.state.name}
             email={this.props.app.state.email}
+            phone={this.props.app.state.phone}
             role={this.props.app.state.role}
             userID={this.props.app.state.id}
             isAdmin={true}
@@ -132,6 +135,7 @@ class UserTable extends React.Component {
                   <th>Avatar</th>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Phone</th>
                   <th>Role</th>
                   <th>Delete</th>
                 </tr>
@@ -143,6 +147,7 @@ class UserTable extends React.Component {
                       key={user._id}
                       name={user.name}
                       email={user.email}
+                      phone={user.phone}
                       role={user.role}
                       userID={user._id}
                       handleRemove={this.removeUser}
@@ -186,6 +191,7 @@ class UserTable extends React.Component {
         <Applicant
           name={this.props.app.state.name}
           email={this.props.app.state.email}
+          phone={this.props.app.state.phone}
           role={this.props.app.state.role}
           userID={this.props.app.state.id}
           isAdmin={false}

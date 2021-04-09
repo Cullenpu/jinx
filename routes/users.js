@@ -22,6 +22,7 @@ router.get("/check-session", (req, res) => {
     req.session.user = "60688ff2393cae07b83d8d89"; // HARDCODE HERE
     req.session.email = "test@jinx.com";
     req.session.name = "Test User";
+    req.session.phone = "000-000-000";
     req.session.role = "admin";
   }
 
@@ -30,6 +31,7 @@ router.get("/check-session", (req, res) => {
       id: req.session.user,
       email: req.session.email,
       name: req.session.name,
+      phone: req.session.phone,
       role: req.session.role,
     });
   } else {
@@ -48,11 +50,13 @@ router.post("/login", (req, res) => {
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
       req.session.name = user.name;
+      req.session.phone = user.phone;
       req.session.email = user.email;
       req.session.role = user.role;
       res.send({
         id: user._id,
         email: user.email,
+        phone: user.phone,
         name: user.name,
         role: user.role,
       });

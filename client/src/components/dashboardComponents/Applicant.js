@@ -8,6 +8,7 @@ class Applicant extends React.Component {
     // States to store inputs
     name: this.props.name,
     email: this.props.email,
+    phone: this.props.phone,
     role: this.props.role,
     userID: this.props.userID,
 

@@ -62,7 +62,7 @@ class UserModalBody extends React.Component {
             <Input
               type="phone"
               name="phone"
-              placeholder="000-000-0000"
+              placeholder="0001112222"
               value={phone}
               onChange={handleChange}
             />

@@ -20,6 +20,7 @@ export const checkSession = (app) => {
           id: res.data.id,
           email: res.data.email,
           name: res.data.name,
+          phone: res.data.phone,
           role: res.data.role,
         });
       }

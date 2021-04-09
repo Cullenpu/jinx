@@ -9,14 +9,15 @@ class UserRow extends React.Component {
   state = {
     name: this.props.name,
     email: this.props.email,
+    phone: this.props.phone,
     role: this.props.role,
     userID: this.props.userID,
 
     // Update Messages
     nameMsg: "",
     emailMsg: "",
-    ratingMsg: "",
     roleMsg: "",
+    phoneMsg: "",
   };
 
   // Handle input changes
@@ -39,8 +40,8 @@ class UserRow extends React.Component {
       value = this.state.name;
     } else if (param === "/email") {
       value = this.state.email;
-    } else if (param === "/rating") {
-      value = this.state.rating;
+    } else if (param === "/phone") {
+      value = this.state.phone;
     } else if (param === "/role") {
       value = this.state.role;
     }
@@ -56,9 +57,9 @@ class UserRow extends React.Component {
           this.setState({
             emailMsg: "Please enter valid inputs!",
           });
-        } else if (param === "/rating") {
+        } else if (param === "/phone") {
           this.setState({
-            ratingMsg: "Please enter valid inputs!",
+            phoneMsg: "Please enter valid inputs!",
           });
         } else if (param === "/role") {
           this.setState({
@@ -74,9 +75,9 @@ class UserRow extends React.Component {
           this.setState({
             emailMsg: "Successfully Updated!",
           });
-        } else if (param === "/rating") {
+        } else if (param === "/phone") {
           this.setState({
-            ratingMsg: "Successfully Updated!",
+            phoneMsg: "Successfully Updated!",
           });
         } else if (param === "/role") {
           this.setState({
@@ -123,6 +124,21 @@ class UserRow extends React.Component {
           </Button>
           <div className="statusText">
             <p>{this.state.emailMsg}</p>
+          </div>
+        </td>
+        <td>
+          <Input
+            type="phone"
+            name="phone"
+            className="inputText"
+            value={this.state.phone}
+            onChange={this.handleInputChange}
+          />
+          <Button className="editButton" onClick={this.edit("/phone")}>
+            Edit
+          </Button>
+          <div className="statusText">
+            <p>{this.state.phoneMsg}</p>
           </div>
         </td>
         <td>

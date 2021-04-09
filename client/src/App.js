@@ -8,6 +8,8 @@ import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AddPostingPage from "./pages/AddPosting";
 import EditApplicationPage from "./pages/EditApplication";
+import { createBrowserHistory } from "history";
+
 import "./styles/reduction.scss";
 
 const AddCompaniesModal = React.lazy(() => import("pages/AddCompaniesModal"));
@@ -23,10 +25,12 @@ const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split("/").pop()}`;
 };
 
+const history = createBrowserHistory();
+
 class App extends React.Component {
-  componentDidMount() {
-    checkSession(this);
-  }
+  // componentDidMount() {
+  //   checkSession(this);
+  // }
 
   state = { id: null, email: null, name: null, role: null };
 
@@ -34,7 +38,7 @@ class App extends React.Component {
     const { email } = this.state;
 
     return (
-      <BrowserRouter basename={getBasename()}>
+      <BrowserRouter basename={getBasename()} history={history}>
         <Switch>
           {!email ? (
             <LayoutRoute
@@ -56,11 +60,11 @@ class App extends React.Component {
                   path="/companies-modal"
                   component={() => <AddCompaniesModal />}
                 />
-                <Route exact path="/feed" component={() => <FeedPage />} />
+                <Route exact path="/feed" component={(props) => <FeedPage app={this} />} />
                 <Route
                   exact
                   path="/applications"
-                  component={(props) => <ApplicationsPage app={this} />}
+                  component={(props) => <ApplicationsPage app={this} history={history} />}
                 />
                 <Route
                   exact
@@ -85,7 +89,7 @@ class App extends React.Component {
               </React.Suspense>
             </MainLayout>
           )}
-          {/* <Redirect to="/" /> */})
+          <Redirect to="/" />)
         </Switch>
       </BrowserRouter>
     );

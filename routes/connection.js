@@ -7,16 +7,14 @@ const { mongoose } = require("../db/mongoose");
 
 const router = express.Router();
 const { Connection } = require("../models/Connection");
-const { User } = require("../models/User");
+const { User, Notification } = require("../models/User");
 const { isMongoError, mongoChecker } = require("./utils");
 
 mongoose.Promise = global.Promise;
 
 //
 // {
-// 	"requesterId": "6064afaf0479d00f99790b69",
-// 	"followedId": "Software Engineering Intern",
-//  "status": "Wishlist"
+// 	"followedId": "60708a3eccc54f2b845a589a",
 // }
 //
 

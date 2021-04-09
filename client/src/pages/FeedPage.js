@@ -1,12 +1,17 @@
 import Page from "components/Page";
-import React from "react";
+import React, { useEffect, useState }  from "react";
 import { FaAddressBook, FaCalendar, FaGlassCheers, FaHandshake } from 'react-icons/fa';
+import {
+  getFeedItems,
+  sortFeedItems
+} from "components/feedComponents/FeedFunctions";
 import {
   VerticalTimeline,
   VerticalTimelineElement
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import { getColor } from 'utils/colors';
+import axios from "axios";
 
 const feedItems = [{
   title: 'Cullen got hired at Amazon!',
@@ -50,8 +55,20 @@ const feedItems = [{
 },
 ];
 
-const FeedPage = () => {
-  return (
+const FeedPage = ({ app }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [feedItems, setFeedItems] = useState([]);
+  useEffect(() => {
+    getFeedItems().then((res) => {
+      const sortedFeedItems = sortFeedItems(res);
+      setFeedItems(sortedFeedItems);
+      setIsLoading(false);
+    });
+  }, []);
+
+  return isLoading ? (
+    <div>Loading</div>
+  ) : (
     <Page
       className="FeedPage"
       title="Feed"

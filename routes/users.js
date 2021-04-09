@@ -2,7 +2,7 @@
 
 const express = require("express");
 
-const { User } = require("../models/User");
+const { User, Notification } = require("../models/User");
 
 const { isMongoError, mongoChecker, authenticate } = require("./utils");
 
@@ -101,7 +101,7 @@ router.post("/", (req, res) => {
 });
 
 // Get all users
-router.get("/all", authenticate, (req, res) => {
+router.get("/all", (req, res) => {
   User.find()
     .then((user) => {
       res.send({ user });
@@ -114,6 +114,7 @@ router.get("/all", authenticate, (req, res) => {
       }
     });
 });
+
 
 // Edit specific user
 router.patch("/edit/:id", authenticate, (req, res) => {

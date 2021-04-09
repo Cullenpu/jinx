@@ -11,7 +11,7 @@ const { mongoose } = require("../db/mongoose");
 const router = express.Router();
 const { Posting } = require("../models/Posting");
 const { Company } = require("../models/Company");
-const { User } = require("../models/User");
+const { User, Notification } = require("../models/User");
 const { Application } = require("../models/Application");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
@@ -21,7 +21,8 @@ mongoose.Promise = global.Promise;
 
 //
 // {
-// 	"userId": "6064afaf0479d00f99790b69",
+// 	"userId": "60708b04474d902ca7ea6d2c",
+//  "company": "Facebook",
 // 	"role": "Software Engineering Intern",
 //  "status": "Wishlist"
 // }
@@ -29,13 +30,20 @@ mongoose.Promise = global.Promise;
 
 router.post('/', mongoChecker, (req, res, next) => {
 	const application = new Application({
-    userId: req.body.userId,
+    userId: req.session.user,
     company: req.body.company,
     role: req.body.role,
     status: req.body.status,
   })
 
+  const notification = {
+    description: `Applied to ${req.body.company}`,
+  }
+
+  User.findOneAndUpdate({_id: req.body.userId}, { "$push": { feed: notification }}, {new: true, useFindAndModify: false});
+
   application.save().then((result) => {
+    User.findOneAndUpdate({_id: req.body.userId}, { "$push": { "feed": notification }}, {new: true, useFindAndModify: false});
     res.send(result)
   }).catch((error) => {
     if (isMongoError(error)) {
@@ -47,8 +55,8 @@ router.post('/', mongoChecker, (req, res, next) => {
 })
 
 // Get all applications in db for user with id
-router.get('/:id', mongoChecker, (req, res) => {
-  Application.find({userId: req.params.id}).populate({ path: "userId", model: User })
+router.get('/', mongoChecker, (req, res) => {
+  Application.find({userId: req.session.user}).populate({ path: "userId", model: User })
     .then((application) => {
       if (!application) {
         res.status(404).send("App Not Found");

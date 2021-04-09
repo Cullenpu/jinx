@@ -16,6 +16,7 @@ const companies = require("./routes/companies");
 const posting = require("./routes/posting");
 const applications = require("./routes/applications");
 const connection = require("./routes/connection");
+const feed = require("./routes/feed");
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.use("/posting", posting);
 app.use("/users", users);
 app.use("/applications", applications);
 app.use("/connection", connection);
+app.use("/feed", feed);
 
 /*****************************************************************************/
 

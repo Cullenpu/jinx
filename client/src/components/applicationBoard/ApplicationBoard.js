@@ -3,14 +3,17 @@ import { FaPlus } from "react-icons/fa";
 import { Row, Button, Modal,
   ModalBody,
   ModalFooter,
-  ModalHeader, } from "reactstrap";
+  ModalHeader, 
+  NavLink as BSNavLink,
+  NavItem
+} from "reactstrap";
 import WishListCol from "./WishListCol";
 import AppliedCol from "./AppliedCol";
 import InterviewCol from "./InterviewCol";
 import OfferCol from "./OfferCol";
 import RejectedCol from "./RejectedCol";
 import CompanyModalBody from "./CompanyModalBody";
-import axios from 'axios';
+import { addApplication } from "./ApplicationFunctions";
 
 class ApplicationsBoard extends React.Component {
   constructor(props) {
@@ -39,15 +42,12 @@ class ApplicationsBoard extends React.Component {
   }
 
   handleSubmit(event) {
-    axios.post('http://localhost:5000/applications', {
-      userId: this.props.app.state.id,
+    addApplication({
       company: this.state.inputCompany,
       role: this.state.inputRole,
       status: this.state.inputStatus
     })
-    .then(function (response) {
-      window.location.reload()
-    })
+    this.props.history.go(0);
   }
 
   state = {
@@ -100,7 +100,6 @@ class ApplicationsBoard extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => {
-              this.toggle();
               this.handleSubmit();
             }}>
               Save Job

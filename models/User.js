@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
+const NotificationSchema = new mongoose.Schema({  
+  description: String  
+});  
+
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -38,11 +42,10 @@ const UserSchema = new mongoose.Schema({
       message: "Not valid phone",
     },
   },
+  feed: [NotificationSchema],
   resume: String,
   status: String,
 });
-
-UserSchema.set("timestamps", true);
 
 // Runs immediately prior to saving the document in the database.
 UserSchema.pre("save", function (next) {
@@ -84,6 +87,9 @@ UserSchema.statics.findByEmailPassword = function (email, password) {
 };
 
 UserSchema.set("timestamps", true);
+NotificationSchema.set("timestamps", true);
 
 const User = mongoose.model("User", UserSchema);
-module.exports = { User };
+const Notification = mongoose.model("Notification", NotificationSchema);
+
+module.exports = { User, Notification };

@@ -17,7 +17,7 @@ class DashboardPage extends React.Component {
       >
         <Row>
           <Col>
-            <UserTable app={this.props.app}/>
+            <UserTable app={this.props.app} history={this.props.history} />
           </Col>
         </Row>
       </Page>

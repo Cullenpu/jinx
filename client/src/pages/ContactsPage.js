@@ -53,7 +53,7 @@ class ContactsPage extends React.Component {
         <Row>
           <Col>
             <ContactTable
-              app={this.props.app}
+              history={this.props.history}
               title="Connections"
               users={this.state.connections}
               button="Remove"
@@ -61,7 +61,7 @@ class ContactsPage extends React.Component {
             />
             <br />
             <ContactTable
-              app={this.props.app}
+              history={this.props.history}
               title="Users"
               users={this.state.nonConnections}
               button="Connect"

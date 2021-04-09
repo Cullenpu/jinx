@@ -22,6 +22,7 @@ export const getFeedItems = () => {
 
 export const sortFeedItems = (feedItems) => {
   const output = [];
+  console.log(feedItems);
   feedItems.forEach((connection) => {
     const followedUser = connection.followedId;
     const notificationsForUser = followedUser.feed; // [] or [{description: '...'}, ...]

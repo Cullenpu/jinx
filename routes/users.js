@@ -119,6 +119,21 @@ router.get("/all", (req, res) => {
     });
 });
 
+// Get user currently logged
+router.get("/", (req, res) => {
+  const id = req.session.user;
+
+  User.findById(id).then((user) => {
+    if (user) {
+      res.send(user)
+    } else {
+      res.status(404).send("Issue getting user found");
+    }
+  })
+
+
+});
+
 
 // Edit specific user
 router.patch("/edit/:id", authenticate, (req, res) => {

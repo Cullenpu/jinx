@@ -105,6 +105,21 @@ export const getUsers = () => {
     });
 };
 
+export const getCurrentUser = () => {
+  const url = `${API_HOST}/users`;
+
+  return axios
+    .get(url)
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return null;
+    });
+};
+
 // Returns 0 on successful database addition, -1 otherwise
 export const edit = (userID, op, path, value) => {
   const url = `${API_HOST}/users/edit/${userID}`;

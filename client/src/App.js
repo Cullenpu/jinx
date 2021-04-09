@@ -43,7 +43,7 @@ class App extends React.Component {
           {!email ? (
             <LayoutRoute
               exact
-              path={["/*"]}
+              path={["/", "/login"]}
               layout={EmptyLayout}
               component={() => <AuthPage app={this} />}
             />

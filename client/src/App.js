@@ -45,26 +45,26 @@ class App extends React.Component {
               exact
               path={["/login", "/"]}
               layout={EmptyLayout}
-              component={(props) => <AuthPage app={this} />}
+              component={() => <AuthPage app={this} />}
             />
           ) : (
             <MainLayout breakpoint={this.props.breakpoint} app={this}>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route
                   exact
-                  path="/"
-                  component={(props) => <DashboardPage app={this} history={history} />}
+                  path="/dashboard"
+                  component={() => <DashboardPage app={this} history={history} />}
                 />
                 <Route
                   exact
                   path="/companies-modal"
                   component={() => <AddCompaniesModal />}
                 />
-                <Route exact path="/feed" component={(props) => <FeedPage app={this} />} />
+                <Route exact path="/feed" component={() => <FeedPage app={this} />} />
                 <Route
                   exact
                   path="/applications"
-                  component={(props) => <ApplicationsPage app={this} history={history} />}
+                  component={() => <ApplicationsPage history={history} />}
                 />
                 <Route
                   exact
@@ -74,17 +74,17 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/posting/add"
-                  component={(props) => <AddPostingPage app={this} />}
+                  component={() => <AddPostingPage />}
                 />
                 <Route
                   exact
                   path="/application/:id/edit"
-                  component={(props) => <EditApplicationPage app={this} />}
+                  component={() => <EditApplicationPage />}
                 />
                 <Route
                   exact
                   path="/contacts"
-                  component={(props) => <ContactsPage app={this} history={history} />}
+                  component={() => <ContactsPage app={this} history={history} />}
                 />
               </React.Suspense>
             </MainLayout>

@@ -2,11 +2,8 @@ import axios from "axios";
 import Page from "components/Page";
 import React, { useState, useEffect } from "react";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
-import {
-  useParams,
-  useHistory
-} from "react-router-dom";
-import {formatDate} from "utils/date.js";
+import { useParams, useHistory } from "react-router-dom";
+import { formatDate } from "utils/date.js";
 
 // {
 // 	"companyId": "60620beb3ba0001bb7f6e0cd",
@@ -14,7 +11,7 @@ import {formatDate} from "utils/date.js";
 // 	"location": "Vancouver",
 // 	"role": "Software Engineer Intern"
 // }
-const EditApplicationPage = ({ app }) => {
+const EditApplicationPage = () => {
   const [loading, setLoading] = useState(true);
 
   const [application, setApplication] = useState(null);
@@ -32,21 +29,29 @@ const EditApplicationPage = ({ app }) => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/applications/single/${id}`)
-      .then(res => {
-        const { company, notes, updatedAt, role, postingId, status, link, referral } = res.data;
-        setCompany(company);
-        setPostingId(postingId);
-        setRole(role);
-        setStatus(status);
-        setLink(link);
-        setNotes(notes);
-        setReferral(referral);
-        setUpdatedAt(updatedAt);
-        setApplication(application);
-    })
+    axios.get(`http://localhost:5000/applications/single/${id}`).then((res) => {
+      const {
+        company,
+        notes,
+        updatedAt,
+        role,
+        postingId,
+        status,
+        link,
+        referral,
+      } = res.data;
+      setCompany(company);
+      setPostingId(postingId);
+      setRole(role);
+      setStatus(status);
+      setLink(link);
+      setNotes(notes);
+      setReferral(referral);
+      setUpdatedAt(updatedAt);
+      setApplication(application);
+    });
     setLoading(false);
-  }, [])
+  }, []);
 
   const submitForm = () => {
     axios
@@ -58,17 +63,23 @@ const EditApplicationPage = ({ app }) => {
         status: status,
         notes: notes,
         referral: referral,
-
       })
       .then(function (response) {
-        history.push('/applications');
+        history.push("/applications");
       });
   };
 
-  return loading ? <div>loading</div> : (
-    <Page title="Edit Application" breadcrumbs={[{ name: "Applications", active: true }]}>
-      <div style={{ textAlign: 'right', paddingRight: '35vw'}}>
-        <span className="text-success">Last updated {formatDate(updatedAt)}</span>
+  return loading ? (
+    <div>loading</div>
+  ) : (
+    <Page
+      title="Edit Application"
+      breadcrumbs={[{ name: "Applications", active: true }]}
+    >
+      <div style={{ textAlign: "right", paddingRight: "35vw" }}>
+        <span className="text-success">
+          Last updated {formatDate(updatedAt)}
+        </span>
       </div>
       <Row className="ml-3 mt-3 justify-content-between">
         <Form style={{ width: "50vw", paddingLeft: "50px" }}>
@@ -128,15 +139,21 @@ const EditApplicationPage = ({ app }) => {
                 <Label>
                   <h5>Status</h5>
                 </Label>
-                <Input type="select" name="status" value={status} onChange={(e) => {
+                <Input
+                  type="select"
+                  name="status"
+                  value={status}
+                  onChange={(e) => {
                     setStatus(e.target.value);
-                  }} placeholder="...">
-                    <option>Wishlist</option>
-                    <option>Applied</option>
-                    <option>Interviewing</option>
-                    <option>Offer</option>
-                    <option>Rejected</option>
-                  </Input>
+                  }}
+                  placeholder="..."
+                >
+                  <option>Wishlist</option>
+                  <option>Applied</option>
+                  <option>Interviewing</option>
+                  <option>Offer</option>
+                  <option>Rejected</option>
+                </Input>
               </FormGroup>
             </Col>
           </Row>
@@ -157,9 +174,7 @@ const EditApplicationPage = ({ app }) => {
                 />
               </FormGroup>
             </Col>
-            <Col md="6">
-              
-            </Col>
+            <Col md="6"></Col>
           </Row>
           <Row>
             <Col md="12">

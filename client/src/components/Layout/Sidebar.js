@@ -34,7 +34,7 @@ const sidebarBackground = {
 // ];
 
 const navItems = [
-  { to: "/", name: "dashboard", exact: true, Icon: MdDashboard },
+  { to: "/dashboard", name: "dashboard", exact: true, Icon: MdDashboard },
   { to: "/applications", name: "applications", exact: false, Icon: MdStore },
   { to: "/feed", name: "feed", exact: false, Icon: MdWeb },
   { to: "/explore", name: "explore", exact: false, Icon: MdInsertChart },

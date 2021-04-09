@@ -44,6 +44,7 @@ export const login = (credentials, app) => {
           name: res.data.name,
           role: res.data.role,
         });
+        window.location.href = "/dashboard";
         return true;
       } else {
         return false;
@@ -67,6 +68,7 @@ export const logout = (app) => {
         email: null,
         name: null,
       });
+      window.location.href = "/login";
     })
     .catch((error) => {
       console.log(error);

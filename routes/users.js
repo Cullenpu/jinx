@@ -18,13 +18,13 @@ router.use(mongoChecker);
 router.get("/check-session", (req, res) => {
   const env = process.env.NODE_ENV;
 
-  if (env !== "production") {
-    req.session.user = "60688ff2393cae07b83d8d89"; // HARDCODE HERE
-    req.session.email = "test@jinx.com";
-    req.session.name = "Test User";
-    req.session.phone = "000-000-000";
-    req.session.role = "admin";
-  }
+  // if (env !== "production") {
+  //   req.session.user = "60688ff2393cae07b83d8d89"; // HARDCODE HERE
+  //   req.session.email = "test@jinx.com";
+  //   req.session.name = "Test User";
+  //   req.session.phone = "000-000-000";
+  //   req.session.role = "admin";
+  // }
 
   if (req.session.user) {
     res.send({
@@ -35,7 +35,7 @@ router.get("/check-session", (req, res) => {
       role: req.session.role,
     });
   } else {
-    req.status(401).send();
+    res.status(401).send();
   }
 });
 

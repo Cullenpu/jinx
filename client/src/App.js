@@ -28,9 +28,9 @@ const getBasename = () => {
 const history = createBrowserHistory();
 
 class App extends React.Component {
-  // componentDidMount() {
-  //   checkSession(this);
-  // }
+  componentDidMount() {
+    checkSession(this);
+  }
 
   state = { id: null, email: null, name: null, role: null };
 
@@ -89,7 +89,8 @@ class App extends React.Component {
               </React.Suspense>
             </MainLayout>
           )}
-          <Redirect to="/" />)
+          {/* <Redirect to="/" /> */}
+          )
         </Switch>
       </BrowserRouter>
     );

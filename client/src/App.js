@@ -3,7 +3,7 @@ import { checkSession } from "components/authComponents/authFunctions";
 import AuthPage from "pages/AuthPage";
 import React from "react";
 import componentQueries from "react-component-queries";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AddPostingPage from "./pages/AddPosting";

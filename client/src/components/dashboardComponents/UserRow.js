@@ -1,6 +1,7 @@
+import { edit } from "components/authComponents/authFunctions";
+import Avatar from "components/Avatar";
 import React from "react";
 import { Button, Input } from "reactstrap";
-import { edit } from "components/authComponents/authFunctions";
 import "styles/dashboard.css";
 
 class UserRow extends React.Component {
@@ -43,12 +44,7 @@ class UserRow extends React.Component {
     } else if (param === "/role") {
       value = this.state.role;
     }
-    const result = edit(
-      this.state.userID,
-      "replace",
-      param,
-      value
-    );
+    const result = edit(this.state.userID, "replace", param, value);
     // Get result of the promise
     result.then((a) => {
       if (!a) {
@@ -92,22 +88,12 @@ class UserRow extends React.Component {
   };
 
   render() {
-    const { avatar, handleRemove } = this.props;
-
-    const ProfileImage = ({ src }) => {
-      return (
-        <img
-          src={src}
-          alt="Avatar"
-          style={{ borderRadius: "50%", width: "50px" }}
-        />
-      );
-    };
+    const { name, handleRemove } = this.props;
 
     return (
       <tr>
         <td>
-          <ProfileImage src={avatar} />
+          <Avatar name={name} />
         </td>
         <td>
           <Input

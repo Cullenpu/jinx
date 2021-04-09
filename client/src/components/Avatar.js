@@ -1,45 +1,22 @@
-import React from 'react';
-import PropTypes from 'utils/propTypes';
+import React from "react";
 
-import classNames from 'classnames';
-
-const Avatar = ({
-  rounded,
-  circle,
-  src,
-  size,
-  tag: Tag,
-  className,
-  style,
-  ...restProps
-}) => {
-  const classes = classNames({ 'rounded-circle': circle, rounded }, className);
+const Avatar = ({ name }) => {
   return (
-    <Tag
-      src={src}
-      style={{ width: size, height: size, ...style }}
-      className={classes}
-      {...restProps}
-    />
+    <div
+      style={{
+        width: "45px",
+        height: "45px",
+        borderRadius: "50%",
+        border: "1px solid",
+        textAlign: "center",
+        verticalAlign: "middle",
+        lineHeight: "45px",
+        fontSize: "18px",
+      }}
+    >
+      {name.split(" ").map((i) => i.charAt(0).toUpperCase())}
+    </div>
   );
-};
-
-Avatar.propTypes = {
-  tag: PropTypes.component,
-  rounded: PropTypes.bool,
-  circle: PropTypes.bool,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  src: PropTypes.string,
-  style: PropTypes.object,
-};
-
-Avatar.defaultProps = {
-  tag: 'img',
-  rounded: false,
-  circle: true,
-  size: 40,
-  src: null,
-  style: {},
 };
 
 export default Avatar;

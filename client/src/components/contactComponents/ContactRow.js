@@ -1,32 +1,16 @@
+import Avatar from "components/Avatar";
 import React from "react";
 import { Button } from "reactstrap";
 import "styles/dashboard.css";
 
 class ContactRow extends React.Component {
   render() {
-    const {
-      avatar,
-      name,
-      email,
-      userID,
-      button,
-      handleClick,
-    } = this.props;
-
-    const ProfileImage = ({ src }) => {
-      return (
-        <img
-          src={src}
-          alt="Avatar"
-          style={{ borderRadius: "50%", width: "50px" }}
-        />
-      );
-    };
+    const { name, email, userID, button, handleClick } = this.props;
 
     return (
       <tr>
         <td>
-          <ProfileImage src={avatar} />
+          <Avatar name={name} />
         </td>
         <td>{name}</td>
         <td>{email}</td>

@@ -4,13 +4,12 @@ const express = require("express");
 
 // DB imports
 const { mongoose } = require("../db/mongoose");
-
-const router = express.Router();
+const { ObjectID } = require("mongodb"); // To validate object IDs
 const { Connection } = require("../models/Connection");
 const { User, Notification } = require("../models/User");
 const { isMongoError, mongoChecker } = require("./utils");
 
-mongoose.Promise = global.Promise;
+const router = express.Router();
 
 //
 // {
@@ -53,16 +52,16 @@ router.get("/", mongoChecker, (req, res) => {
     });
 });
 
+// Remove a connection from the current user
 router.delete("/:id", mongoChecker, (req, res) => {
   Connection.deleteOne({
-    requesterId: req.session.user,
-    followedId: req.params.id,
+    requesterId: { $eq: ObjectID(req.session.user) },
+    followedId: { $eq: ObjectID(req.params.id) },
   })
     .then((connection) => {
-      if (!connection) {
+      if (connection.deletedCount == 0) {
         res.status(404).send("User not following");
       } else {
-        console.log(connection);
         res.status(202).send();
       }
     })

@@ -4,12 +4,7 @@ import ContactRow from "./ContactRow";
 
 class ContactTable extends React.Component {
   render() {
-    const {
-      title,
-      button,
-      users,
-      handleClick,
-    } = this.props;
+    const { title, button, users, handleClick } = this.props;
 
     return (
       <div>
@@ -29,7 +24,6 @@ class ContactTable extends React.Component {
                 return (
                   <ContactRow
                     key={user._id}
-                    avatar={null}
                     name={user.name}
                     email={user.email}
                     userID={user._id}

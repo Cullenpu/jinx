@@ -19,9 +19,28 @@ class ContactsPage extends React.Component {
     this.updateConnections();
   }
 
-  updateConnections() {
-    getConnections().then((res) => this.setState({ connections: res }));
-    getUsers().then((res) => this.setState({ nonConnections: res }));
+  async updateConnections() {
+    const res = await getConnections();
+    const connections = res.map((connection) => {
+      return connection.followedId;
+    });
+    this.setState({ connections: connections });
+
+    getUsers().then((res) => {
+      const nonConnections = res.filter((connection) => {
+        let connected = false;
+        for (let i = 0; i < connections.length; i++) {
+          if (connections[i]._id == connection._id) {
+            connected = true;
+            break;
+          }
+        }
+        if (!connected && connection._id !== this.props.app.state.id) {
+          return connection;
+        }
+      });
+      this.setState({ nonConnections: nonConnections });
+    });
   }
 
   render() {
@@ -40,6 +59,7 @@ class ContactsPage extends React.Component {
               button="Remove"
               handleClick={removeConnection}
             />
+            <br />
             <ContactTable
               app={this.props.app}
               title="Users"

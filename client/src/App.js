@@ -53,7 +53,7 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/"
-                  component={(props) => <DashboardPage app={this} />}
+                  component={(props) => <DashboardPage app={this} history={history} />}
                 />
                 <Route
                   exact

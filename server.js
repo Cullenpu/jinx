@@ -5,7 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-
+const path = require('path')
 // DB imports
 const { mongoose } = require("./db/mongoose");
 const { ObjectID } = require("mongodb"); // To validate object IDs
@@ -23,7 +23,7 @@ const app = express();
 const env = process.env.NODE_ENV;
 if (env !== "production") {
   // Enable CORS if in development, for React local development server to connect to the web server
-  app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+  app.use(cors({ origin: "http://localhost:5000", credentials: true }));
 }
 
 // body-parser: middleware for parsing parts of the request into a usable object (onto req.body)
@@ -61,8 +61,24 @@ app.use("/applications", applications);
 app.use("/connection", connection);
 app.use("/feed", feed);
 
-/*****************************************************************************/
+/*** Webpage routes below **********************************/
+// Serve the build
+app.use(express.static(path.join(__dirname, "/client/build")));
 
+// All routes other than above will go to index.html
+app.get("*", (req, res) => {
+  // check for page routes that we expect in the frontend to provide correct status code.
+  const goodPageRoutes = ["/", "/login", "/dashboard"];
+  if (!goodPageRoutes.includes(req.url)) {
+    // if url not in expected page routes, set status to 404.
+    res.status(404);
+  }
+
+  // send index.html
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
+
+/*****************************************************************************/
 // Express server listening...
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

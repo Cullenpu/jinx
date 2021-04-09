@@ -9,7 +9,7 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import { removeUser, signup, getUsers } from "components/authComponents/authFunctions";
+import {removeUser, signup, getUsers, getCurrentUser} from "components/authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 import Applicant from "./Applicant";
@@ -29,11 +29,13 @@ class UserTable extends React.Component {
     role: "",
     statusMsg: "",
     users: [],
+
+    curUser: "",
   };
 
   componentDidMount() {
     // Initialize the table
-    getUsers().then((res) => this.setState({ users: res }));
+    getUsers().then((res) => this.setState({users: res}));
   }
 
   toggle = (modalType) => () => {
@@ -60,7 +62,7 @@ class UserTable extends React.Component {
     // Get result of the promise
     result.then((a) => {
       // Update the display again
-      getUsers().then((res) => this.setState({ users: res }));
+      getUsers().then((res) => this.setState({users: res}));
     });
   };
 
@@ -92,7 +94,7 @@ class UserTable extends React.Component {
           statusMsg: "User created!",
         });
         // Update the users table again
-        getUsers().then((res) => this.setState({ users: res }));
+        getUsers().then((res) => this.setState({users: res}));
       }
     });
     this.props.history.go(0);
@@ -114,46 +116,41 @@ class UserTable extends React.Component {
       return (
         <div>
           <Applicant
-            name={this.props.app.state.name}
-            email={this.props.app.state.email}
-            phone={this.props.app.state.phone}
-            role={this.props.app.state.role}
-            userID={this.props.app.state.id}
             isAdmin={true}
           />
           <Card>
             <CardHeader>
               User Table{""}
               <small className="text-muted text-capitalize">2020-2021</small>
-              <Button style={{ float: "right" }} onClick={this.toggle()}>
+              <Button style={{float: "right"}} onClick={this.toggle()}>
                 Add User
               </Button>
             </CardHeader>
             <Table striped>
               <thead>
-                <tr>
-                  <th>Avatar</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Role</th>
-                  <th>Delete</th>
-                </tr>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Delete</th>
+              </tr>
               </thead>
               <tbody>
-                {this.state.users.map((user) => {
-                  return (
-                    <UserRow
-                      key={user._id}
-                      name={user.name}
-                      email={user.email}
-                      phone={user.phone}
-                      role={user.role}
-                      userID={user._id}
-                      handleRemove={this.removeUser}
-                    />
-                  );
-                })}
+              {this.state.users.map((user) => {
+                return (
+                  <UserRow
+                    key={user._id}
+                    name={user.name}
+                    email={user.email}
+                    phone={user.phone}
+                    role={user.role}
+                    userID={user._id}
+                    handleRemove={this.removeUser}
+                  />
+                );
+              })}
               </tbody>
             </Table>
             <Modal
@@ -171,7 +168,7 @@ class UserTable extends React.Component {
                   handleChange={this.handleInputChange}
                 />
               </ModalBody>
-              <p style={{ textAlign: "center" }}>{this.state.statusMsg}</p>
+              <p style={{textAlign: "center"}}>{this.state.statusMsg}</p>
               <ModalFooter>
                 <Button color="primary" onClick={this.saveChanges}>
                   Save Changes
@@ -189,11 +186,6 @@ class UserTable extends React.Component {
     else {
       return (
         <Applicant
-          name={this.props.app.state.name}
-          email={this.props.app.state.email}
-          phone={this.props.app.state.phone}
-          role={this.props.app.state.role}
-          userID={this.props.app.state.id}
           isAdmin={false}
         />
       );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row } from "reactstrap";
-import ExploreCell from "components/exploreComponents/ExploreCell";
+import CompanyCell from "components/exploreComponents/CompanyCell";
 
 const PopularCompanies = ({ companies }) => {
   return (
@@ -13,12 +13,12 @@ const PopularCompanies = ({ companies }) => {
       </Row>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {companies &&
-          companies.map(({ name, description, background, logo }, index) => {
+          companies.map(({ name, link, background, logo }, index) => {
             return (
-              <ExploreCell
+              <CompanyCell
                 key={index}
                 name={name}
-                description={description}
+                link={link}
                 background={background}
                 logo={logo}
               />

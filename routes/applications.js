@@ -36,15 +36,20 @@ router.post('/', mongoChecker, (req, res, next) => {
     status: req.body.status,
   })
 
-  const notification = {
-    description: `Applied to ${req.body.company}`,
-  }
 
-  User.findOneAndUpdate({_id: req.body.userId}, { "$push": { feed: notification }}, {new: true, useFindAndModify: false});
+  const notification = new Notification({
+    name: req.session.name,
+    type: req.body.status,
+    company: req.body.company,
+  });
+
+  // User.findOneAndUpdate({_id: req.session.user}, { "$push": { feed: notification }}, {new: true, useFindAndModify: false});
 
   application.save().then((result) => {
-    User.findOneAndUpdate({_id: req.body.userId}, { "$push": { "feed": notification }}, {new: true, useFindAndModify: false});
-    res.send(result)
+    User.findOneAndUpdate({_id: req.session.user}, { "$push": { feed: notification }}, {new: true, useFindAndModify: false})
+    .then(() => {
+      res.send(result);
+    });
   }).catch((error) => {
     if (isMongoError(error)) {
       res.status(500).send('Internal server error')
@@ -95,7 +100,8 @@ router.patch('/:id', mongoChecker, (req, res, next) => {
 		const fetchLogo = async () => {
 			const result = await promiseLogo();
 			return result;
-		}
+    }
+    
 
 		fetchLogo().then(function(result) {
 			Application.findOneAndUpdate({_id: req.params.id}, {$set: {... req.body, companyLogo: result }})
@@ -103,7 +109,15 @@ router.patch('/:id', mongoChecker, (req, res, next) => {
         if (!application) {
           res.status(404).send("App Not Found");
         } else {
-          res.send(application);
+          const notification = new Notification({
+            name: req.session.name,
+            type: req.body.status,
+            company: req.body.company,
+          });
+          User.findOneAndUpdate({_id: req.session.user}, { "$push": { feed: notification }}, {new: true, useFindAndModify: false})
+          .then(() => {
+            res.send(application);
+          });
         }
       });
 			})

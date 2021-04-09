@@ -17,6 +17,7 @@ const CompanyModalBody = ({ inputCompany, inputRole, inputStatus, handleCompanyC
       <FormGroup row>
         <Col sm={10}>
           <Input type="select" name="inputStatus" value={inputStatus} onChange={handleStatusChange} placeholder="Wishlist">
+            <option></option>
             <option>Wishlist</option>
             <option>Applied</option>
             <option>Interviewing</option>

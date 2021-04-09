@@ -34,6 +34,5 @@ export const getCompanies = () => {
 };
 
 export const addPosting = (posting) => {
-    console.log(posting)
   return axios.post(`${API_HOST}/posting`, posting);
 };

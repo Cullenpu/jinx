@@ -21,7 +21,7 @@ const CompanyCell = ({ name, logo }) => {
           borderRadius: 8,
           width: "150px",
           height: "150px",
-          objectFit: "fill",
+          objectFit: "cover",
         }}
       />
       {/* <CardImg

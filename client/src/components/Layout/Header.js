@@ -1,6 +1,6 @@
 import { logout } from "components/authComponents/authFunctions";
 import Avatar from "components/Avatar";
-import { UserCard } from "components/Card";
+import UserCard from "components/Card/UserCard";
 import SearchInput from "components/SearchInput";
 import React from "react";
 import {
@@ -119,6 +119,7 @@ class Header extends React.Component {
           <NavItem>
             <NavLink id="Popover2">
               <Avatar
+                name={user.name}
                 onClick={this.toggleUserCardPopover}
                 className="can-click"
               />

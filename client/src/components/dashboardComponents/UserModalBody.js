@@ -8,16 +8,6 @@ class UserModalBody extends React.Component {
     return (
       <Form>
         <FormGroup row>
-          {/* <Label for="exampleName" sm={2}>
-            Profile
-          </Label>
-          <Col sm={10}>
-            <img
-              src={null}
-              alt="Avatar"
-              style={{ borderRadius: "50%", width: "50px" }}
-            />
-          </Col> */}
         </FormGroup>
         <FormGroup row>
           <Label for="exampleName" sm={2}>

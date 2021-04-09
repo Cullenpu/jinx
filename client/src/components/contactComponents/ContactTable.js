@@ -24,7 +24,6 @@ class ContactTable extends React.Component {
                 return (
                   <ContactRow
                     key={user._id}
-                    avatar={null}
                     name={user.name}
                     email={user.email}
                     userID={user._id}

@@ -141,7 +141,6 @@ class UserTable extends React.Component {
                   return (
                     <UserRow
                       key={user._id}
-                      avatar={null}
                       name={user.name}
                       email={user.email}
                       role={user.role}

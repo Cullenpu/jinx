@@ -3,6 +3,12 @@ import React from "react";
 import { Card, Col, Row } from "reactstrap";
 
 class AuthPage extends React.Component {
+  componentDidMount() {
+    if (window.location.pathname !== "/login") {
+      window.location.href = "/login";
+    }
+  }
+
   render() {
     return (
       <Row

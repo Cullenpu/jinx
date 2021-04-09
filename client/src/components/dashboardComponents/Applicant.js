@@ -1,16 +1,17 @@
 import React from "react";
 import {Button, Input} from "reactstrap";
-import {edit} from "components/authComponents/authFunctions";
+import {edit, getCurrentUser, getUsers, logout} from "components/authComponents/authFunctions";
 import "styles/dashboard.css";
 
 class Applicant extends React.Component {
   state = {
     // States to store inputs
-    name: this.props.name,
-    email: this.props.email,
-    phone: this.props.phone,
-    role: this.props.role,
-    userID: this.props.userID,
+    name: "",
+    email: "",
+    phone: "",
+    role: "",
+    userID: "",
+    app: this.props.app,
 
     // Flag for whether the user is admin
     isAdmin: this.props.isAdmin,
@@ -33,11 +34,23 @@ class Applicant extends React.Component {
     });
   };
 
+  componentDidMount() {
+    // Load current user data
+    getCurrentUser().then((res) => this.setState({
+      name: res.name,
+      email: res.email,
+      phone: res.phone,
+      role: res.role,
+      userID: res._id,
+    }));
+  }
+
   // Save edits to the db
   edit = (param) => (event) => {
     event.preventDefault();
-
+    console.log(this.state.name)
     let value = null;
+    let logoutFlag = false;
     if (param === "/name") {
       value = this.state.name;
     } else if (param === "/email") {
@@ -51,9 +64,10 @@ class Applicant extends React.Component {
         this.setState({
           isAdmin: false,
         });
-        window.location.href = "/";
+        logoutFlag = true;
       }
     }
+
     const result = edit(this.state.userID, "replace", param, value);
     // Get result of the promise
     result.then((a) => {
@@ -91,7 +105,10 @@ class Applicant extends React.Component {
         } else if (param === "/role") {
           this.setState({
             roleMsg: "Successfully Updated!",
-          });
+          })
+          if (logoutFlag) {
+            logout(this.props.app)
+          }
         }
       }
     });
@@ -175,7 +192,7 @@ class Applicant extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div className="adminSpacer">
           <h1>Your profile</h1>
           <div className="applicantProfile">
             <div className="applicantFieldSpacer">
@@ -228,14 +245,12 @@ class Applicant extends React.Component {
             </div>
             <div className="applicantFieldSpacer">
               <h2>Role</h2>
-              <select
+              <Input
+                type="role"
                 name="role"
-                className="dropDownSelect"
+                className="inputText"
                 value={this.state.role}
-                onChange={this.handleInputChange}
-              >
-                <option value="applicant">applicant</option>
-              </select>
+              />
               <div className="statusText">
                 <p>{this.state.roleMsg}</p>
               </div>

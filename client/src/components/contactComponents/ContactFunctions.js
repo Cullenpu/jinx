@@ -13,7 +13,6 @@ export const getConnections = () => {
   return axios
     .get(url)
     .then((res) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

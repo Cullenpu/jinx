@@ -101,7 +101,7 @@ router.post("/", (req, res) => {
 });
 
 // Get all users
-router.get("/all", authenticate, (req, res) => {
+router.get("/all", (req, res) => {
   User.find()
     .then((user) => {
       res.send({ user });

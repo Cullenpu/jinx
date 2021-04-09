@@ -4,12 +4,7 @@ import ContactRow from "./ContactRow";
 
 class ContactTable extends React.Component {
   render() {
-    const {
-      title,
-      button,
-      users,
-      handleClick,
-    } = this.props;
+    const { title, button, users, handleClick } = this.props;
 
     return (
       <div>

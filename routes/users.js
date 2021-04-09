@@ -22,7 +22,7 @@ router.get("/check-session", (req, res) => {
     req.session.user = "60688ff2393cae07b83d8d89"; // HARDCODE HERE
     req.session.email = "test@jinx.com";
     req.session.name = "Test User";
-    req.session.phone = "000-000-000";
+    req.session.phone = "0000000000";
     req.session.role = "admin";
   }
 

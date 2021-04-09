@@ -15,7 +15,7 @@ mongoose.Promise = global.Promise;
 // Get all the people this user follows and for each of them, gets 
 // their feed items
 router.get("/", mongoChecker, (req, res) => {
-  Connection.find()
+  Connection.find({ requesterId: req.session.user })
     .populate({ path: "requesterId", model: User })
     .populate({ path: "followedId", model: User })
     .exec((err, connection) => {

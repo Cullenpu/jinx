@@ -84,7 +84,7 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/contacts"
-                  component={(props) => <ContactsPage app={this} />}
+                  component={(props) => <ContactsPage app={this} history={history} />}
                 />
               </React.Suspense>
             </MainLayout>

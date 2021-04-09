@@ -5,7 +5,7 @@ import "styles/dashboard.css";
 
 class ContactRow extends React.Component {
   render() {
-    const { name, email, userID, button, handleClick } = this.props;
+    const { history, name, email, userID, button, handleClick } = this.props;
 
     return (
       <tr>
@@ -18,7 +18,7 @@ class ContactRow extends React.Component {
           <Button
             onClick={() => {
               handleClick(userID);
-              window.location.reload();
+              history.go(0);
             }}
           >
             {button}

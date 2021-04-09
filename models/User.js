@@ -4,8 +4,10 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const NotificationSchema = new mongoose.Schema({  
-  description: String  
+const NotificationSchema = new mongoose.Schema({
+  name: String,
+  type: String,  
+  company: String  
 });  
 
 const UserSchema = new mongoose.Schema({

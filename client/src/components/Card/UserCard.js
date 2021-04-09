@@ -8,9 +8,7 @@ import { Card, CardTitle, CardSubtitle, CardText, CardBody } from "reactstrap";
 import Avatar from "components/Avatar";
 
 const UserCard = ({
-  avatar,
-  avatarSize,
-  title,
+  name,
   subtitle,
   text,
   children,
@@ -22,8 +20,8 @@ const UserCard = ({
   return (
     <Card inverse className={classes} {...restProps}>
       <CardBody className="d-flex justify-content-center align-items-center flex-column">
-        <Avatar name="" />
-        <CardTitle>{title}</CardTitle>
+        <Avatar name={name} />
+        <CardTitle>{name}</CardTitle>
         <CardSubtitle>{subtitle}</CardSubtitle>
         <CardText>
           <small>{text}</small>
@@ -35,16 +33,10 @@ const UserCard = ({
 };
 
 UserCard.propTypes = {
-  avatar: PropTypes.string,
-  avatarSize: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   text: PropTypes.string,
   className: PropTypes.string,
-};
-
-UserCard.defaultProps = {
-  avatarSize: 80,
 };
 
 export default UserCard;

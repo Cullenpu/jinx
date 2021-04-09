@@ -3,15 +3,7 @@ import Avatar from "components/Avatar";
 import UserCard from "components/Card/UserCard";
 import SearchInput from "components/SearchInput";
 import React from "react";
-import {
-  MdClearAll,
-  MdExitToApp,
-  MdHelp,
-  MdInsertChart,
-  MdMessage,
-  MdPersonPin,
-  MdSettingsApplications,
-} from "react-icons/md";
+import { MdClearAll, MdExitToApp } from "react-icons/md";
 import {
   Button,
   ListGroup,
@@ -134,26 +126,11 @@ class Header extends React.Component {
             >
               <PopoverBody className="p-0 border-light">
                 <UserCard
-                  title={user.name}
+                  name={user.name}
                   subtitle={user.email}
                   className="border-light"
                 >
                   <ListGroup flush>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdPersonPin /> Profile
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdInsertChart /> Stats
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdMessage /> Messages
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdSettingsApplications /> Settings
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdHelp /> Help
-                    </ListGroupItem>
                     <ListGroupItem
                       tag="button"
                       action

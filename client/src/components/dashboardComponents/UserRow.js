@@ -1,7 +1,7 @@
-import { edit } from "components/authComponents/authFunctions";
+import {edit, getCurrentUser, logout} from "components/authComponents/authFunctions";
 import Avatar from "components/Avatar";
 import React from "react";
-import { Button, Input } from "reactstrap";
+import {Button, Input} from "reactstrap";
 import "styles/dashboard.css";
 
 class UserRow extends React.Component {
@@ -13,12 +13,25 @@ class UserRow extends React.Component {
     role: this.props.role,
     userID: this.props.userID,
 
+    // App
+    app: this.props.app,
+    // Current Admin's id
+    adminID: "",
+
+
     // Update Messages
     nameMsg: "",
     emailMsg: "",
     roleMsg: "",
     phoneMsg: "",
   };
+
+  componentDidMount() {
+    // Load current user data
+    getCurrentUser().then((res) => this.setState({
+      adminID: res._id,
+    }));
+  }
 
   // Handle input changes
   handleInputChange = (event) => {
@@ -36,6 +49,7 @@ class UserRow extends React.Component {
     event.preventDefault();
 
     let value = null;
+    let logoutFlag = false;
     if (param === "/name") {
       value = this.state.name;
     } else if (param === "/email") {
@@ -44,6 +58,11 @@ class UserRow extends React.Component {
       value = this.state.phone;
     } else if (param === "/role") {
       value = this.state.role;
+
+      // If the user demotes themselves force logout
+      if (this.state.userID === this.state.adminID && value === "applicant") {
+        logoutFlag = true;
+      }
     }
     const result = edit(this.state.userID, "replace", param, value);
     // Get result of the promise
@@ -83,18 +102,21 @@ class UserRow extends React.Component {
           this.setState({
             roleMsg: "Successfully Updated!",
           });
+          if (logoutFlag) {
+            logout(this.props.app)
+          }
         }
       }
     });
   };
 
   render() {
-    const { name, handleRemove } = this.props;
+    const {name, handleRemove} = this.props;
 
     return (
       <tr>
         <td>
-          <Avatar name={name} />
+          <Avatar name={name}/>
         </td>
         <td>
           <Input

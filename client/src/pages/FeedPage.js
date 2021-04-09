@@ -3,7 +3,9 @@ import React, { useEffect, useState }  from "react";
 import { FaAddressBook, FaCalendar, FaGlassCheers, FaHandshake } from 'react-icons/fa';
 import {
   getFeedItems,
-  sortFeedItems
+  getColorFromType,
+  getIconFromType,
+  getDescriptionFromType
 } from "components/feedComponents/FeedFunctions";
 import {
   VerticalTimeline,
@@ -11,7 +13,8 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import { getColor } from 'utils/colors';
-import axios from "axios";
+import { formatDate } from 'utils/date';
+
 
 const feedItems = [{
   title: 'Cullen got hired at Amazon!',
@@ -60,8 +63,11 @@ const FeedPage = ({ app }) => {
   const [feedItems, setFeedItems] = useState([]);
   useEffect(() => {
     getFeedItems().then((res) => {
-      const sortedFeedItems = sortFeedItems(res);
-      setFeedItems(sortedFeedItems);
+      res.forEach((connection) => {
+        const followedUser = connection.followedId;
+        const notificationsForUser = followedUser.feed; // [] or [{description: '...'}, ...]
+        setFeedItems(feedItems.concat(notificationsForUser));
+      })
       setIsLoading(false);
     });
   }, []);
@@ -81,19 +87,19 @@ const FeedPage = ({ app }) => {
               key={index}
               className="vertical-timeline-element--work"
               contentStyle={{
-                background: feed.textBackgroundColor,
+                background: getColorFromType(feed.type),
                 color: "#fff",
               }}
-              contentArrowStyle={{ borderRight: feed.textBackgroundColor }}
-              date={feed.date}
+              contentArrowStyle={{ borderRight: `7px solid ${getColorFromType(feed.type)}` }}
+              date={formatDate(feed.createdAt)}
               iconStyle={{
-                background: feed.iconBackgroundColor,
+                background: getColorFromType(feed.type),
                 color: "#fff",
               }}
-              icon={feed.icon}
+              icon={getIconFromType(feed.type)}
             >
-              <h4 className="vertical-timeline-element-title">{feed.title}</h4>
-              <p>{feed.body}</p>
+              <h4 className="vertical-timeline-element-title">{feed.company}</h4>
+              <p>{getDescriptionFromType(feed.type, feed.name, feed.company)}</p>
             </VerticalTimelineElement>
           );
         })}

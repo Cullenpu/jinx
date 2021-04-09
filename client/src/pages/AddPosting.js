@@ -12,8 +12,8 @@ const AddPostingPage = () => {
   const submitForm = () => {
     const posting = {
       companyName: companyName,
-      // link: link.includes("http") ? link : "http://".concat(link),
-      link: link,
+      link: link.includes("http") ? link : "http://".concat(link),
+      // link: link,
       role: role,
       location: location,
     };
@@ -49,7 +49,7 @@ const AddPostingPage = () => {
               onChange={(e) => {
                 setLink(e.target.value);
               }}
-              placeholder="google.com"
+              placeholder="facebook.com"
             />
           </FormGroup>
           <FormGroup row>

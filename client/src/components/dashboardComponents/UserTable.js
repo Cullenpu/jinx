@@ -148,6 +148,7 @@ class UserTable extends React.Component {
                     phone={user.phone}
                     role={user.role}
                     userID={user._id}
+                    app={this.props.app}
                     handleRemove={this.removeUser}
                   />
                 );

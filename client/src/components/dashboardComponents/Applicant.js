@@ -50,6 +50,7 @@ class Applicant extends React.Component {
     event.preventDefault();
     console.log(this.state.name)
     let value = null;
+    let logoutFlag = false;
     if (param === "/name") {
       value = this.state.name;
     } else if (param === "/email") {
@@ -63,7 +64,7 @@ class Applicant extends React.Component {
         this.setState({
           isAdmin: false,
         });
-        logout(this.props.app)
+        logoutFlag = true;
       }
     }
 
@@ -105,6 +106,9 @@ class Applicant extends React.Component {
           this.setState({
             roleMsg: "Successfully Updated!",
           })
+          if (logoutFlag) {
+            logout(this.props.app)
+          }
         }
       }
     });

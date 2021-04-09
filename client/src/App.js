@@ -43,7 +43,7 @@ class App extends React.Component {
           {!email ? (
             <LayoutRoute
               exact
-              path={["/login", "/"]}
+              path={["/*"]}
               layout={EmptyLayout}
               component={() => <AuthPage app={this} />}
             />
@@ -53,14 +53,20 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/dashboard"
-                  component={() => <DashboardPage app={this} history={history} />}
+                  component={() => (
+                    <DashboardPage app={this} history={history} />
+                  )}
                 />
                 <Route
                   exact
                   path="/companies-modal"
                   component={() => <AddCompaniesModal />}
                 />
-                <Route exact path="/feed" component={() => <FeedPage app={this} />} />
+                <Route
+                  exact
+                  path="/feed"
+                  component={() => <FeedPage app={this} />}
+                />
                 <Route
                   exact
                   path="/applications"
@@ -84,13 +90,14 @@ class App extends React.Component {
                 <Route
                   exact
                   path="/contacts"
-                  component={() => <ContactsPage app={this} history={history} />}
+                  component={() => (
+                    <ContactsPage app={this} history={history} />
+                  )}
                 />
               </React.Suspense>
             </MainLayout>
           )}
-          {/* <Redirect to="/" /> */}
-          )
+          {/* <Redirect to="/" /> */})
         </Switch>
       </BrowserRouter>
     );

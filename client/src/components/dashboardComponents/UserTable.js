@@ -95,7 +95,7 @@ class UserTable extends React.Component {
         getUsers().then((res) => this.setState({ users: res }));
       }
     });
-    // window.location.href = "/";
+    window.location.href = "/";
   };
 
   // Handle input changes

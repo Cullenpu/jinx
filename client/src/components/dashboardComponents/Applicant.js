@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Input } from "reactstrap";
-import { edit } from "components/authComponents/authFunctions";
+import {Button, Input} from "reactstrap";
+import {edit} from "components/authComponents/authFunctions";
 import "styles/dashboard.css";
 
 class Applicant extends React.Component {
@@ -18,6 +18,7 @@ class Applicant extends React.Component {
     // Update Messages
     nameMsg: "Press Edit to update Name",
     emailMsg: "Press Edit to update Email",
+    phoneMsg: "Press Edit to update Phone",
     roleMsg: "Press Edit to update Role (Admin Only)",
   };
 
@@ -41,6 +42,8 @@ class Applicant extends React.Component {
       value = this.state.name;
     } else if (param === "/email") {
       value = this.state.email;
+    } else if (param === "/phone") {
+      value = this.state.phone;
     } else if (param === "/role") {
       value = this.state.role;
 
@@ -63,6 +66,10 @@ class Applicant extends React.Component {
           this.setState({
             emailMsg: "Please enter valid inputs!",
           });
+        } else if (param === "/phone") {
+          this.setState({
+            phoneMsg: "Please enter valid inputs!",
+          });
         } else if (param === "/role") {
           this.setState({
             roleMsg: "Please enter valid inputs!",
@@ -76,6 +83,10 @@ class Applicant extends React.Component {
         } else if (param === "/email") {
           this.setState({
             emailMsg: "Successfully Updated!",
+          });
+        } else if (param === "/phone") {
+          this.setState({
+            phoneMsg: "Successfully Updated!",
           });
         } else if (param === "/role") {
           this.setState({
@@ -123,6 +134,22 @@ class Applicant extends React.Component {
               </Button>
               <div className="statusText">
                 <p>{this.state.emailMsg}</p>
+              </div>
+            </div>
+            <div className="applicantFieldSpacer">
+              <h2>Phone</h2>
+              <Input
+                type="phone"
+                name="phone"
+                className="inputText"
+                value={this.state.phone}
+                onChange={this.handleInputChange}
+              />
+              <Button className="editButton" onClick={this.edit("/phone")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.phoneMsg}</p>
               </div>
             </div>
             <div className="applicantFieldSpacer">
@@ -181,6 +208,22 @@ class Applicant extends React.Component {
               </Button>
               <div className="statusText">
                 <p>{this.state.emailMsg}</p>
+              </div>
+            </div>
+            <div className="applicantFieldSpacer">
+              <h2>Phone</h2>
+              <Input
+                type="phone"
+                name="phone"
+                className="inputText"
+                value={this.state.phone}
+                onChange={this.handleInputChange}
+              />
+              <Button className="editButton" onClick={this.edit("/phone")}>
+                Edit
+              </Button>
+              <div className="statusText">
+                <p>{this.state.phoneMsg}</p>
               </div>
             </div>
             <div className="applicantFieldSpacer">

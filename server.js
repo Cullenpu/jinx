@@ -5,14 +5,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const path = require('path')
+const path = require("path");
 // DB imports
 const { mongoose } = require("./db/mongoose");
 const { ObjectID } = require("mongodb"); // To validate object IDs
 
 // Routes
 const users = require("./routes/users");
-const companies = require("./routes/companies");
 const posting = require("./routes/posting");
 const applications = require("./routes/applications");
 const connection = require("./routes/connection");
@@ -55,7 +54,6 @@ app.use(
 
 /** Routes *******************************************************************/
 
-app.use("/companies", companies);
 app.use("/posting", posting);
 app.use("/users", users);
 app.use("/applications", applications);

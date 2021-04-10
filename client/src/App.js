@@ -65,7 +65,7 @@ class App extends React.Component {
                 <Route exact path="/feed" component={() => <FeedPage />} />
                 <Route
                   exact
-                  path="/applications"
+                  path="/apply"
                   component={() => <ApplicationsPage history={history} />}
                 />
                 <Route

@@ -59,7 +59,6 @@ router.post('/', mongoChecker, (req, res, next) => {
   })
 })
 
-// Get all applications in db for user with id
 router.get('/', mongoChecker, (req, res) => {
   Application.find({userId: req.session.user}).populate({ path: "userId", model: User })
     .then((application) => {

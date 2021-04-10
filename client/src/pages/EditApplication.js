@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { useParams, useHistory } from "react-router-dom";
 import { formatDate } from "utils/date.js";
+import { getApplication, editApplication } from "components/applicationBoard/ApplicationFunctions";
 
 // {
 // 	"companyId": "60620beb3ba0001bb7f6e0cd",
@@ -29,7 +30,7 @@ const EditApplicationPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/applications/single/${id}`).then((res) => {
+    getApplication(id).then((res) => {
       const {
         company,
         notes,
@@ -39,7 +40,7 @@ const EditApplicationPage = () => {
         status,
         link,
         referral,
-      } = res.data;
+      } = res;
       setCompany(company);
       setPostingId(postingId);
       setRole(role);
@@ -49,24 +50,21 @@ const EditApplicationPage = () => {
       setReferral(referral);
       setUpdatedAt(updatedAt);
       setApplication(application);
-    });
+    })
     setLoading(false);
   }, []);
 
   const submitForm = () => {
-    axios
-      .patch(`http://localhost:5000/applications/${id}`, {
-        company: company,
-        postingId: postingId,
-        link: link,
-        role: role,
-        status: status,
-        notes: notes,
-        referral: referral,
-      })
-      .then(function (response) {
-        history.push("/applications");
-      });
+    editApplication(id, {
+      company: company,
+      postingId: postingId,
+      link: link,
+      role: role,
+      status: status,
+      notes: notes,
+      referral: referral,
+    });
+    history.push('/applications');
   };
 
   return loading ? (

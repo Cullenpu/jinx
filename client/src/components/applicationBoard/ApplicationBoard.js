@@ -46,7 +46,7 @@ class ApplicationsBoard extends React.Component {
       company: this.state.inputCompany,
       role: this.state.inputRole,
       status: this.state.inputStatus
-    })
+    });
     this.props.history.go(0);
   }
 

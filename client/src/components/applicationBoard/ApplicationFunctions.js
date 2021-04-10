@@ -50,3 +50,30 @@ export const removeConnection = (userID) => {
       return false;
     });
 };
+
+export const getApplication = (id) => {
+  const url = `${API_HOST}/applications/single/${id}`;
+
+  return axios
+    .get(url)
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      return [];
+    });
+};
+
+export const editApplication = (id, payload) => {
+  const url = `${API_HOST}/applications/${id}`;
+
+  axios
+    .patch(url, payload)
+    .then((res) => {
+      return true;
+    })
+    .catch((error) => {
+      return false;
+    });
+};

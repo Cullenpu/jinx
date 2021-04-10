@@ -26,7 +26,7 @@ export const getColorFromType = (type) => {
     case 'Wishlist':
       return getColor('primary');
     case 'Applied':
-      return getColor('default');
+      return '#FFA500';
     case 'Interviewing':
       return getColor('info');
     case 'Offer':

@@ -125,16 +125,6 @@ router.patch('/:id', mongoChecker, (req, res, next) => {
   }
 })
 
-router.get('/', mongoChecker, (req, res) => {
-	Application.find().populate({ path: "userId", model: User })
-    .exec((err,application) => {
-    if(err) throw err;
-    if(application) {
-        res.send(application)
-    }
-  })
-})
-
 // Delete all applications in db
 router.delete("/", mongoChecker, (req, res) => {
   Application.remove({}).then((application) => {

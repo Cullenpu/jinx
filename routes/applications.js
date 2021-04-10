@@ -90,7 +90,7 @@ router.patch('/:id', mongoChecker, (req, res, next) => {
 					if (!info) {
             resolve(null);
           } else {
-            if (info.openGraph && info.openGraph.length() > 0) {
+            if (info.openGraph && info.openGraph.length > 0) {
               if (info.openGraph[0].href) {
                 resolve(info.openGraph[0].href);
               }

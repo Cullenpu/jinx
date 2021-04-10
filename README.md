@@ -1,4 +1,4 @@
-# Welcome to Jinx
+![Jinx Logo](client/src/assets/img/logo/jinx_logo_text_small.svg)
 
 Jinx is a all in one platform to help students and young adults streamline their job search.
 
@@ -8,7 +8,7 @@ It is currently deployed [here](https://jinx-app-209.herokuapp.com/)
 
 Both the frontend and backend dependencies must be installed.
 ```bash
-# CLone into jinx directory
+# Clone into jinx directory
 git clone https://github.com/csc309-winter-2021/team21.git jinx
 cd jinx
 npm install
@@ -74,6 +74,8 @@ The differences between admins and applicants differ in what access they have in
 ## Routes overview
 
 `/applications`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - add an application for user
 - get all applications for a user
 - modify an application for a user
@@ -81,6 +83,8 @@ The differences between admins and applicants differ in what access they have in
 - delete all applications in the db
 
 `/connection`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - follow a user
 - get all the the people a user follows
 - delete a connection
@@ -88,14 +92,20 @@ The differences between admins and applicants differ in what access they have in
 - delete all connections in the db
 
 `/feed`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - get all notifications for a user
 
 `/posting`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - add a posting to the db (also fetches a logo for the company based on link)
 - get postings
 - delete postings
 
 `/users`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - check the state of the user session and updates if necessary
 - login a user
 - logout a user

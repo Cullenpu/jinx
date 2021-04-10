@@ -81,43 +81,42 @@ The differences between admins and applicants differ in what access they have in
 ## Routes overview
 
 `/applications`
-|Type|Route|Use|Data|Return|
-|----|-----|----------|---------|----------|
-- add an application for user
-- get all applications for a user
-- modify an application for a user
-- get all applications in the db
-- delete all applications in the db
+|Type    |Route        |Use                                        |Data                                                                        |Return        |
+|--------|-------------|-------------------------------------------|----------------------------------------------------------------------------|--------------|
+|`GET`   |`/`          | Get all applications of current user      | `none`                                                                     |`applications`|
+|`POST`  | `/`         | Create an application for current user    | `userID`, `company`, `role`, `status`                                      |`application` |
+|`GET`   |`/single/:id`|Get specific application of current user   |`id`                                                                        |`application` |
+|`PATCH` |`/:id`       |Modify specific application of current user|One of `company`, `postingID`, `link`, `role`, `status`, `notes`, `referral`|`application` |
+|`DELETE`|`/`          |Delete all applications                    |`none`                                                                      |`none`        |
 
 `/connection`
-|Type|Route|Use|Data|Return|
-|----|-----|----------|---------|----------|
-- follow a user
-- get all the the people a user follows
-- delete a connection
-- get all connections in the db
-- delete all connections in the db
+|Type    |Route |Use                                     |Data        |Return       |
+|--------|------|----------------------------------------|------------|-------------|
+|`GET`   |`/`   |Get all users the current user follows  |`none`      |`connections`|
+|`POST`  |`/`   |Add a connection with current user      |`followedId`|`user`       |
+|`DELETE`|`/:id`|Remove one of current user's connections|`none`      |`none`       |
+|`DELETE`|`/`   |Delete all connections                  |`none`      |`none`       |
 
 `/feed`
-|Type|Route|Use|Data|Return|
-|----|-----|----------|---------|----------|
-- get all notifications for a user
+|Type |Route|Use                                                                            |Data  |Return     |
+|-----|-----|-------------------------------------------------------------------------------|------|-----------|
+|`GET`|`/`  |Get everyone the currnet user follows and for each of them get their feed items|`none`|`feedItems`|
 
 `/posting`
-|Type|Route|Use|Data|Return|
-|----|-----|----------|---------|----------|
-- add a posting to the db (also fetches a logo for the company based on link)
-- get postings
-- delete postings
+|Type    |Route|Use                |Data                                     |Return   |
+|--------|-----|-------------------|-----------------------------------------|---------|
+|`GET`   |`/`  |Get all postings   |`none`                                   |`posting`|
+|`POST`  |`/`  |Add a posting      |`companyName`, `link`, `location`, `role`|`none`   |
+|`DELETE`|`/`  |Delete all postings|`none`                                   |`none`   |
 
 `/users`
-|Type|Route|Use|Data|Return|
-|----|-----|----------|---------|----------|
-- check the state of the user session and updates if necessary
-- login a user
-- logout a user
-- signup a user / create a new user
-- get all users
-- get the info for currently logged in user
-- get a the info for a specific user by id
-- delete a user
+|Type    |Route           |Use                         |Data                                        |Return      |
+|--------|----------------|----------------------------|--------------------------------------------|------------|
+|`GET`   |`/check-session`|Check if user is logged in  |`none`                                      |`none`      |
+|`POST`  |`/login`        |Log in a user               |`email`, `password`                         |`id`, `role`|
+|`GET`   |`/logout`       |Log out a user              |`none`                                      |`none`      |
+|`GET`   |`/`             |Get currently logged in user|`none`                                      |`user`      |
+|`POST`  |`/`             |Creates a user              |`email`, `password`, `name`, `role`, `phone`|`newUser`   |
+|`GET`   |`/all`          |Get all users               |`none`                                      |`none`      |
+|`PATCH` |`/edit/:id`     |Edit a user                 |One of `name`, `email`, `phone`, `role`     |`user`      |
+|`DELETE`|`/remove/:id`   |Delete a user               |`none`                                      |`user`      |

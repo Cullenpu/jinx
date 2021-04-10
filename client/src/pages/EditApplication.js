@@ -64,7 +64,7 @@ const EditApplicationPage = () => {
       notes: notes,
       referral: referral,
     });
-    history.push('/applications');
+    history.push('/apply');
   };
 
   return loading ? (

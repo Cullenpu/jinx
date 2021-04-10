@@ -125,6 +125,7 @@ class UserTable extends React.Component {
         <div>
           <Applicant
             app={this.props.app}
+            history={this.props.history}
             isAdmin={true}
           />
           <Card>
@@ -197,6 +198,7 @@ class UserTable extends React.Component {
       return (
         <Applicant
           app={this.props.app}
+          history={this.props.history}
           isAdmin={false}
         />
       );

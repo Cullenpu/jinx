@@ -20,11 +20,11 @@
     "react-router-dom": "^5.2",
     "react-sizeme": "^2.5.2",
     "react-vertical-timeline-component": "^3.3.3",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^7.1.0",
+    "react-scripts": "2.1.8"
   },
   "devDependencies": {
     "gh-pages": "^1.2.0",
-    "react-scripts": "2.1.8",
     "serve": "^10.1.2"
   },
   "scripts": {

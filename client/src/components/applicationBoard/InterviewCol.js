@@ -13,9 +13,10 @@ const InterviewCol = ({ companies }) => {
         </h5>
       </div>
       {companies &&
-        companies.map((company) => {
+        companies.map((company, index) => {
           return (
             <CompanyCard
+              key={index}
               column="interviewing"
               applicationId={company._id}
               company={company.company}

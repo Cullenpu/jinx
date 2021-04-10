@@ -13,9 +13,10 @@ const RejectedCol = ({ companies }) => {
         </h5>
       </div>
       {companies &&
-        companies.map((company) => {
+        companies.map((company, index) => {
           return (
             <CompanyCard
+              key={index}
               column="rejected"
               applicationId={company._id}
               company={company.company}

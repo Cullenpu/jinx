@@ -13,9 +13,10 @@ const WishListCol = ({ companies }) => {
         </h5>
       </div>
       {companies &&
-        companies.map((company) => {
+        companies.map((company, index) => {
           return (
             <CompanyCard
+              key={index}
               column="wishlist"
               applicationId={company._id}
               companyData={company}

@@ -1,9 +1,9 @@
-import { logout } from "components/authComponents/authFunctions";
+import {getCurrentUser, logout} from "components/authComponents/authFunctions";
 import Avatar from "components/Avatar";
 import UserCard from "components/Card/UserCard";
 import SearchInput from "components/SearchInput";
 import React from "react";
-import { MdClearAll, MdExitToApp } from "react-icons/md";
+import {MdClearAll, MdExitToApp} from "react-icons/md";
 import {
   Button,
   ListGroup,
@@ -38,6 +38,8 @@ class Header extends React.Component {
     isOpenNotificationPopover: false,
     isNotificationConfirmed: false,
     isOpenUserCardPopover: false,
+    name: "",
+    email: "",
   };
 
   toggleNotificationPopover = () => {
@@ -46,7 +48,7 @@ class Header extends React.Component {
     });
 
     if (!this.state.isNotificationConfirmed) {
-      this.setState({ isNotificationConfirmed: true });
+      this.setState({isNotificationConfirmed: true});
     }
   };
 
@@ -63,16 +65,23 @@ class Header extends React.Component {
     document.querySelector(".cr-sidebar").classList.toggle("cr-sidebar--open");
   };
 
+  componentDidMount() {
+    // Load current user data
+    getCurrentUser().then((res) => this.setState({
+      name: res.name,
+      email: res.email,
+    }));
+  }
+
   render() {
     // const { isNotificationConfirmed } = this.state;
     const app = this.props.app;
-    const user = this.props.app.state;
 
     return (
       <Navbar light expand className={bem.b("bg-white")}>
         <Nav navbar className="mr-2">
           <Button outline onClick={this.handleSidebarControlButton}>
-            <MdClearAll size={25} />
+            <MdClearAll size={25}/>
           </Button>
         </Nav>
         {/* <Nav navbar>
@@ -111,7 +120,7 @@ class Header extends React.Component {
           <NavItem>
             <NavLink id="Popover2">
               <Avatar
-                name={user.name}
+                name={this.state.name}
                 onClick={this.toggleUserCardPopover}
                 className="can-click"
               />
@@ -122,12 +131,12 @@ class Header extends React.Component {
               toggle={this.toggleUserCardPopover}
               target="Popover2"
               className="p-0 border-0"
-              style={{ minWidth: 250 }}
+              style={{minWidth: 250}}
             >
               <PopoverBody className="p-0 border-light">
                 <UserCard
-                  name={user.name}
-                  subtitle={user.email}
+                  name={this.state.name}
+                  subtitle={this.state.email}
                   className="border-light"
                 >
                   <ListGroup flush>
@@ -137,7 +146,7 @@ class Header extends React.Component {
                       className="border-light"
                       onClick={() => logout(app)}
                     >
-                      <MdExitToApp /> Signout
+                      <MdExitToApp/> Signout
                     </ListGroupItem>
                   </ListGroup>
                 </UserCard>

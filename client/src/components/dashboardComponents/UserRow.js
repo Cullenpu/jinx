@@ -50,12 +50,22 @@ class UserRow extends React.Component {
 
     let value = null;
     let logoutFlag = false;
+    let refreshFlag = false;
     if (param === "/name") {
       value = this.state.name;
+      if(this.state.userID === this.state.adminID){
+        refreshFlag = true
+      }
     } else if (param === "/email") {
       value = this.state.email;
+      if(this.state.userID === this.state.adminID){
+        refreshFlag = true
+      }
     } else if (param === "/phone") {
       value = this.state.phone;
+      if(this.state.userID === this.state.adminID){
+        refreshFlag = true
+      }
     } else if (param === "/role") {
       value = this.state.role;
 
@@ -108,6 +118,11 @@ class UserRow extends React.Component {
         }
       }
     });
+
+    // Force refresh to update card
+    if(refreshFlag){
+      this.props.history.go(0)
+    }
   };
 
   render() {

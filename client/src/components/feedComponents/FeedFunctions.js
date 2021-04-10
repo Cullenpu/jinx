@@ -7,7 +7,6 @@ import ENV from "config.js";
 import { getColor } from "utils/colors";
 
 const API_HOST = ENV.api_host;
-// console.log('Current environment:', ENV.env)
 
 export const getFeedItems = () => {
   const url = `${API_HOST}/feed`;

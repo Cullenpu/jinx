@@ -5,22 +5,17 @@ import axios from "axios";
 import ENV from "config.js";
 
 const API_HOST = ENV.api_host;
-// console.log('Current environment:', ENV.env)
 
 // Send a request to check if a user is logged in through the session cookie
 export const checkSession = (app) => {
   const url = `${API_HOST}/users/check-session`;
 
-  if (ENV.use_frontend_test_user) console.log("Using test user!");
   axios
     .get(url)
     .then((res) => {
       if (res.status === 200 && res.data.id) {
         app.setState({
           id: res.data.id,
-          email: res.data.email,
-          name: res.data.name,
-          phone: res.data.phone,
           role: res.data.role,
         });
       }
@@ -37,11 +32,9 @@ export const login = (credentials, app) => {
   return axios
     .post(url, credentials)
     .then((res) => {
-      if (res.status === 200 && res.data.email !== undefined) {
+      if (res.status === 200 && res.data.id !== undefined) {
         app.setState({
           id: res.data.id,
-          email: res.data.email,
-          name: res.data.name,
           role: res.data.role,
         });
         window.location.href = "/dashboard";
@@ -65,8 +58,7 @@ export const logout = (app) => {
     .then((res) => {
       app.setState({
         id: null,
-        email: null,
-        name: null,
+        role: null,
       });
       window.location.href = "/login";
     })
@@ -83,7 +75,6 @@ export const signup = (credentials) => {
     .post(url, credentials)
     .then((res) => {
       if (res.status === 200 && res.data.email !== undefined) {
-        // app.setState({ email: res.data.email, name: res.data.name });
         return true;
       }
     })
@@ -113,7 +104,6 @@ export const getCurrentUser = () => {
   return axios
     .get(url)
     .then((res) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((err) => {
@@ -131,7 +121,6 @@ export const edit = (userID, op, path, value) => {
     .patch(url, body)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res);
         return true;
       }
     })
@@ -149,7 +138,6 @@ export const removeUser = (userID) => {
     .delete(url)
     .then((res) => {
       if (res.status === 200) {
-        console.log(res);
         return true;
       }
     })

@@ -35,7 +35,7 @@ class ContactsPage extends React.Component {
             break;
           }
         }
-        if (!connected && connection._id !== this.props.app.state.id) {
+        if (!connected && connection._id !== this.props.id) {
           return connection;
         }
       });

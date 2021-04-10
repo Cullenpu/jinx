@@ -3,10 +3,8 @@ import axios from "axios";
 
 // environment configutations
 import ENV from "config.js";
-import { useHistory } from "react-router-dom";
 
 const API_HOST = ENV.api_host;
-// console.log('Current environment:', ENV.env)
 
 export const getApplications = () => {
   const url = `${API_HOST}/applications`;

@@ -3,7 +3,7 @@ import { checkSession } from "components/authComponents/authFunctions";
 import AuthPage from "pages/AuthPage";
 import React from "react";
 import componentQueries from "react-component-queries";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { EmptyLayout, LayoutRoute, MainLayout } from "./components/Layout";
 import PageSpinner from "./components/PageSpinner";
 import AddPostingPage from "./pages/AddPosting";
@@ -32,15 +32,15 @@ class App extends React.Component {
     checkSession(this);
   }
 
-  state = { id: null, email: null, name: null, role: null };
+  state = { id: null, role: null };
 
   render() {
-    const { email } = this.state;
+    const { id } = this.state;
 
     return (
       <BrowserRouter basename={getBasename()} history={history}>
         <Switch>
-          {!email ? (
+          {!id ? (
             <LayoutRoute
               exact
               path={["/", "/login"]}
@@ -62,11 +62,7 @@ class App extends React.Component {
                   path="/companies-modal"
                   component={() => <AddCompaniesModal />}
                 />
-                <Route
-                  exact
-                  path="/feed"
-                  component={() => <FeedPage app={this} />}
-                />
+                <Route exact path="/feed" component={() => <FeedPage />} />
                 <Route
                   exact
                   path="/applications"
@@ -91,13 +87,12 @@ class App extends React.Component {
                   exact
                   path="/contacts"
                   component={() => (
-                    <ContactsPage app={this} history={history} />
+                    <ContactsPage id={this.state.id} history={history} />
                   )}
                 />
               </React.Suspense>
             </MainLayout>
           )}
-          {/* <Redirect to="/" /> */})
         </Switch>
       </BrowserRouter>
     );

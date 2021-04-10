@@ -48,15 +48,18 @@ class Applicant extends React.Component {
   // Save edits to the db
   edit = (param) => (event) => {
     event.preventDefault();
-    console.log(this.state.name)
     let value = null;
     let logoutFlag = false;
+    let refreshFlag = false;
     if (param === "/name") {
       value = this.state.name;
+      refreshFlag = true
     } else if (param === "/email") {
       value = this.state.email;
+      refreshFlag = true
     } else if (param === "/phone") {
       value = this.state.phone;
+      refreshFlag = true
     } else if (param === "/role") {
       value = this.state.role;
 
@@ -112,6 +115,11 @@ class Applicant extends React.Component {
         }
       }
     });
+
+    // Check if we need to refresh to update the top right card name
+    if (refreshFlag) {
+      this.props.history.go(0)
+    }
   };
 
   render() {

@@ -70,7 +70,7 @@ class UserTable extends React.Component {
       getUsers().then((res) => this.setState({users: res}));
     });
 
-    // If the user removes themselves
+    // If the user removes themselves force logout
     if (param === this.state.curUser) {
       logout(this.props.app)
     }
@@ -125,6 +125,7 @@ class UserTable extends React.Component {
         <div>
           <Applicant
             app={this.props.app}
+            history={this.props.history}
             isAdmin={true}
           />
           <Card>
@@ -157,6 +158,7 @@ class UserTable extends React.Component {
                     role={user.role}
                     userID={user._id}
                     app={this.props.app}
+                    history={this.props.history}
                     handleRemove={this.removeUser}
                   />
                 );
@@ -197,6 +199,7 @@ class UserTable extends React.Component {
       return (
         <Applicant
           app={this.props.app}
+          history={this.props.history}
           isAdmin={false}
         />
       );

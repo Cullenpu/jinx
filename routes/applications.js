@@ -87,11 +87,15 @@ router.patch('/:id', mongoChecker, (req, res, next) => {
     const promiseLogo = () => {
 			return new Promise((resolve, reject) => {
 				websiteLogo( req.body.link, function( error, info ) {
-					if (info && info.openGraph[0].href) {
-						resolve(info.openGraph[0].href);
-					} else {
-						resolve(null);
-					}
+					if (!info) {
+            resolve(null);
+          } else {
+            if (info.openGraph && info.openGraph.length() > 0) {
+              if (info.openGraph[0].href) {
+                resolve(info.openGraph[0].href);
+              }
+            }
+          }
 				})
 			})
 		}

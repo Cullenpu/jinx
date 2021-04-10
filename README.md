@@ -74,6 +74,8 @@ The differences between admins and applicants differ in what access they have in
 ## Routes overview
 
 `/applications`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - add an application for user
 - get all applications for a user
 - modify an application for a user
@@ -81,6 +83,8 @@ The differences between admins and applicants differ in what access they have in
 - delete all applications in the db
 
 `/connection`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - follow a user
 - get all the the people a user follows
 - delete a connection
@@ -88,14 +92,20 @@ The differences between admins and applicants differ in what access they have in
 - delete all connections in the db
 
 `/feed`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - get all notifications for a user
 
 `/posting`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - add a posting to the db (also fetches a logo for the company based on link)
 - get postings
 - delete postings
 
 `/users`
+|Type|Route|Use|Data|Return|
+|----|-----|----------|---------|----------|
 - check the state of the user session and updates if necessary
 - login a user
 - logout a user

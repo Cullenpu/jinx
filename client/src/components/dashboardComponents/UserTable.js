@@ -9,7 +9,7 @@ import {
   ModalHeader,
   Table,
 } from "reactstrap";
-import {removeUser, signup, getUsers, getCurrentUser} from "components/authComponents/authFunctions";
+import {removeUser, signup, getUsers, getCurrentUser, logout} from "components/authComponents/authFunctions";
 import UserModalBody from "./UserModalBody";
 import UserRow from "./UserRow";
 import Applicant from "./Applicant";
@@ -36,6 +36,11 @@ class UserTable extends React.Component {
   componentDidMount() {
     // Initialize the table
     getUsers().then((res) => this.setState({users: res}));
+
+    // Get the current user
+    getCurrentUser().then((res) => this.setState({
+      curUser: res._id
+    }));
   }
 
   toggle = (modalType) => () => {
@@ -64,6 +69,11 @@ class UserTable extends React.Component {
       // Update the display again
       getUsers().then((res) => this.setState({users: res}));
     });
+
+    // If the user removes themselves
+    if (param === this.state.curUser) {
+      logout(this.props.app)
+    }
   };
 
   // Save the changes to the db
@@ -79,8 +89,6 @@ class UserTable extends React.Component {
     if (this.state.phone) {
       credentials.phone = this.state.phone;
     }
-
-    console.log(credentials)
 
     const result = signup(credentials);
     // Get result of the promise

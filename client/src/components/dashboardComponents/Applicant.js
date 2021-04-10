@@ -48,7 +48,6 @@ class Applicant extends React.Component {
   // Save edits to the db
   edit = (param) => (event) => {
     event.preventDefault();
-    console.log(this.state.name)
     let value = null;
     let logoutFlag = false;
     let refreshFlag = false;

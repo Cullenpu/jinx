@@ -5,7 +5,6 @@ import axios from "axios";
 import ENV from "config.js";
 
 const API_HOST = ENV.api_host;
-// console.log('Current environment:', ENV.env)
 
 export const getConnections = () => {
   const url = `${API_HOST}/connection`;

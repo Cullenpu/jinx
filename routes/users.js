@@ -11,7 +11,6 @@ const router = express.Router();
 // to validate object IDs
 const { ObjectID } = require("mongodb");
 // const {mongoose} = require('./db/mongoose')
-const log = console.log;
 
 router.use(mongoChecker);
 
@@ -20,18 +19,13 @@ router.get("/check-session", (req, res) => {
 
   // if (env !== "production") {
   //   req.session.user = "60688ff2393cae07b83d8d89"; // HARDCODE HERE
-  //   req.session.email = "test@jinx.com";
   //   req.session.name = "Test User";
-  //   req.session.phone = "000-000-000";
   //   req.session.role = "admin";
   // }
 
   if (req.session.user) {
     res.send({
       id: req.session.user,
-      email: req.session.email,
-      name: req.session.name,
-      phone: req.session.phone,
       role: req.session.role,
     });
   } else {
@@ -50,14 +44,9 @@ router.post("/login", (req, res) => {
       // We can check later if this exists to ensure we are logged in.
       req.session.user = user._id;
       req.session.name = user.name;
-      req.session.phone = user.phone;
-      req.session.email = user.email;
       req.session.role = user.role;
       res.send({
         id: user._id,
-        email: user.email,
-        phone: user.phone,
-        name: user.name,
         role: user.role,
       });
     })
@@ -125,15 +114,12 @@ router.get("/", (req, res) => {
 
   User.findById(id).then((user) => {
     if (user) {
-      res.send(user)
+      res.send(user);
     } else {
       res.status(404).send("Issue getting user found");
     }
-  })
-
-
+  });
 });
-
 
 // Edit specific user
 router.patch("/edit/:id", authenticate, (req, res) => {
@@ -163,7 +149,7 @@ router.patch("/edit/:id", authenticate, (req, res) => {
       }
     })
     .catch((error) => {
-      log(error);
+      console.log(error);
       if (isMongoError(error)) {
         res.status(500).send("Internal server error");
       } else {
@@ -190,7 +176,7 @@ router.delete("/remove/:id", authenticate, (req, res) => {
       }
     })
     .catch((error) => {
-      log(error);
+      console.log(error);
       res.status(500).send(); // server error, could not delete.
     });
 });

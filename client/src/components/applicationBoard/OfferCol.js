@@ -13,9 +13,10 @@ const OfferCol = ({ companies }) => {
         </h5>
       </div>
       {companies &&
-        companies.map((company) => {
+        companies.map((company, index) => {
           return (
             <CompanyCard
+              key={index}
               column="offer"
               applicationId={company._id}
               company={company.company}

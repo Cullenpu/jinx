@@ -63,6 +63,9 @@ class UserRow extends React.Component {
       }
     } else if (param === "/phone") {
       value = this.state.phone;
+      if(this.state.userID === this.state.adminID){
+        refreshFlag = true
+      }
     } else if (param === "/role") {
       value = this.state.role;
 

@@ -71,18 +71,6 @@ router.delete("/:id", mongoChecker, (req, res) => {
     });
 });
 
-router.get("/", mongoChecker, (req, res) => {
-  Connection.find()
-    .populate({ path: "requesterId", model: User })
-    .populate({ path: "followedId", model: User })
-    .exec((err, connection) => {
-      if (err) throw err;
-      if (connection) {
-        res.send(connection);
-      }
-    });
-});
-
 // Delete all connections in db
 router.delete("/", mongoChecker, (req, res) => {
   Connection.remove({}).then((Connection) => {
